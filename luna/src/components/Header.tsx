@@ -1,6 +1,14 @@
+import Navigation from "./Navigation";
 const Header = () => {
     return(
-        <h1> Body</h1>
+        <>
+            <h1>Luna</h1>
+            <Navigation/>
+            <p>Notification</p>
+            <p>Avater</p>
+            {/* Testing Git */}
+        </>
+
     );
 
 }
