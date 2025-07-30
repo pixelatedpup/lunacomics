@@ -1,0 +1,36 @@
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home"
+import Creators from "./pages/Creators"
+import Library from "./pages/Library"
+import Comics from "./pages/Comics"
+import Community from "./pages/Communtiy"
+import Creator from "./pages/Creator"
+import Notifications from "./pages/Notifications"
+import Preview from "./pages/Preview"
+import Reading from "./pages/Reading"
+import SignIn from "./pages/SignIn"
+import SignUp from "./pages/SignUp"
+
+const Body = () => {
+    return(
+        <>
+        <h1> Body</h1>
+        <Routes>
+            <Route path="/" element={<Home/>}></Route>
+            <Route path="/creators" element={<Creators/>}></Route>
+            <Route path="/library" element={<Library/>}></Route>
+            <Route path="/comics" element={<Comics/>}></Route>
+            <Route path="/community" element={<Community/>}></Route>
+            <Route path="/creator" element={<Creator/>}></Route>
+            <Route path="/notifications" element={<Notifications/>}></Route>
+            <Route path="/preview" element={<Preview/>}></Route>
+            <Route path="/reading" element={<Reading/>}></Route>
+            <Route path="/signin" element={<SignIn/>}></Route>
+            <Route path="/signup" element={<SignUp/>}></Route>
+        </Routes>
+        </>
+    );
+
+}
+
+export default Body;
