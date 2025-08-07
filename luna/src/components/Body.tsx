@@ -14,7 +14,6 @@ import SignUp from "./pages/SignUp"
 const Body = () => {
     return(
         <>
-        <h1> Body</h1>
         <Routes>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/creators" element={<Creators/>}></Route>

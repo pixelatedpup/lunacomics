@@ -7,10 +7,10 @@ function App() {
 
   useEffect(()=>{
   document.title = "Luna Comics"}, []);
-  
+
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
           <Page/>
       </BrowserRouter>
     </>
