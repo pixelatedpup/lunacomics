@@ -1,5 +1,6 @@
 import Icon from "../Icon"
-import Comics from "../Comics"
+import Comics from "../ComicPage"
+
 
 interface LibraryData {
     name: string,
@@ -46,7 +47,7 @@ const Home = () => {
         </section>
 
         {/* Hot Comics Section */}
-        <section>
+        <section className="flex flex-1 flex-col">
             <h2>Hot</h2>
             <div className="h-[255px] rounded-2xl bg-[#002C34]">
 
@@ -54,7 +55,7 @@ const Home = () => {
         </section>
 
         {/* New Comics Section */}
-        <section>
+        <section className="flex flex-1 flex-col">
             <h2>New Comics</h2>
             <div className="flex flex-row justify-between">
                 {newComics.map(()=>(
@@ -64,7 +65,7 @@ const Home = () => {
         </section>
 
         {/* Top Comics Section */}
-        <section>
+        <section className="flex flex-1 flex-col">
             <h2>Top Comics</h2>
             <div className="flex flex-row justify-between">
                 {hotComics.map(()=>(
