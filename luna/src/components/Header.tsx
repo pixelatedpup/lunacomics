@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 const Header = () => {
   return (
     
-    <section className="fixed  right-0 px-[20px] w-full bg-white flex flex-row items-center border-b-[2px]  h-[100px]">
+    <section className="fixed  right-0 px-[20px] w-full bg-white flex flex-row items-center border-b-[2px]  h-[100px] z-50">
       <article className="flex flex-1 justify-start items-center h-full ">
         <h1 className="text-[68px] m-0 leading-none">Luna</h1>
       </article>
