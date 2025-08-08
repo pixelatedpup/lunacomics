@@ -13,15 +13,15 @@ const Page = () => {
       </div>
 
       {/* Body with wider layout */}
-      <main className="w-full flex-grow">
-        <div className="max-w-[1400px] mx-auto px-16">
+      <main className="w-full flex-grow my-[150px] ">
+        <div className="max-w-[1075px] mx-auto px-16">
           <Body />
         </div>
       </main>
 
       {/* Footer with same layout as Header */}
       <div className="w-full">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="">
           <Footer />
         </div>
       </div>

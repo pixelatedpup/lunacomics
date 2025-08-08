@@ -8,9 +8,9 @@ interface CardProps {
 const Card = ({width="197px", height = "209px", source = "", round=false}: CardProps) =>{
     return(
         <>
-            <div className= {`border border-[1px]  bg-[#D1E4DE] ${round? "rounded-2xl": ""}`}
+            <div className= {`bg-[#D1E4DE] ${round? "rounded-2xl": ""}`}
                  style={{width, height}}>
-                <img src={source} className="object-cover w-full h-full"/>
+                <img src={source} className="rounded-2xl object-cover w-full h-full border-0 outline-none shadow-none"/>
             </div>
         </>
     );

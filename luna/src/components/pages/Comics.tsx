@@ -12,11 +12,11 @@ const Comics = () => {
     ];
 
     return (
-        <div className="flex">
+        <div className="flex lg:flex-row md:flex-row sm:flex-col">
             {/* Sidebar */}
-            <aside className="w-1/5 min-w-[150px] p-4 border-r border-gray-200">
+            <aside className="sticky top-[100px] w-[250px] left-0 p-4 border-r border-gray-200">
                 <NavBar>
-                    <ul className="flex flex-col gap-5 items-center justify-center">
+                    <ul className="flex flex-col lg:flex-col md:flex-col sm:flex-row gap-5 items-center justify-center">
                         <li><p>New</p></li>
                         <li><p>Hot</p></li>
                         <li><p>Top</p></li>
@@ -28,7 +28,7 @@ const Comics = () => {
 
             {/* Comics Grid */}
             <main className="flex-1 p-4">
-                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 justify-evenly">
                     {comics.map((comic, index) => (
                         <ComicPage key={index} {...comic} />
                     ))}
