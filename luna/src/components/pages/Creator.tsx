@@ -1,7 +1,74 @@
+import Button from "../Button";
+import Icon from "../Icon";
+import ComicPage from "../ComicPage"
+
 const Creator = () => {
     return (
         <>
-        <h1> </h1>
+        {/* NOTE: I'll turn this into a component later.. */}
+        <div className="flex flex-col gap-10">
+            <section className="flex flex-row gap-4">
+                <article className="flex-[1/3]">
+                    <Icon/>
+                </article>
+
+                <div className="flex-1 flex flex-row ">
+                        <article className="flex-1 flex flex-col">
+                            <h1 className="mb-[20px]">Creator Name</h1>
+                            <h2> 2 books published</h2>
+                            <h2> Member since 2025</h2>
+                        </article>
+
+                    <div className="flex flex-1 flex-col items-center justify-center ">
+                        <article className="flex flex-col gap-10">
+                            <h2 className="text-center">1000 followers</h2>
+                            <Button text="Follow"/>
+                        </article>
+                    </div>
+                </div>
+                
+            </section>
+
+            <section>
+                <div className="bg-black text-white p-[30px] rounded-2xl">
+                    <h1>Summary</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus velit, 
+                        volutpat in cursus interdum, tempor posuere tellus. Sed eu sodales mi. 
+                        Vivamus vitae augue ligula. Praesent at velit euismod massa lobortis euismod. 
+                        Nullam tristique vitae tellus sed mollis.</p>
+                </div>
+            </section>
+
+            <section>
+                <div>
+                    <div className="flex flex-row gap-7">
+                        <h2>Comics</h2>
+                        <h2>Shop</h2>
+                    </div>
+                    <div className="flex flex-col border border-black rounded-2xl p-[30px] gap-10">
+                        {/* Turn this into a component later */}
+                        <article className="flex flex-row">
+                            <ComicPage/>
+                            <div className="flex flex-col p-[30px]">
+                                <h2>Title</h2>
+                                <h3 className="mb-[20px]">2 Volumes</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus velit, volutpat in cursus interdum, tempor posuere tellus. Sed eu sodales mi. Vivamus vitae augue ligula. Praesent at velit euismod massa lobortis euismod. Nullam tristique vitae tellus sed mollis. </p>
+                            </div>
+                        </article>
+
+                        <article className="flex flex-row">
+                            <ComicPage/>
+                            <div className="flex flex-col p-[30px]">
+                                <h2>Title</h2>
+                                <h3 className="mb-[20px]">2 Volumes</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus velit, volutpat in cursus interdum, tempor posuere tellus. Sed eu sodales mi. Vivamus vitae augue ligula. Praesent at velit euismod massa lobortis euismod. Nullam tristique vitae tellus sed mollis. </p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </section>
+        </div>
         </>
     );
 }
