@@ -45,6 +45,7 @@ const Home = () => {
                     <li><NavLink to="/reading">Reading</NavLink></li>
                     <li><NavLink to="/preview">Preview</NavLink></li>
                     <li><NavLink to="/library">Library</NavLink></li>
+                    <li><NavLink to="/notifications">Notifications</NavLink></li>
                 </ul>
             </article>
             <article className="mb-[15px] ">

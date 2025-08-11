@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 
 const Header = () => {
@@ -11,8 +12,8 @@ const Header = () => {
         <Navigation />
       </article>
       <article className="flex flex-1 justify-end gap-6 items-center h-full ">
-        <p className="m-0">Notification</p>
-        <p className="m-0">Avatar</p>
+        <NavLink to="/notifications"><p className="m-0">Notification</p></NavLink>
+        <NavLink to="/library"><p className="m-0">Avatar</p></NavLink>
       </article>
     </section>
   );
