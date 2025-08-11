@@ -6,7 +6,7 @@ const Header = () => {
     
     <section className="fixed  right-0 px-[20px] w-full bg-white flex flex-row items-center border-b-[2px]  h-[100px] z-50">
       <article className="flex flex-1 justify-start items-center h-full ">
-        <h1 className="text-[68px] m-0 leading-none">Luna</h1>
+        <NavLink to="/"><h1 className="text-[68px] text-[var(--primary)] m-0 leading-none">Luna</h1></NavLink>
       </article>
       <article className="flex flex-1 justify-center items-center h-full  ">
         <Navigation />

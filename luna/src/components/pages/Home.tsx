@@ -1,6 +1,6 @@
 import Icon from "../Icon"
 import Comics from "../ComicPage"
-import { NavLink } from "react-router-dom"
+// import { NavLink } from "react-router-dom"
 
 
 interface LibraryData {
@@ -37,7 +37,7 @@ const Home = () => {
         <section className="flex flex-1 flex-col pb-10 border-b ">
 
             {/* Temporary to check links */}
-            <article>
+            {/* <article>
                 <ul>
                     <li><NavLink to="/signin">Sign In</NavLink></li>
                     <li><NavLink to="/signup">Sign Up</NavLink></li>
@@ -47,7 +47,8 @@ const Home = () => {
                     <li><NavLink to="/library">Library</NavLink></li>
                     <li><NavLink to="/notifications">Notifications</NavLink></li>
                 </ul>
-            </article>
+            </article> */}
+
             <article className="mb-[15px] ">
                 <h2>Your library</h2>
             </article>

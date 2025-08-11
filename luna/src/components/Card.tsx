@@ -4,9 +4,10 @@ interface CardProps {
     source?: string;
     round?: boolean;
     custom?: string;
+    id?:string;
 }
 
-const Card = ({custom ="", width="197px", height = "209px", source = "", round=false}: CardProps) =>{
+const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id=""}: CardProps) =>{
 
       console.log("Custom:", {
 
@@ -15,7 +16,7 @@ const Card = ({custom ="", width="197px", height = "209px", source = "", round=f
 
     return(
         <>
-            <div className= {`bg-[#D1E4DE] ${round? "rounded-2xl": ""} ${custom==""?"":custom} `}
+            <div className= {`hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)]  duration-[0.5s] transition-all bg-[#D1E4DE] ${round? "rounded-2xl": ""} ${custom==""?"":custom} `}
                  style={custom==""?{width, height}: {}}>
                 <img src={source} className={`rounded-2xl object-cover w-full h-full border-0 outline-none shadow-none`}/>
             </div>
