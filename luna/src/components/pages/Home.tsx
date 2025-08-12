@@ -1,36 +1,56 @@
 import Icon from "../Icon"
 import Comics from "../ComicPage"
+import Highlight from "../Highlight"
+import {useEffect, useState } from "react"
 // import { NavLink } from "react-router-dom"
 
 
 interface LibraryData {
     name: string,
     link: string,
-    description: string
+    description: string,
+    id:number;
 }
 
 
 const Home = () => {
     const library: LibraryData[] = [
-        {name: "Default", link : "" , description: ""},
-        {name: "Comic 1", link : "" , description: ""},
-        {name: "Comic 2", link : "" , description: ""},
-        {name: "Comic 3", link : "" , description: ""}
+        {id:1, name: "Default", link : "" , description: ""},
+        {id:2, name: "Comic 1", link : "" , description: ""},
+        {id:3, name: "Comic 2", link : "" , description: ""},
+        {id:4, name: "Comic 3", link : "" , description: ""}
     ]
 
     const newComics: LibraryData[] = [
-        {name: "Comic 1", link : "" , description: ""},
-        {name: "Comic 2", link : "" , description: ""},
-        {name: "Comic 3", link : "" , description: ""},
-        {name: "Comic 4", link : "" , description: ""}
+        {id:1, name: "Comic 1", link : "" , description: ""},
+        {id:2, name: "Comic 2", link : "" , description: ""},
+        {id:3, name: "Comic 3", link : "" , description: ""},
+        {id:4, name: "Comic 4", link : "" , description: ""}
     ] 
     
         const hotComics: LibraryData[] = [
-        {name: "Comic 1", link : "" , description: ""},
-        {name: "Comic 2", link : "" , description: ""},
-        {name: "Comic 3", link : "" , description: ""},
-        {name: "Comic 4", link : "" , description: ""}
+        {id:1, name: "Comic 1", link : "" , description: ""},
+        {id:2, name: "Comic 2", link : "" , description: ""},
+        {id:3, name: "Comic 3", link : "" , description: ""},
+        {id:4, name: "Comic 4", link : "" , description: ""}
     ]   
+
+    const[highlightIndex, setHighlightIndex] = useState(0);
+    const[resetTrigger, setResetTrigger] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setHighlightIndex((prev) => (prev + 1) % hotComics.length)
+        }, 2000);
+
+        return() => clearInterval(interval);
+
+    }, [hotComics.length, resetTrigger])
+
+    const handleHighlightClick = (index:number) => {
+        setHighlightIndex(index);
+        setResetTrigger((prev) => prev+1);
+    }
     return (
         <>
         {/* Library Section */}
@@ -57,7 +77,9 @@ const Home = () => {
                 {library.map((comic) => (
                     <div className="flex flex-col">
                         <Icon/>
-                        <p className="text-center mt-[15px]">{comic.name}</p>
+                        
+                            <p className="text-center mt-[15px]">{comic.name}</p>
+                        
                     </div>
                 ))}
             </div>
@@ -71,19 +93,43 @@ const Home = () => {
                 <h2>Hot</h2>
             </article>
 
-            <div className="flex flex-row h-[255px] rounded-2xl bg-[#002C34]">
+            <div className="flex 
+                            g:flex-row md:flex-col 
+                            lg:flex-row
+                            sm:flex-col-reverse 
+                            md:flex-col-reverse 
+                            sm:items-center
+                            md:items-center
+                           
+                            lg:h-[255px] 
+                            md:h-[455px] 
+                            sm:h-[455px] 
+
+                            rounded-2xl 
+                            bg-[#002C34]">
                 <article className="flex flex-col flex-1 gap-15 text-white">
                     <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center ">
-                        <li><h3>1. Issue Name</h3></li>
-                        <li><h3>2. Issue Name</h3></li>
-                        <li><h3>3. Issue Name</h3></li>
-                        <li><h3>4. Issue Name</h3></li>
+                        {hotComics.map((comic, index) =>  {
+                            const isHighlighted = index === highlightIndex;
+                            return(
+                            <li className="cursor-pointer" key={index} onClick={()=> handleHighlightClick(index) }>
+                                {isHighlighted ? (
+                                    <Highlight>
+                                        <h3 className="px-[20px]">{comic.name}</h3>
+                                    </Highlight>
+                                    ):(
+                                    <h3>{comic.name}</h3>
+                                )}
+                            </li>
+                            )
+                        })}
                     </ul>
                 </article>
 
                 <article className="flex-1 flex flex-col justify-center">
                     <div className="w-[443px] h-[178px] border border-[var(--black) bg-[white] rounded-2xl">
-
+                        <h1 className="flex flex-col justify-center text-center">{hotComics[highlightIndex]?.name}</h1> 
+                        
                     </div>
                 </article>
             </div>

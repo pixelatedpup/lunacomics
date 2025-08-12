@@ -10,11 +10,14 @@ import Preview from "./pages/Preview"
 import Reading from "./pages/Reading"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
+import ScrollToTop from "./ScrollToTop";
 
 const Body = () => {
     return(
         <>
+        <ScrollToTop/>
         <Routes>
+            
             <Route path="/" element={<Home/>}></Route>
             <Route path="/creators" element={<Creators/>}></Route>
             <Route path="/library" element={<Library/>}></Route>
