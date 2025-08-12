@@ -1,5 +1,6 @@
 import NavBar from "../NavBar";
 import ComicPage from "../ComicPage";
+import SectionBar from "./SectionBar";
 
 const Library= () => {
     const comics = [
@@ -14,13 +15,7 @@ const Library= () => {
         <>
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">
             <h1> </h1>
-            <NavBar>
-                <li><p>Library</p></li>
-                <li><p>Notifications</p></li>
-                <li><p>Wishlist</p></li>
-                <li><p>Settings</p></li>
-    
-            </NavBar>
+            <SectionBar/>
 
 
 

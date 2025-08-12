@@ -11,17 +11,20 @@ const Comics = () => {
         { title: "Title 6", img: "", link: "" }
     ];
 
+    const links = 
+    [   
+        {name: "New", id: 1},
+        {name: "Hot", id: 2},
+        {name: "Top", id: 3},
+        {name: "Best", id: 4},
+        {name: "Genre", id: 5}       
+    ]
+
     return (
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">
             {/* Sidebar */}
             
-                <NavBar>
-                        <li><p>New</p></li>
-                        <li><p>Hot</p></li>
-                        <li><p>Top</p></li>
-                        <li><p>Best</p></li>
-                        <li><p>Genre</p></li>
-                </NavBar>
+                <NavBar links={links}/>
 
 
             {/* Comics Grid */}
