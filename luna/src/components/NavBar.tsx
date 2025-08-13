@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
 import Highlight from './Highlight';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 interface LinkItem {
     name: string;
     id: number;
+    route: string
 }
 interface NavBarProps {
     children?: ReactNode;
@@ -14,9 +16,21 @@ interface NavBarProps {
 
 
 const NavBar = ({children, links}:NavBarProps) =>{
+
+    const navigate = useNavigate();
     const[highlightLink, setHighlightLink] = useState(0);
 
-    const handleLink = () => {
+    useEffect(() => {
+        const currentIndex = links.findIndex(link => link.route === location.pathname);
+
+        if(currentIndex !== -1){
+            setHighlightLink(currentIndex)
+        }
+},[])
+
+    const handleLink = (index:number) => {
+        setHighlightLink(index)
+        navigate(`${links[index].route}`)
         
     }
     return( 
@@ -32,7 +46,7 @@ const NavBar = ({children, links}:NavBarProps) =>{
                             
                             <li className="cursor-pointer" 
                                 key={index}
-                                onClick={() => setHighlightLink(index)}>
+                                onClick={() => handleLink(index)}>
                                     
                                 
                                 {

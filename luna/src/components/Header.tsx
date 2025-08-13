@@ -13,7 +13,7 @@ const Header = () => {
       </article>
       <article className="flex flex-1 justify-end gap-6 items-center h-full ">
         <NavLink to="/notifications"><p className="m-0">Notification</p></NavLink>
-        <NavLink to="/library"><p className="m-0">Avatar</p></NavLink>
+        <NavLink to="/library"><p className="m-0">Profile</p></NavLink>
       </article>
     </section>
   );

@@ -1,6 +1,6 @@
 import NavBar from "../NavBar";
 import ComicPage from "../ComicPage";
-import SectionBar from "./SectionBar";
+import SectionBar from "../SectionBar";
 
 const Library= () => {
     const comics = [

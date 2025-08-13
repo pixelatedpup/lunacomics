@@ -13,11 +13,11 @@ const Comics = () => {
 
     const links = 
     [   
-        {name: "New", id: 1},
-        {name: "Hot", id: 2},
-        {name: "Top", id: 3},
-        {name: "Best", id: 4},
-        {name: "Genre", id: 5}       
+        {name: "New", id: 1, route:""},
+        {name: "Hot", id: 2, route:""},
+        {name: "Top", id: 3, route:""},
+        {name: "Best", id: 4, route:""},
+        {name: "Genre", id: 5, route:""}       
     ]
 
     return (
