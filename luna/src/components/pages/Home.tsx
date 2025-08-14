@@ -115,10 +115,10 @@ const Home = () => {
                             <li className="cursor-pointer" key={index} onClick={()=> handleHighlightClick(index) }>
                                 {isHighlighted ? (
                                     <Highlight>
-                                        <h3 className="px-[20px]">{comic.name}</h3>
+                                        <h3 className="px-[20px] font-bold">{comic.name}</h3>
                                     </Highlight>
                                     ):(
-                                    <h3>{comic.name}</h3>
+                                    <h3 className="px-[20px]">{comic.name}</h3>
                                 )}
                             </li>
                             )

@@ -12,10 +12,11 @@ interface LinkItem {
 interface NavBarProps {
     children?: ReactNode;
     links:LinkItem[];
+    onLinkSelect?:(name:string) => void;
 }
 
 
-const NavBar = ({children, links}:NavBarProps) =>{
+const NavBar = ({children, links, onLinkSelect}:NavBarProps) =>{
 
     const navigate = useNavigate();
     const[highlightLink, setHighlightLink] = useState(0);
@@ -30,6 +31,7 @@ const NavBar = ({children, links}:NavBarProps) =>{
 
     const handleLink = (index:number) => {
         setHighlightLink(index)
+        onLinkSelect?.(links[index].name);
         navigate(`${links[index].route}`)
         
     }

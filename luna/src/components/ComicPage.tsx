@@ -3,13 +3,26 @@ import { useWindowSize } from "../hooks/useWindowSize";
 
 type Size = "tiny" | "sm" | "md" | "lg";
 
+interface ComicProps{ 
+  source?: string;
+  size?: Size;
+  description?:string;
+  title?:string;
+  volume?:number;
+  author?:number;
+  id?:number;
+}
+
 const ComicPage = ({
   source = "",
   size = "md",
-}: {
-  source?: string;
-  size?: Size;
-}) => {
+  description = "Default",
+  title = "Default",
+  volume = 0,
+  author = 0,
+  id = 0
+}: ComicProps
+) => {
   const sizeClasses: Record<Size, string> = {
     tiny: "w-[162px] h-[261px]",
     sm: "w-[162px] h-[261px]",

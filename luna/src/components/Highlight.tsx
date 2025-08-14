@@ -7,7 +7,7 @@ interface HighlightProps {
 const Highlight = ({children}:HighlightProps) => {
     return(
         <>
-            <div className="py-[8px] bg-[var(--accent)] text-white rounded-2xl">
+            <div className="py-[10px] bg-[var(--accent)] text-white rounded-2xl">
                 {children}
             </div>
         </>
