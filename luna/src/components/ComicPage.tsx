@@ -11,11 +11,13 @@ interface ComicProps{
   volume?:number;
   author?:number;
   id?:number;
+  comicid?:number;
 }
 
 const ComicPage = ({
   source = "",
   size = "md",
+  comicid,
   description = "Default",
   title = "Default",
   volume = 0,
@@ -48,6 +50,7 @@ const ComicPage = ({
         custom={sizeClasses[currentDynamicSize]}
         // Removed fixed width/height to let Tailwind control it
         source={source || "/placeholder.png"} // test placeholder if empty
+        cardid = {comicid}
       />
     </div>
   );

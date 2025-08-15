@@ -1,8 +1,12 @@
 import Card from "./Card"
 
-const Icon = () => {
+
+interface IconProps {
+    iconid?: number;
+}
+const Icon = ({iconid}:IconProps) => {
     return(
-        <Card width="197px" height="209px" source="" round = {true} />
+        <Card width="197px" height="209px" source="" round = {true} cardid = {iconid} />
     )
 }
 

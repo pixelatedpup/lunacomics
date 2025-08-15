@@ -7,10 +7,11 @@ interface CardProps {
     round?: boolean;
     custom?: string;
     id?:string;
+    cardid?:number;
     link?:string;
 }
 
-const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link=""}: CardProps) =>{
+const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link="", cardid}: CardProps) =>{
 
     const navigate = useNavigate();
 
@@ -19,12 +20,12 @@ const Card = ({custom ="", width="197px", height = "209px", source = "", round=f
         source,
     });
 
-    const handleCardView=(name:string) =>{
-        navigate(`/preview/${encodeURIComponent(name)}`)
+    const handleCardView=(cardid:number) =>{
+        navigate(`/preview/${encodeURIComponent(cardid)}`)
     }
     return(
         <>
-            <a className="cursor-pointer" onClick={() => handleCardView(link|| id || "")}>
+            <a className="cursor-pointer" onClick={() => handleCardView(cardid || 0)}>
                 <div
                     className= {`hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)]  duration-[0.5s] transition-all bg-[#D1E4DE] ${round? "rounded-2xl": ""} ${custom==""?"":custom} `}
                     style={custom==""?{width, height}: {}}>

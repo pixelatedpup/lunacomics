@@ -1,13 +1,24 @@
 import Button from "../Button";
 import ComicPage from "../ComicPage";
+import { useParams } from "react-router-dom";
+
+{/* Importing dummy data */}
+import { allComics } from "../../assets/AllComics";
+import { allAuthors } from "../../assets/AllAuthors";
 
 const Preview = () => {
+    const {comicId} = useParams<{comicId: string}>();
+    const comic = allComics.find(c => c.id === Number(comicId));
+
+    if (!comic){
+        return <div>Comic not found</div>
+    }
     return (
         <>
         <div>
             <section className="flex flex=row gap-5">
             <div className="w-[57px] h-[57px] bg-black rounded-3xl"></div>
-            <h2 className="flex flex-col justify-center">Username </h2>
+            <h2 className="flex flex-col justify-center">{allAuthors[comic.author].username} </h2>
             </section>
 
             <div>
@@ -23,13 +34,13 @@ const Preview = () => {
 
                 <section className="flex flex-col gap-10">
                     <article className="flex flex-col items-center">
-                        <h1>TITLE</h1>
-                        <h2>VOLUME 1</h2>
+                        <h1>{comic.title}</h1>
+                        <h2>VOLUME {comic.volume}</h2>
                     </article>
 
                     <article className="flex flex-col gap-5 p-[30px] border border-black rounded-2xl">
                         <h2>Description</h2>
-                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis vehicula porttitor. Vivamus blandit tincidunt mauris, at tempor felis euismod vel. Sed venenatis mattis gravida. Etiam sit amet ultricies eros. Nam ullamcorper velit quis tellus scelerisque hendrerit. Maecenas nibh leo, maximus eu fermentum sit amet, luctus at arcu. Nulla eu elit rutrum, fringilla purus et, ullamcorper ipsum. Vivamus feugiat id magna vitae efficitur.</p>
+                        <p>{comic.description}</p>
                     </article>
                 </section>
 
