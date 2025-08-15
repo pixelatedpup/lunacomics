@@ -51,6 +51,8 @@ const ComicPage = ({
         // Removed fixed width/height to let Tailwind control it
         source={source || "/placeholder.png"} // test placeholder if empty
         cardid = {comicid}
+        cardType="cover"
+        round={true}
       />
     </div>
   );

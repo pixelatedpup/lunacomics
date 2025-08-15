@@ -6,7 +6,7 @@ interface IconProps {
 }
 const Icon = ({iconid}:IconProps) => {
     return(
-        <Card width="197px" height="209px" source="" round = {true} cardid = {iconid} />
+        <Card width="197px" height="209px" source="" round = {true} cardid = {iconid} cardType="icon"/>
     )
 }
 
