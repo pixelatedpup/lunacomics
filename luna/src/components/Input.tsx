@@ -1,9 +1,23 @@
-const Input = ({label =""}) =>{
+interface InputProps{
+    custom?:string;
+    label?:string;
+    typeUse?:string;
+}
+
+
+const Input = ({label ="", custom="", typeUse}:InputProps) =>{
     
     return(
         <div>
             <p>{label}</p>
-            <input className="w-[383px] h-[35px] rounded-2xl border border-black"/>
+            {custom === null ? 
+            (
+            <input className="w-[383px] h-[35px] p-[20px] rounded-2xl border border-black"/>
+            ):(
+                <input className= {`${custom}  p-[20px] rounded-2xl border border-black`}/>
+            )
+            }
+            
         </div>
     );
 }

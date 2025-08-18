@@ -34,7 +34,7 @@ const Button = ({
 
     return (
         <button
-            className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl`}
+            className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.5s] hover:scale-[110%] hover:bg-[var(--primary)]`}
         >
             {text}
         </button>
