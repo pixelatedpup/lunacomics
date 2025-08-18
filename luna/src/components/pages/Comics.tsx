@@ -6,6 +6,7 @@ import Input from "../Input";
 const Comics = () => {
 
     const [genreTag, setGenreTag] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
 
     // const allComics = [
     //     { title: "Title 1", img: "", link: "" , tag: 'Comedy'},
@@ -25,8 +26,16 @@ const Comics = () => {
         {name: "Fantasy", id: 5, route:""}       
     ]
 
-    const filteredComics = genreTag
-        ? allComics.filter(comic => comic.tag === genreTag) : allComics;
+    // const filteredComics = genreTag
+    //     ? allComics.filter(comic => comic.tag === genreTag) : allComics;
+      // Filter by genre AND search term
+    const filteredComics = allComics.filter((comic) => {
+        const matchesGenre = genreTag && genreTag !== "All" ? comic.tag === genreTag : true;
+        const matchesSearch = searchTerm
+        ? comic.title.toLowerCase().includes(searchTerm.toLowerCase())
+        : true;
+        return matchesGenre && matchesSearch;
+    });
 
     return (
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">
@@ -40,7 +49,12 @@ const Comics = () => {
                 <section className="flex flex-row mb-[20px] gap-20">
                     <h1>{genreTag || "All"}</h1>
                     <div className="flex flex-col justify-center items-end flex-1">
-                    <Input custom="w-[383px] h-[35px]"/>
+                    <Input custom="w-[383px] h-[35px]"
+                            typeUse="text"
+                            label=""
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                            value={searchTerm}/>
+
                     </div>
                 </section>
 
