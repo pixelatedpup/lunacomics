@@ -174,7 +174,7 @@ const Home = () => {
                     <div className="flex flex-col">
                         <Icon iconid={comic.comicid} />
                         
-                            <p className="text-center mt-[15px]">{comic.title}</p>
+                            <p className="text-center mt-[15px] font-bold text-[var(--primary)]">{comic.title}</p>
                         
                     </div>
                 ))}

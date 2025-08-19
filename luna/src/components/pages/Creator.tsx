@@ -1,8 +1,19 @@
 import Button from "../Button";
 import Icon from "../Icon";
 import ComicPage from "../ComicPage"
+import { allComics } from "../../assets/AllComics";
+import { allAuthors } from "../../assets/AllAuthors";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+
 
 const Creator = () => {
+        const {cardId} = useParams<{cardId: string}>();
+        const comicUse = allComics.filter(c => c.author === Number(cardId));
+        
+        useEffect (() => {
+            (console.log(cardId))},[cardId]
+        )
     return (
         <>
         {/* NOTE: I'll turn this into a component later.. */}
@@ -47,23 +58,17 @@ const Creator = () => {
                     </div>
                     <div className="flex flex-col border border-black rounded-2xl p-[30px] gap-10">
                         {/* Turn this into a component later */}
-                        <article className="flex flex-row">
-                            <ComicPage/>
-                            <div className="flex flex-col p-[30px]">
-                                <h2>Title</h2>
-                                <h3 className="mb-[20px]">2 Volumes</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus velit, volutpat in cursus interdum, tempor posuere tellus. Sed eu sodales mi. Vivamus vitae augue ligula. Praesent at velit euismod massa lobortis euismod. Nullam tristique vitae tellus sed mollis. </p>
-                            </div>
+                        {comicUse.map((comic, index)=>(
+                            <article className="flex flex-row">
+                                <ComicPage comicid={comic.id}/>
+                                <div className="flex flex-col p-[30px]">
+                                    <h2>{comic.title}</h2>
+                                    <h3 className="mb-[20px]">{`${comic.volume} Volumes`}</h3>
+                                    <p>{comic.description}</p>
+                                </div>
                         </article>
+                        ) )}
 
-                        <article className="flex flex-row">
-                            <ComicPage/>
-                            <div className="flex flex-col p-[30px]">
-                                <h2>Title</h2>
-                                <h3 className="mb-[20px]">2 Volumes</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus velit, volutpat in cursus interdum, tempor posuere tellus. Sed eu sodales mi. Vivamus vitae augue ligula. Praesent at velit euismod massa lobortis euismod. Nullam tristique vitae tellus sed mollis. </p>
-                            </div>
-                        </article>
 
                     </div>
                 </div>

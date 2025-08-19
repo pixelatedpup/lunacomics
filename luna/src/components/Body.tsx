@@ -25,7 +25,7 @@ const Body = () => {
             <Route path="/library" element={<Library/>}></Route>
             <Route path="/comics" element={<Comics/>}></Route>
             <Route path="/community" element={<Community/>}></Route>
-            <Route path="/creator" element={<Creator/>}></Route>
+            <Route path="/creator/:cardId" element={<Creator/>}></Route>
             <Route path="/notifications" element={<Notifications/>}></Route>
             <Route path="/preview/:comicId" element={<Preview/>}></Route>
             <Route path="/reading" element={<Reading/>}></Route>
