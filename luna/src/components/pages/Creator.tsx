@@ -10,6 +10,7 @@ import { useEffect } from "react";
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
         const comicUse = allComics.filter(c => c.author === Number(cardId));
+        const author = allAuthors[Number(cardId)]
         
         useEffect (() => {
             (console.log(cardId))},[cardId]
@@ -32,7 +33,7 @@ const Creator = () => {
 
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
-                            <h2 className="text-center">1000 followers</h2>
+                            <h2 className="text-center">{`${author.followersCount} followers`}</h2>
                             <Button text="Follow"/>
                         </article>
                     </div>

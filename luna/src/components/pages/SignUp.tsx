@@ -13,7 +13,7 @@ const SignUp = () => {
                 <Input label="PASSWORD"/>
                 <Input label="RE-TYPE PASSWORD"/>
                 <Input label="USERNAME"/>
-                <Button text="Register" bg="black"/>
+                <Button text="Register" bg="dark"/>
             </section>
             </div>
         </>

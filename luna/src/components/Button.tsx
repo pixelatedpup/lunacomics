@@ -1,10 +1,10 @@
 type Size = "sm" | "md" | "lg";
-type Color = "white" | "black" | "red" | "blue";
+type Color = "light" | "dark" | "accent" | "primary" | "white";
 
 const Button = ({ 
     size = "md", 
     text = "", 
-    bg = "black", 
+    bg = "accent", 
     color = "white" 
 }: { 
     size?: Size; 
@@ -19,22 +19,24 @@ const Button = ({
     };
 
     const bgClasses = {
-        black: "bg-black",
-        white: "bg-white",
-        red: "bg-red-500",
-        blue: "bg-blue-500"
+        accent: "bg-[var(--accent)]",
+        light: "bg-[var(--light)]",
+        dark: "bg-[var(--dark)]",
+        primary: "bg-[var(--primary)]",
+        white: "bg-white"
     };
 
     const textClasses = {
         white: "text-white",
-        black: "text-black",
-        red: "text-red-500",
-        blue: "text-blue-500"
+        light: "text-[var(--light)]",
+        accent: "bg-[var(--accent)]",
+        dark: "text-[var(--dark)]",
+        primary: "text-[var(--primary)]",
     };
 
     return (
         <button
-            className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.5s] hover:scale-[110%] hover:bg-[var(--primary)]`}
+            className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.3s] hover:scale-[110%] hover:bg-white hover:border hover:border-black hover:text-black`}
         >
             {text}
         </button>
