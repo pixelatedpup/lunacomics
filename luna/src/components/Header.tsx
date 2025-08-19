@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
-
+import Symbol from "./Symbol";
 const Header = () => {
   return (
     
@@ -12,8 +12,13 @@ const Header = () => {
         <Navigation />
       </article>
       <article className="flex flex-1 justify-end gap-6 items-center h-full ">
+        <div className="">
         <NavLink to="/notifications"><p className="m-0">Notification</p></NavLink>
-        <NavLink to="/library"><p className="m-0">Profile</p></NavLink>
+        </div >
+        {/* <NavLink to="/library"><p className="m-0">Profile</p></NavLink> */}
+        <div className="">
+        <NavLink to="/library"><Symbol/></NavLink>
+        </div>
       </article>
     </section>
   );

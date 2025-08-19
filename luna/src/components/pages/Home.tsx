@@ -54,7 +54,15 @@ const Home = () => {
         title: allComics[3].title,  
         tag: allComics[3].tag,
         volume: allComics[3].volume,
-        description: allComics[3].description}
+        description: allComics[3].description},
+                                        {
+        id:5, 
+        comicid: allComics[4].id , 
+        title: allComics[4].title,  
+        tag: allComics[4].tag,
+        volume: allComics[4].volume,
+        description: allComics[4].description},
+        
         
     ]
     
@@ -174,7 +182,7 @@ const Home = () => {
         </section>
 
         {/* Hot Comics Section */}
-        <section className="flex flex-1 flex-col mt-[70px]">
+        <section className="flex flex-1 flex-col mt-[30px]">
 
             <article className="mb-[15px]">
                 <h2>Hot</h2>
