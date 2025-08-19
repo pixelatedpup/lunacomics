@@ -3,6 +3,7 @@
 // Glob import all icons and covers
 const icons = import.meta.glob("./images/card*.png", { eager: true, import: "default" });
 const covers = import.meta.glob("./images/cover*.png", { eager: true, import: "default" });
+const banner = import.meta.glob("./images/cover*.png", { eager: true, import: "default" });
 
 export const allImages = Array.from({ length: 16 }, (_, i) => {
   const id = i + 1;
@@ -10,5 +11,6 @@ export const allImages = Array.from({ length: 16 }, (_, i) => {
     id,
     icon: icons[`./images/card${id}.png`] as string,
     cover: covers[`./images/cover${id}.png`] as string,
+    banner: covers[`./images/cover${id}.png`] as string,
   };
 });

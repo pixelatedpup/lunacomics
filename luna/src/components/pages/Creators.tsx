@@ -2,6 +2,7 @@ import Card from "../Card";
 import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
 import { allComics } from "../../assets/AllComics";
+import Banner from "../Banner";
 
 const Creators = () => {
     const creators = [
@@ -38,7 +39,7 @@ const Creators = () => {
 
         <section className="flex flex-row gap-20 w-full justify-evenly mt-[30px] overflow-y-auto">
             {allAuthors.map((creator) => (
-                <Card custom="h-[431px] w-[166px] " cardid={allComics[creator.id].id}/>
+                <Banner cardid={creator.id}/>
             )
             )}
         </section>

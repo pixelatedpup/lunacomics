@@ -3,6 +3,7 @@ import Comics from "../ComicPage"
 import Highlight from "../Highlight"
 import {useEffect, useState } from "react"
 import { allComics } from "../../assets/AllComics"
+import Card from "../Card"
 // import { NavLink } from "react-router-dom"
 
 
@@ -221,11 +222,8 @@ const Home = () => {
                     </ul>
                 </article>
 
-                <article className="flex-1 flex flex-col justify-center">
-                    <div className="w-[443px] h-[178px] border border-[var(--black) bg-[white] rounded-2xl">
-                        <h1 className="flex flex-col justify-center text-center">{hotComics[highlightIndex]?.title}</h1> 
-                        
-                    </div>
+                <article className="flex-1 flex flex-col justify-center">           
+                        <Card round={true} custom="w-[443px] h-[178px] border border-[var(--accent)] rounded-2xl" cardid={highlightIndex}/>
                 </article>
             </div>
         </section>

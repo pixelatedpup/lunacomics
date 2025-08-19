@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {allImages} from "../assets/AllImages.tsx"
 import { allComics } from "../assets/AllComics.tsx";
 
-type CardType = "icon" | "cover"
+type CardType = "icon" | "cover" | "banner"
 interface CardProps {
     width?: string;
     height?: string;
@@ -13,6 +13,7 @@ interface CardProps {
     cardid?:number;
     link?:string;
     cardType?:CardType;
+
 }
 
 const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link="", cardid=0, cardType="icon"}: CardProps) =>{
@@ -29,8 +30,14 @@ const Card = ({custom ="", width="197px", height = "209px", source = "", round=f
         source,
     });
 
+    
     const handleCardView=(cardid:number) =>{
-        navigate(`/preview/${encodeURIComponent(cardid)}`)
+        cardType !== "banner" ? (
+            navigate(`/preview/${encodeURIComponent(cardid)}`)
+        ):(
+            navigate(`/creator/${encodeURIComponent(cardid)}`)
+        )
+        
     }
     return(
         <>
