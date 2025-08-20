@@ -8,8 +8,8 @@ import Card from "../Card"
 
 
 interface LibraryData {
-    id?:number,
-    comicid?:number,
+    id:number,
+    comicid:number,
     title?: string,
     author?:number,
     tag?:string,
@@ -133,12 +133,14 @@ const Home = () => {
 
     const[highlightIndex, setHighlightIndex] = useState(0);
     const[resetTrigger, setResetTrigger] = useState(0);
+    const[selectedCard, setSelectedCard] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
+            
             setHighlightIndex((prev) => (prev + 1) % hotComics.length)
         }, 2000);
-
+            
         return() => clearInterval(interval);
 
     }, [hotComics.length, resetTrigger])
@@ -147,6 +149,11 @@ const Home = () => {
         setHighlightIndex(index);
         setResetTrigger((prev) => prev+1);
     }
+
+    useEffect(() => {
+        setSelectedCard(hotComics[highlightIndex].comicid);
+
+    },[highlightIndex,hotComics])
     return (
         <>
         {/* Library Section */}
@@ -174,7 +181,7 @@ const Home = () => {
                     <div className="flex flex-col">
                         <Icon iconid={comic.comicid} />
                         
-                            <p className="text-center mt-[15px] font-bold text-[var(--primary)]">{comic.title}</p>
+                            <p className="w-[140px] truncate text-center mt-[15px] font-bold text-[var(--primary)]">{comic.title}</p>
                         
                     </div>
                 ))}
@@ -206,6 +213,7 @@ const Home = () => {
                 <article className="flex flex-col flex-1 gap-15 text-white">
                     <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center ">
                         {hotComics.map((comic, index) =>  {
+                            
                             const isHighlighted = index === highlightIndex;
                             return(
                             <li className="cursor-pointer" key={index} onClick={()=> handleHighlightClick(index) }>
@@ -223,7 +231,7 @@ const Home = () => {
                 </article>
 
                 <article className="flex-1 flex flex-col justify-center">           
-                        <Card round={true} custom="w-[443px] h-[178px] border border-[var(--accent)] rounded-2xl" cardid={highlightIndex}/>
+                        <Card round={true} custom="w-[443px] h-[178px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
                 </article>
             </div>
         </section>

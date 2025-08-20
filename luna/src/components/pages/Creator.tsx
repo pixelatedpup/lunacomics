@@ -10,6 +10,7 @@ import { useEffect } from "react";
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
         const comicUse = allComics.filter(c => c.author === Number(cardId));
+        const comicIdUse = allComics.find(c => c.author === Number(cardId));
         const author = allAuthors[Number(cardId)]
         
         useEffect (() => {
@@ -21,14 +22,14 @@ const Creator = () => {
         <div className="flex flex-col gap-10">
             <section className="flex flex-row gap-4">
                 <article className="flex-[1/3]">
-                    <Icon/>
+                    <Icon iconid={comicIdUse?.id}/>
                 </article>
 
                 <div className="flex-1 flex flex-row ">
                         <article className="flex-1 flex flex-col">
-                            <h1 className="mb-[20px]">Creator Name</h1>
+                            <h1 className="mb-[20px]">{allAuthors[Number(cardId)].name}</h1>
                             <h2> 2 books published</h2>
-                            <h2> Member since 2025</h2>
+                            <h2> {`Member since ${allAuthors[Number(cardId)].dateCreated}`}</h2>
                         </article>
 
                     <div className="flex flex-1 flex-col items-center justify-center ">

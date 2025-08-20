@@ -11,7 +11,7 @@ const SignIn = () => {
             <section className="flex flex-col text-left items-center gap-7">
                 <Input label="USERNAME OR EMAIL ADDRESS"/>
                 <Input label="PASSWORD"/>
-                <Button text="Sign In" bg="black"/>
+                <Button text="Sign In" bg="dark"/>
             </section>
             </div>
         </>
