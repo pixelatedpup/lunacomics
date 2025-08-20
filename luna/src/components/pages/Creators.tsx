@@ -5,29 +5,7 @@ import { allComics } from "../../assets/AllComics";
 import Banner from "../Banner";
 
 const Creators = () => {
-    const creators = [
-        {name: "Name",
-        user:"Username",
-        img:""
-        },
 
-        {name: "Name",
-        user:"Username",
-        img:""
-        }
-        ,
-
-        {name: "Name",
-        user:"Username",
-        img:""
-        },
-
-        {name: "Name",
-        user:"Username",
-        img:""
-        }
-        
-    ]
     return (
         <>
         <section className="flex gap-20">

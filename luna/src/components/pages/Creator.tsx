@@ -11,10 +11,16 @@ const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
         const comicUse = allComics.filter(c => c.author === Number(cardId));
         const comicIdUse = allComics.find(c => c.author === Number(cardId));
-        const author = allAuthors[Number(cardId)]
+        const author = allAuthors.find(a => a.id === Number(cardId))
         
         useEffect (() => {
-            (console.log(cardId))},[cardId]
+            (console.log(`CardID: ${cardId}`));
+            (console.log(`AuthorID: ${author?.id}`));
+            (console.log(`AuthorName Object: ${author?.name}`))
+        },[cardId]
+            
+            
+
         )
     return (
         <>
@@ -27,14 +33,14 @@ const Creator = () => {
 
                 <div className="flex-1 flex flex-row ">
                         <article className="flex-1 flex flex-col">
-                            <h1 className="mb-[20px]">{allAuthors[Number(cardId)].name}</h1>
+                            <h1 className="mb-[20px]">{author?.name}</h1>
                             <h2> 2 books published</h2>
-                            <h2> {`Member since ${allAuthors[Number(cardId)].dateCreated}`}</h2>
+                            <h2> {`Member since ${author?.dateCreated}`}</h2>
                         </article>
 
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
-                            <h2 className="text-center">{`${author.followersCount} followers`}</h2>
+                            <h2 className="text-center">{`${author?.followersCount} followers`}</h2>
                             <Button text="Follow"/>
                         </article>
                     </div>

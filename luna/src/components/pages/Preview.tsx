@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 {/* Importing dummy data */}
 import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
+import Icon from "../Icon";
+import Card from "../Card";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
@@ -17,7 +19,7 @@ const Preview = () => {
         <>
         <div>
             <section className="flex flex=row gap-5">
-            <div className="w-[57px] h-[57px] bg-black rounded-3xl"></div>
+            <Card cardid={comic.id} custom="h-[70px] w-[70px]" round={true}/>
             <h2 className="flex flex-col justify-center">{allAuthors[comic.author].username} </h2>
             </section>
 
@@ -32,10 +34,10 @@ const Preview = () => {
                     <Button text="Start Reading"/>
                 </section>
 
-                <section className="flex flex-col gap-10">
+                <section className="flex flex-col gap-10 mt-[40px]">
                     <article className="flex flex-col items-center">
                         <h1>{comic.title}</h1>
-                        <h2>VOLUME {comic.volume}</h2>
+                        <h2 className="text-[var(--primary)]">VOLUME {comic.volume}</h2>
                     </article>
 
                     <article className="flex flex-col gap-5 p-[30px] border border-black rounded-2xl">

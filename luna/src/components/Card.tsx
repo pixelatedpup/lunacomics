@@ -16,15 +16,16 @@ interface CardProps {
 
 }
 
-const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link="", cardid=0, cardType="icon"}: CardProps) =>{
+const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link="", cardid=16, cardType="icon"}: CardProps) =>{
 
     const navigate = useNavigate();
 
-    const imgSrc = 
-                    (()=> {
-                        const imgData = allImages.find(img=> img.id === (allComics[cardid].imageId ?? 1));
-                        return imgData ? imgData[cardType] : "";
-                    })();
+    const imgSrc = (() => {
+    const comic = allComics[cardid] ?? allComics[16]; // fallback to default comic
+    const imgData = allImages.find(img => img.id === (comic.imageId ?? 17));
+    return imgData ? imgData[cardType] : "";
+    })();
+
       console.log("Custom:", {
 
         source,
