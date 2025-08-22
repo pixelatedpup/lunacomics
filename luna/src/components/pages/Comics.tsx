@@ -8,15 +8,6 @@ const Comics = () => {
     const [genreTag, setGenreTag] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
 
-    // const allComics = [
-    //     { title: "Title 1", img: "", link: "" , tag: 'Comedy'},
-    //     { title: "Title 2", img: "", link: "" , tag: 'Comedy'},
-    //     { title: "Title 3", img: "", link: "" , tag: 'Drama'},
-    //     { title: "Title 4", img: "", link: "" , tag: 'Action'},
-    //     { title: "Title 5", img: "", link: "" , tag: 'Drama'},
-    //     { title: "Title 6", img: "", link: "" , tag: 'Comedy'}
-    // ];
-
     const links = 
     [   {name: "All", id: 0, route:""},
         {name: "Drama", id: 1, route:""},
@@ -46,9 +37,9 @@ const Comics = () => {
 
             {/* Comics Grid */}
             <main className="flex flex-col flex-1 p-4">
-                <section className="flex flex-row mb-[20px] gap-20">
-                    <h1>{genreTag || "All"}</h1>
-                    <div className="flex flex-col justify-center items-end flex-1">
+                <section className="flex  lg:flex-row md:flex-col sm:flex-col mb-[20px] gap-5">
+                    <h1 className="sm:text-center md:text-center">{genreTag || "All"}</h1>
+                    <div className="flex flex-col justify-center md:items-center sm:items-center items-end flex-1">
                     <Input custom="w-[383px] h-[35px]"
                             typeUse="text"
                             label=""
@@ -60,17 +51,22 @@ const Comics = () => {
 
                 {genreTag != "All"?(
 
-                <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                    {filteredComics.map((comic, index) => (
-                        <ComicPage key={index} comicid={comic.id}/>
-                    ))}
-                </section>
+                <div className="flex justify-center">
+                    <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 ">
+                        {filteredComics.map((comic, index) => (
+                            <ComicPage key={index} comicid={comic.id}/>
+                        ))}
+                    </section>
+                </div>
                 ):(
-                <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                    {allComics.map((comic, index) => (
-                        <ComicPage key={index} comicid={comic.id}/>
-                    ))}
-                </section>
+                
+                <div className="flex justify-center">
+                    <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                        {allComics.map((comic, index) => (
+                            <ComicPage key={index} comicid={comic.id}/>
+                        ))}
+                    </section>
+                </div>
                 )
                 }
             </main>

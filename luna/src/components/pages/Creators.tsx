@@ -8,8 +8,8 @@ const Creators = () => {
 
     return (
         <>
-        <section className="flex gap-20">
-        <h1>Creators</h1>
+        <section className="flex flex-row sm:flex-col-reverse md:flex-col gap-20 md:gap-5 sm:gap-5">
+        <h1 className="sm:text-center md:text-center">Creators</h1>
         <div className="flex flex-1 flex-col items-end justify-center">
             <Input custom="w-[383px] h-[35px]"/>
         </div>
@@ -24,7 +24,7 @@ const Creators = () => {
 
         <section className="mt-[70px]">
             <h2> Updates </h2>
-            <article className="flex flex-row justify-evenly mt-[30px]">
+            <article className="flex flex-row sm:flex-col md:flex-col sm:gap-10 md:gap-10 justify-evenly mt-[30px]">
                 <Card custom="w-[454px] h-[263px]"/>
                 <Card custom="w-[454px] h-[263px]"/>
             </article>
@@ -32,10 +32,10 @@ const Creators = () => {
 
         <section className="mt-[70px]">
             <h2>Shop</h2>
-            <article className="flex flex-row justify-evenly mt-[30px]">
-                <Card custom="w-[280px] h-[280px]" round={true} />
-                <Card custom="w-[280px] h-[280px]" round={true}/>
-                <Card custom="w-[280px] h-[280px]" round={true}/>
+            <article className="flex flex-row sm:flex-wrap md:flex-wrapsm:gap-10 md:gap-10 sm:items-center md:items-center justify-evenly mt-[30px]">
+                <Card custom="w-[280px] h-[280px] sm:w-[120px] sm:h-[120px]" round={true} />
+                <Card custom="w-[280px] h-[280px] sm:w-[120px] sm:h-[120px]" round={true}/>
+                <Card custom="w-[280px] h-[280px] sm:w-[120px] sm:h-[120px]" round={true}/>
             </article>
         </section>
         </>
