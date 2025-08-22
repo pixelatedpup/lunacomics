@@ -18,3 +18,12 @@ img{
   : none;
 }
 
+@media(max-width:800px){
+  h3{
+    font-size: 14px;
+  }
+
+  h1{
+    font-size: 24px;
+  }
+}

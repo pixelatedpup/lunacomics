@@ -159,24 +159,13 @@ const Home = () => {
         {/* Library Section */}
         <section className="flex flex-1 flex-col pb-10 border-b ">
 
-            {/* Temporary to check links */}
-            {/* <article>
-                <ul>
-                    <li><NavLink to="/signin">Sign In</NavLink></li>
-                    <li><NavLink to="/signup">Sign Up</NavLink></li>
-                    <li><NavLink to="/creator">Creator</NavLink></li>
-                    <li><NavLink to="/reading">Reading</NavLink></li>
-                    <li><NavLink to="/preview">Preview</NavLink></li>
-                    <li><NavLink to="/library">Library</NavLink></li>
-                    <li><NavLink to="/notifications">Notifications</NavLink></li>
-                </ul>
-            </article> */}
 
             <article className="mb-[15px] ">
                 <h2>Your library</h2>
             </article>
 
-            <div className="flex flex-wrap justify-evenly gap-7 w-full">
+            <div className="flex lg:flex-wrap justify-evenly gap-7 w-full
+                             sm:w-full sm:overflow-y-auto">
                 {library.map((comic) => (
                     <div className="flex flex-col">
                         <Icon iconid={comic.comicid} />
@@ -211,7 +200,8 @@ const Home = () => {
                             rounded-2xl 
                             bg-[#002C34]">
                 <article className="flex flex-col flex-1 gap-15 text-white">
-                    <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center ">
+                    <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center 
+                                   ">
                         {hotComics.map((comic, index) =>  {
                             
                             const isHighlighted = index === highlightIndex;
@@ -231,7 +221,7 @@ const Home = () => {
                 </article>
 
                 <article className="flex-1 flex flex-col justify-center">           
-                        <Card round={true} custom="w-[443px] h-[178px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
+                        <Card round={true} custom="w-[443px] h-[178px] sm:w-[300px] sm:h-[178px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
                 </article>
             </div>
         </section>

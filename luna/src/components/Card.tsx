@@ -1,56 +1,67 @@
 import { useNavigate } from "react-router-dom";
-import {allImages} from "../assets/AllImages.tsx"
+import { allImages } from "../assets/AllImages.tsx";
 import { allComics } from "../assets/AllComics.tsx";
 
-type CardType = "icon" | "cover" | "banner"
+type CardType = "icon" | "cover" | "banner";
+
 interface CardProps {
-    width?: string;
-    height?: string;
-    source?: string;
-    round?: boolean;
-    custom?: string;
-    id?:string;
-    cardid?:number;
-    link?:string;
-    cardType?:CardType;
-
+  width?: string;     
+  height?: string;    
+  source?: string;
+  round?: boolean;
+  custom?: string;   
+  id?: string;
+  cardid?: number;
+  link?: string;
+  cardType?: CardType;
 }
 
-const Card = ({custom ="", width="197px", height = "209px", source = "", round=false, id="", link="", cardid=16, cardType="icon"}: CardProps) =>{
+const Card = ({
+  custom = "",
+  width = "197px",
+  height = "209px",
+  source = "",
+  round = false,
+  id = "",
+  link = "",
+  cardid = 16,
+  cardType = "icon",
+}: CardProps) => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    const imgSrc = (() => {
+  const imgSrc = (() => {
     const comic = allComics[cardid] ?? allComics[16]; // fallback to default comic
-    const imgData = allImages.find(img => img.id === (comic.imageId ?? 17));
+    const imgData = allImages.find((img) => img.id === (comic.imageId ?? 17));
     return imgData ? imgData[cardType] : "";
-    })();
+  })();
 
-      console.log("Custom:", {
+  const handleCardView = (cardid: number) => {
+    cardType !== "banner"
+      ? navigate(`/preview/${encodeURIComponent(cardid)}`)
+      : navigate(`/creator/${encodeURIComponent(cardid)}`);
+  };
 
-        source,
-    });
-
-    
-    const handleCardView=(cardid:number) =>{
-        cardType !== "banner" ? (
-            navigate(`/preview/${encodeURIComponent(cardid)}`)
-        ):(
-            navigate(`/creator/${encodeURIComponent(cardid)}`)
-        )
-        
-    }
-    return(
-        <>
-            <a className="cursor-pointer" onClick={() => handleCardView(cardid || 0)}>
-                <div
-                    className= {`hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)]  duration-[0.5s] transition-all bg-[#D1E4DE] ${round? "rounded-3xl": ""} ${custom==""?"":custom} `}
-                    style={custom==""?{width, height}: {}}>
-                    <img src={imgSrc} className={`${round? "rounded-3xl": ""} object-cover w-full h-full border-0 outline-none shadow-none`}/>
-                </div>
-            </a>
-        </>
-    );
-}
+  return (
+    <a className="cursor-pointer" onClick={() => handleCardView(cardid || 0)}>
+      <div
+        className={`
+          hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)] duration-[0.5s] transition-all 
+          bg-[#D1E4DE] 
+          ${round ? "rounded-3xl" : ""} 
+          ${custom}
+        `}
+        style={custom === "" ? { width, height } : {}}
+      >
+        <img
+          src={imgSrc}
+          className={`
+            ${round ? "rounded-3xl" : ""} 
+            object-cover w-full h-full border-0 outline-none shadow-none
+          `}
+        />
+      </div>
+    </a>
+  );
+};
 
 export default Card;
