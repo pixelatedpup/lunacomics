@@ -40,7 +40,7 @@ const Post = ({name="Default"}:PostItems) =>{
                         {/* actual post image*/}
                         <article className="mt-[30px]">
 
-                            <Card custom="h-[459px] w-[867px]" round={true}/>
+                            <Card custom="h-[459px] w-[867px] sm:w-full" round={true}/>
                         </article>
 
                         {/* Like and comment buttons*/}

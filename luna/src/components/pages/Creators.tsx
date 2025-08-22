@@ -9,8 +9,8 @@ const Creators = () => {
     return (
         <>
         <section className="flex flex-row sm:flex-col-reverse md:flex-col gap-20 md:gap-5 sm:gap-5">
-        <h1 className="sm:text-center md:text-center">Creators</h1>
-        <div className="flex flex-1 flex-col items-end justify-center">
+        <h1 className="sm:text-center md:text-center sm:text-start md:text-start">Creators</h1>
+        <div className="flex flex-1 flex-col items-end sm:items-center md:items-center">
             <Input custom="w-[383px] h-[35px]"/>
         </div>
         </section>
@@ -24,9 +24,9 @@ const Creators = () => {
 
         <section className="mt-[70px]">
             <h2> Updates </h2>
-            <article className="flex flex-row sm:flex-col md:flex-col sm:gap-10 md:gap-10 justify-evenly mt-[30px]">
-                <Card custom="w-[454px] h-[263px]"/>
-                <Card custom="w-[454px] h-[263px]"/>
+            <article className="flex flex-row sm:flex-col md:flex-col sm:gap-10 md:gap-10 justify-evenly items-center mt-[30px]">
+                <Card custom="lg:w-full w-[454px] h-[263px]"/>
+                <Card custom="lg:w-full w-[454px] h-[263px]"/>
             </article>
         </section>
 
