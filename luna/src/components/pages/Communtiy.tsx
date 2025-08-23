@@ -17,6 +17,7 @@ const Community = () => {
         <>
             <h1>Community</h1>
             <Post/>
+            <Post/>
         </>
     );
 }

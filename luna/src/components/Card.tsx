@@ -24,13 +24,13 @@ const Card = ({
   round = false,
   id = "",
   link = "",
-  cardid = 16,
+  cardid = 17,
   cardType = "icon",
 }: CardProps) => {
   const navigate = useNavigate();
 
   const imgSrc = (() => {
-    const comic = allComics[cardid] ?? allComics[16]; // fallback to default comic
+    const comic = allComics[cardid] ?? allComics[17]; // fallback to default comic
     const imgData = allImages.find((img) => img.id === (comic.imageId ?? 17));
     return imgData ? imgData[cardType] : "";
   })();

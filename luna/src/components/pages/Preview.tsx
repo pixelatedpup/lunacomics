@@ -7,20 +7,27 @@ import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
 import Icon from "../Icon";
 import Card from "../Card";
+import { useEffect } from "react";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
     const comic = allComics.find(c => c.id === Number(comicId));
+    const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
 
     if (!comic){
         return <div>Comic not found</div>
     }
+
+    useEffect(()=> (
+        console.log()
+   
+    ), [])
     return (
         <>
         <div>
             <section className="flex flex=row gap-5">
             <Card cardid={comic.id} custom="h-[70px] w-[70px]" round={true}/>
-            <h2 className="flex flex-col justify-center">{allAuthors[comic.author].username} </h2>
+            <h2 className="flex flex-col justify-center">{authorUse?.username?? "Default"} </h2> 
             </section>
 
             <div>
