@@ -1,6 +1,50 @@
 import Input from "../Input";
 import Button from "../Button"
+import { useState } from "react";
 const SignIn = () => {
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+    });
+
+    const [error, setError] = useState("")
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setFormData((prev) => ({...prev, [name]: value}));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+
+        try{
+            const response = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username: formData.username,
+                    password: formData.password,
+                })
+            });
+
+            const data = await response.json();
+
+            if(response.ok){
+                //store JWT in localStorage
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data.user));
+                console.log("Logged in:", data.user);
+                //Redirect or update UI
+            }else{
+                setError(data.error||"Login failed");
+            }
+
+
+        }catch(err){
+            setError("Server error please try again")
+        }
+    }
     return (
         <>
             <div>
@@ -9,9 +53,13 @@ const SignIn = () => {
             </section>
 
             <section className="flex flex-col text-left items-center gap-7">
-                <Input label="USERNAME OR EMAIL ADDRESS"/>
-                <Input label="PASSWORD"/>
-                <Button text="Sign In" bg="dark"/>
+                <form onSubmit={handleSubmit}>
+                    <Input label="USERNAME" typeUse="text" name="username" value={formData.username} onChange={handleChange}/>
+                    <Input label="PASSWORD"typeUse="text" name="password" value={formData.password} onChange={handleChange}/>
+                    <Button text="Sign In" bg="dark"/>
+                </form>
+
+                {error && <p className="text-red-500 mt-4">{error}</p>}
             </section>
             </div>
         </>

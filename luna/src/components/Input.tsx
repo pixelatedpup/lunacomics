@@ -3,11 +3,13 @@ interface InputProps{
     label?:string;
     typeUse?:string;
     value?: string;
+    name?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 
-const Input = ({label ="", custom="", typeUse, value, onChange}:InputProps) =>{
+const Input = ({label ="", custom="", typeUse, value, onChange,
+}:InputProps) =>{
     
     return(
         <div>

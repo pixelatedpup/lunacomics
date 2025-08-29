@@ -24,7 +24,7 @@ const Creators = () => {
 
         <section className="mt-[70px]">
             <h2> Updates </h2>
-            <article className="flex flex-col sm:gap-10 md:gap-10  mt-[30px] border">
+            <article className="flex flex-col sm:gap-10 md:gap-10 mt-[30px] border">
                 <Card custom="w-full h-[263px] border border-[3px] border-red"/>
                 <Card custom="w-full h-[263px]"/>
             </article>

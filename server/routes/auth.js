@@ -1,0 +1,58 @@
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
+import { use } from "react";
+
+const router = express.Router();
+
+//Regiser
+router.post("/signup", async(req, res) => {
+    try{
+        const {name,username,password,isCreator} = req.body;
+
+        //hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+
+        //create user
+        const newUser = new User({
+            name,
+            username,
+            password: hashedPassword,
+            isCreator,
+        });
+
+        await newUser.save();
+        res.status(201).json({message: "User created successfully"});
+    }catch(err){
+        res.status(500).json({error: err.message})
+    }
+
+});
+
+//Login
+router.post("/login", async (req, res) => {
+    try{
+        const {username, password} = req.body
+
+        const user = await User.findOne({username});
+        if(!user) return res.status(400).json({error:"User not found"})
+
+        const validPassword = await bcrypt.compare(password, user.password);
+        if(!validPassword) return res.status(400).json({error: "Invalid credentials"})
+
+        // create JWT
+        const token = jwt.sign(
+            {id: user._id, username:user.username},
+            process.env.JWT_SECRET,
+            {expiresIn: "1h"}
+        );
+        res.json({token, user: {id:user._id, username:user.username, isCreator: user.isCreator}});
+
+    }catch(err){
+        res.status(500).json({error: err.message});
+    }
+});
+
+export default router;
