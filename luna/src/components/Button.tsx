@@ -1,17 +1,22 @@
 type Size = "sm" | "md" | "lg";
 type Color = "light" | "dark" | "accent" | "primary" | "white";
+type Button = "button" | "submit" | "reset";
+
+interface ButtonProps{
+    size?: Size; 
+    text?: string; 
+    bg?: Color; 
+    color?: Color; 
+    type?:Button;
+}
 
 const Button = ({ 
     size = "md", 
     text = "", 
     bg = "accent", 
-    color = "white" 
-}: { 
-    size?: Size; 
-    text?: string; 
-    bg?: Color; 
-    color?: Color; 
-}) => {
+    color = "white" ,
+    type="button"
+}:ButtonProps) => {
     const sizeClasses = {
         sm: "w-[80px] h-[40px]",
         md: "w-[235px] h-[58px]",
@@ -36,6 +41,7 @@ const Button = ({
 
     return (
         <button
+            type={type}
             className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.3s] hover:scale-[110%] hover:bg-white hover:border hover:border-black hover:text-black`}
         >
             {text}

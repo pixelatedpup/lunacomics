@@ -61,11 +61,17 @@ const SignUp = () => {
 
             <section className="flex flex-col text-left items-center gap-7">
                 <form className="flex flex-col text-left items-center gap-7" onSubmit={handleSubmit}>
+                    {error &&
+                        <div className="bg-[var(--dark)] text-[var(--red)] rounded-xl p-[10px] w-auto">
+                            <p>{error}</p>
+                        </div>}
                     <Input label="FULL NAME" typeUse="text" name="name" value={formData.name} onChange={handleChange}/>
                     <Input label="USERNAME" typeUse="text" name="username" value={formData.username} onChange={handleChange}/>
                     <Input label="PASSWORD" typeUse="password" name="password" value={formData.password} onChange={handleChange}/>
                     <Input label="RE-TYPE PASSWORD" typeUse="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}/>
-                    <Button text="Register" bg="dark" />
+                    <Button text="Register" bg="dark" type="submit"/>
+
+
                 </form>
                 
             </section>

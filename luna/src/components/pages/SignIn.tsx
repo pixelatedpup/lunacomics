@@ -56,7 +56,7 @@ const SignIn = () => {
                 <form onSubmit={handleSubmit}>
                     <Input label="USERNAME" typeUse="text" name="username" value={formData.username} onChange={handleChange}/>
                     <Input label="PASSWORD"typeUse="text" name="password" value={formData.password} onChange={handleChange}/>
-                    <Button text="Sign In" bg="dark"/>
+                    <Button text="Sign In" bg="dark" type="submit"/>
                 </form>
 
                 {error && <p className="text-red-500 mt-4">{error}</p>}
