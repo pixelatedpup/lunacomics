@@ -47,7 +47,7 @@ const Card = ({
         className={`
           hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)] duration-[0.5s] transition-all 
           bg-[#D1E4DE] 
-          ${round ? "rounded-3xl" : ""} 
+          ${round ? "rounded-xl" : ""} 
           ${custom}
         `}
         style={custom === "" ? { width, height } : {}}
@@ -55,7 +55,7 @@ const Card = ({
         <img
           src={imgSrc}
           className={`
-            ${round ? "rounded-3xl" : ""} 
+            ${round ? "rounded-xl" : ""} 
             object-cover w-full h-full border-0 outline-none shadow-none
           `}
         />

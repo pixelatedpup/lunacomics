@@ -19,7 +19,7 @@ const SignIn = () => {
         setError("");
 
         try{
-            const response = await fetch("http://localhost:5000/api/auth/login", {
+            const response = await fetch("http://localhost:8000/api/auth/login", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -55,7 +55,7 @@ const SignIn = () => {
             <section className="flex flex-col text-left items-center gap-7">
                 <form onSubmit={handleSubmit}>
                     <Input label="USERNAME" typeUse="text" name="username" value={formData.username} onChange={handleChange}/>
-                    <Input label="PASSWORD"typeUse="text" name="password" value={formData.password} onChange={handleChange}/>
+                    <Input label="PASSWORD"typeUse="password" name="password" value={formData.password} onChange={handleChange}/>
                     <Button text="Sign In" bg="dark" type="submit"/>
                 </form>
 

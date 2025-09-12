@@ -221,7 +221,7 @@ const Home = () => {
                 </article>
 
                 <article className="flex-1 flex flex-col justify-center">           
-                        <Card round={true} custom="w-[443px] h-[178px] sm:w-[300px] sm:h-[178px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
+                        <Card round={true} custom="w-[443px] h-[178px] sm:w-[450px] sm:h-[178px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
                 </article>
             </div>
         </section>
