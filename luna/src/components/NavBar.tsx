@@ -51,13 +51,14 @@ const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
             flex gap-5 items-center justify-around px-4 py-3
             md:flex-row
             lg:flex-col lg:items-start lg:px-[50px] lg:pt-[70px]
+            text-center
           "
         >
           {links?.map((link, index) => {
             const isHighlighted = index === highlightLink;
             return (
               <li
-                className="cursor-pointer"
+                className="cursor-pointer w-full"
                 key={link.id}
                 onClick={() => handleLink(index)}
               >
