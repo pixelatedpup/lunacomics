@@ -36,12 +36,12 @@ const ComicPage = ({
   const currentDynamicSize = useWindowSize(size);
 
   // Debug logs
-  console.log("ComicPage render:", {
-    initialSize: size,
-    currentDynamicSize,
-    appliedClass: sizeClasses[currentDynamicSize],
-    source,
-  });
+  // console.log("ComicPage render:", {
+  //   initialSize: size,
+  //   currentDynamicSize,
+  //   appliedClass: sizeClasses[currentDynamicSize],
+  //   source,
+  // });
 
   return (
     <div>

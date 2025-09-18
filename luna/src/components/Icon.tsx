@@ -19,11 +19,11 @@ const Icon = ({ iconid, size = "md" }: IconProps) => {
   // 🔑 Get responsive size from your hook
   const currentDynamicSize = useWindowSize(size);
 
-  console.log("Icon render:", {
-    initialSize: size,
-    currentDynamicSize,
-    appliedClass: sizeClasses[currentDynamicSize],
-  });
+  // console.log("Icon render:", {
+  //   initialSize: size,
+  //   currentDynamicSize,
+  //   appliedClass: sizeClasses[currentDynamicSize],
+  // });
 
   return (
     <Card

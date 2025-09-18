@@ -1,9 +1,13 @@
 import Input from "../Input";
 import Button from "../Button"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 
 
 const SignUp = () => {
+    const {login} = useUser();
+    const navigate = useNavigate();
     const[formData, setFormData] = useState({
         name: "",
         username: "",
@@ -45,6 +49,10 @@ const SignUp = () => {
             if (response.ok){
                 setSuccess("Account created! You can now log in. ");
                 setFormData({name:"", username: "", password: "", confirmPassword: ""})
+                
+                login(data.user, data.token);
+                console.log("Logged in:", data.user);
+                navigate(`/`);
             }else{
                 setError(data.error || "Signup failed")
             }
