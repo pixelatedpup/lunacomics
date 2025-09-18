@@ -1,7 +1,9 @@
 import Input from "../Input";
 import Button from "../Button"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const SignIn = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -35,6 +37,7 @@ const SignIn = () => {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
                 console.log("Logged in:", data.user);
+                navigate('/')
                 //Redirect or update UI
             }else{
                 setError(data.error||"Login failed");

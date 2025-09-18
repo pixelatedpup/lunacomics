@@ -23,7 +23,7 @@ const Library= () => {
             <main className="flex flex-1 p-4">
                 <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
                     {comics.map((comic, index) => (
-                        <ComicPage key={index} {...comic} />
+                        <ComicPage key={index} {...comic} comicid={0}/>
                     ))}
                 </section>
             </main>
