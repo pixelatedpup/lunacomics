@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 import Symbol from "./Symbol";
+import { useUser } from "../hooks/useUser";
 const Header = () => {
+    const {isLoggedIn} = useUser();
   return (
     
+
     <section className="fixed  right-0 px-[20px] w-full bg-white flex flex-row items-center border-b-[2px]  h-[100px] z-50">
       <article className="flex flex-1 justify-start items-center h-full ">
         <NavLink to="/"><h1 className="text-[var(--primary)] m-0 leading-none">Luna</h1></NavLink>
@@ -11,13 +14,32 @@ const Header = () => {
       <article className="flex flex-1 justify-center items-center h-full  ">
         <Navigation />
       </article>
+
       <article className="flex flex-1 justify-end gap-6 items-center h-full ">
         <div className="">
-        <NavLink to="/notifications"><Symbol symbol="bell"/></NavLink>
+        {isLoggedIn ?
+         <NavLink to="/library">
+          <Symbol symbol="bell"/>
+          </NavLink>:
+        <NavLink to="/signup">
+         <h3>Sign Up</h3>
+        </NavLink>
+
+         
+         }
         </div >
         {/* <NavLink to="/library"><p className="m-0">Profile</p></NavLink> */}
         <div className="">
-        <NavLink to="/library"><Symbol/></NavLink>
+        {isLoggedIn ?
+         <NavLink to="/library">
+          <Symbol/>
+          </NavLink>:
+        <NavLink to="/signin">
+         <h3>Login</h3>
+        </NavLink>
+
+         
+         }
         </div>
       </article>
     </section>

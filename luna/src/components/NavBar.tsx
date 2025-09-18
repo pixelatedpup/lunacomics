@@ -4,15 +4,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface LinkItem {
+  id:number;
   name: string;
-  id: number;
-  route: string;
+  route?:string;
+  onClick?:()=>void
 }
 interface NavBarProps {
   children?: ReactNode;
   links: LinkItem[];
   onLinkSelect?: (name: string) => void;
 }
+
 
 const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
   const navigate = useNavigate();

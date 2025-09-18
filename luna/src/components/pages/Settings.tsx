@@ -1,3 +1,4 @@
+import Button from "../Button";
 import Description from "../Description";
 import NavBar from "../NavBar";
 import SectionBar from "../SectionBar";
@@ -22,7 +23,8 @@ const Settings = () => {
 
 
                 <section>
-                    <h4>Accessibility options</h4>
+                    
+                    <h2>Accessibility options</h2>
                     <ul>
                         <li><p>Larger Text</p></li>
                         <li><p>Dark Mode</p></li>
