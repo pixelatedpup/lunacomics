@@ -36,7 +36,7 @@ const Preview = () => {
                     <div className="flex flex-row items-center gap-10 justify-center">
                         <article><ComicPage size="sm"/></article>
                         <article> <ComicPage size="md" comicid={comic.id}/></article>
-                        <article><ComicPage size="sm"/></article>
+                        <article><ComicPage  size="sm"/></article>
                     </div>
                     <Button text="Start Reading"/>
                 </section>

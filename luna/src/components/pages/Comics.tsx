@@ -54,7 +54,7 @@ const Comics = () => {
                 <div className="flex justify-center">
                     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 ">
                         {filteredComics.map((comic, index) => (
-                            <ComicPage key={index} comicid={comic.id}/>
+                            <ComicPage key={index} comicid={comic.id} title={comic.title}/>
                         ))}
                     </section>
                 </div>
@@ -63,7 +63,7 @@ const Comics = () => {
                 <div className="flex justify-center">
                     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
                         {allComics.map((comic, index) => (
-                            <ComicPage key={index} comicid={comic.id}/>
+                            <ComicPage key={index} comicid={comic.id} title={comic.title}/>
                         ))}
                     </section>
                 </div>

@@ -19,32 +19,39 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-        const token = localStorage.getItem("token");
-        if(!token) return;
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-        try {
-          const response = await fetch(`http://localhost:8000/api/user/me`,{
-            headers:{
-                "Authorization": `Bearer ${token}`
-            }
-          });
+    try {
+      const response = await fetch("http://localhost:8000/api/user/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-          if(!response.ok) throw new Error("Failed to fetch user");
+      if (response.status === 401) {
+        // Token invalid/expired → log out
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
+        return;
+      }
 
-          const freshUser = await response.json();
-          console.log("User from backend: ", freshUser);
-          setUser(freshUser);
+      if (!response.ok) throw new Error("Failed to fetch user");
 
-        } catch (err) {
-          console.error("Failed to fetch user:", err);
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-        }
-    };
+      const freshUser = await response.json();
+      console.log("User from backend: ", freshUser);
+      setUser(freshUser);
 
-    fetchUser();
-  }, []);
+    } catch (err) {
+      console.error("Failed to fetch user:", err);
+    }
+  };
+
+  fetchUser();
+}, []);
+
 
   const login = (user: User, token: string) => {
     localStorage.setItem("user", JSON.stringify(user));

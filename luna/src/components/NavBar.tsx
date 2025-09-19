@@ -37,8 +37,8 @@ const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
     <aside
       className={`
         p-4 border-gray-200 flex-shrink-0 z-40
-        lg:w-[250px] lg:border-r lg:sticky lg:top-[100px]  /* desktop sidebar */
-        fixed top-[100px] left-0 w-full border-t bg-white md:border-r-0  /* mobile/tablet fixed below header */
+        lg:w-[250px] lg:sticky lg:top-[100px]  /* desktop sidebar */
+        fixed top-[100px] left-0 w-full  bg-white md:border-r-0  /* mobile/tablet fixed below header */
       `}
     >
       <div
