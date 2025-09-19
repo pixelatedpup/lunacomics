@@ -37,14 +37,16 @@ const Comics = () => {
 
             {/* Comics Grid */}
             <main className="flex flex-col flex-1 p-4">
-                <section className="flex  lg:flex-row md:flex-col sm:flex-col mb-[20px] gap-5">
+                <section className="flex  lg:flex-row md:flex-col sm:flex-col mb-[20px] gap-5 ">
                     <h1 className="sm:text-center md:text-center">{genreTag || "All"}</h1>
-                    <div className="flex flex-col justify-center md:items-center sm:items-center items-end flex-1">
-                    <Input custom="w-[383px] h-[35px] sm:w-full md:w-full"
-                            typeUse="text"
-                            label=""
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-                            value={searchTerm}/>
+                    <div className="flex flex-col flex-1 
+                                    md:items-center sm:items-center lg:items-end 
+                                    justify-center">
+                        <Input custom="w-[383px] h-[35px] sm:w-full md:w-full"
+                                typeUse="text"
+                                label=""
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                                value={searchTerm}/>
 
                     </div>
                 </section>

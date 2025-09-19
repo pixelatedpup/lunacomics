@@ -29,8 +29,19 @@ const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
 
   const handleLink = (index: number) => {
     setHighlightLink(index);
-    onLinkSelect?.(links[index].name);
+    const link = links[index];
+
+    //Checks to see if link object has an onClick item
+    if (link.onClick) {
+      link.onClick()
+      return;
+    }
+    //Checks to see if link object has a route item
+    if(link.route){
+          onLinkSelect?.(links[index].name);
     navigate(`${links[index].route}`);
+    }
+
   };
 
   return (

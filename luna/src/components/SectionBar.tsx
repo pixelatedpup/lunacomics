@@ -21,7 +21,7 @@ const SectionBar = () => {
         {id: 2 , name: "Notifications", route:"/notifications"},
         {id: 3 , name: "Wishlist" , route:"/wishlist"},
         {id: 4 , name: "Settings", route:"/settings"},
-        {id: 5 , name: "Logout", onclick:handleLogout},
+        {id: 5 , name: "Logout", onClick:handleLogout},
 
     ]
     return(
