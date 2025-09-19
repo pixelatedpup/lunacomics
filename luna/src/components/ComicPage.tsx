@@ -1,30 +1,17 @@
+// ComicPage.tsx
 import Card from "./Card";
 import { useWindowSize } from "../hooks/useWindowSize";
 
 type Size = "tiny" | "sm" | "md" | "lg";
 
-interface ComicProps{ 
-  source?: string;
+interface ComicProps {
+  // Other props
   size?: Size;
-  description?:string;
+  comicid?: number;
   title?:string;
-  volume?:number;
-  author?:number;
-  id?:number;
-  comicid?:number;
 }
 
-const ComicPage = ({
-  source = "",
-  size = "md",
-  comicid,
-  description = "Default",
-  title = "Default",
-  volume = 0,
-  author = 0,
-  id = 0
-}: ComicProps
-) => {
+const ComicPage = ({ size = "md", comicid , title}: ComicProps) => {
   const sizeClasses: Record<Size, string> = {
     tiny: "w-[162px] h-[261px]",
     sm: "w-[162px] h-[261px]",
@@ -32,28 +19,28 @@ const ComicPage = ({
     lg: "w-[516px] h-[829px]",
   };
 
-  // Get dynamic size from hook
+  const widthClasses: Record<Size,string> = {
+    tiny: "w-[162px]",
+    sm: "w-[162px]",
+    md: "w-[207px]",
+    lg: "w-[516px]",
+  }
+
   const currentDynamicSize = useWindowSize(size);
 
-  // Debug logs
-  // console.log("ComicPage render:", {
-  //   initialSize: size,
-  //   currentDynamicSize,
-  //   appliedClass: sizeClasses[currentDynamicSize],
-  //   source,
-  // });
-
   return (
-    <div>
+    <div className={`md:${widthClasses["md"]} sm:${widthClasses["sm"]} flex flex-col gap-[5px]` }>
       <Card
-        // Pass the Tailwind class directly
         custom={sizeClasses[currentDynamicSize]}
-        // Removed fixed width/height to let Tailwind control it
-        source={source || "/placeholder.png"} // test placeholder if empty
-        cardid = {comicid}
+        cardid={comicid}
         cardType="cover"
         round={true}
       />
+
+      {title && 
+      <h3 className="w-full break-words text-wrap text-center">{title}</h3>
+      }
+
     </div>
   );
 };

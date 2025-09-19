@@ -22,8 +22,21 @@ router.post("/signup", async (req, res) => {
       isCreator,
     });
 
-    await newUser.save();
-    res.status(201).json({ message: "User created successfully" });
+    const savedUser = await newUser.save();
+
+    // After successfully saving the user, create and send the token
+    const token = jwt.sign(
+      { id: savedUser._id, username: savedUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    
+    // Send the token and user data in the response
+    res.status(201).json({
+      token,
+      user: { id: savedUser._id, username: savedUser.username, isCreator: savedUser.isCreator, name:savedUser.name},
+    });
+
   } catch (err) {
     console.error("Signup error:", err.message);
     res.status(500).json({ error: err.message });
@@ -50,12 +63,13 @@ router.post("/login", async (req, res) => {
 
     res.json({
       token,
-      user: { id: user._id, username: user.username, isCreator: user.isCreator },
+      user: { id: user._id, username: user.username, isCreator: user.isCreator, name:user.name},
     });
   } catch (err) {
     console.error("Login error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 export default router;

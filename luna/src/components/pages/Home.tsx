@@ -7,7 +7,8 @@ import { hotComics } from "./DataHome";
 import { library } from "./DataHome"
 import { newComics } from "./DataHome"
 import Card from "../Card"
-import { UserContext } from "../../context/Usercontext"
+// import {useWindowSize} from "../../hooks/useWindowSize";
+
 import { useUser } from "../../hooks/useUser"
 // import { NavLink } from "react-router-dom"
 
@@ -121,14 +122,14 @@ const Home = () => {
         </section>
 
         {/* New Comics Section */}
-        <section className="flex flex-wrap flex-1 flex-col mt-[70px]">
+        <section className="flex flex-col flex-wrap flex-1 flex-col mt-[70px]">
             <article className="mb-[15px]">
                 <h2>New Comics</h2>
             </article>
 
-            <div className="flex flex-wrap flex-row justify-evenly gap-7 w-full">
+            <div className="flex flex-wrap flex-row justify-evenly gap-7">
                 {newComics.map((comic)=>(
-                    <Comics comicid={comic.comicid} />
+                        <Comics comicid={comic.comicid} title={comic.title}/>
                 ))}
             </div>
         </section>
@@ -140,7 +141,7 @@ const Home = () => {
             </article>
             <div className="flex flex-wrap flex-row justify-evenly gap-7 w-full ">
                 {hotComics.map((comic)=>(
-                    <Comics comicid={comic.comicid}/>
+                    <Comics comicid={comic.comicid} title={comic.title}/>
                 ))}
             </div>
         </section>
