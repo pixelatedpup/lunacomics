@@ -2,7 +2,7 @@ import Icon from "../Icon"
 import Comics from "../ComicPage"
 import Highlight from "../Highlight"
 import {useEffect, useState, useContext } from "react"
-import { allComics } from "../../assets/AllComics"
+import { allComics } from "../../assets/AllComics.tsx"
 import { hotComics } from "./DataHome";
 import { library } from "./DataHome"
 import { newComics } from "./DataHome"

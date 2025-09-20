@@ -1,7 +1,7 @@
 import Card from "../Card";
 import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
-import { allComics } from "../../assets/AllComics";
+import { allComics } from "../../assets/AllComics.tsx";
 import Banner from "../Banner";
 
 const Creators = () => {

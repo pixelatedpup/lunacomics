@@ -1,7 +1,7 @@
 import NavBar from "../NavBar";
 import ComicPage from "../ComicPage";
 import { useState } from "react";
-import { allComics } from "../../assets/AllComics";
+import { allComics } from "../../assets/AllComics.js";
 import Input from "../Input";
 const Comics = () => {
 
