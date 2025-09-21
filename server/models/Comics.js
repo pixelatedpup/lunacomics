@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 const ComicSchema = new mongoose.Schema ({
     title: {type:String, required: true},
     img: String,
-    link: String,
     author: Number,
     volume: Number,
     tag: String,
     description: String,
+    genre:[{type: mongoose.Schema.Types.ObjectId, ref: "Genre"}],
     imageId: Number,
-    status:String,
+    tag:[{type: mongoose.Schema.Types.ObjectId, ref: "Tag"}],
 })
 
 const Comic = mongoose.model("Comic", ComicSchema, "Comic");

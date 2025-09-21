@@ -27,23 +27,25 @@ const Preview = () => {
         <div>
             <section className="flex flex=row gap-5">
             <Card cardid={comic.id} custom="h-[70px] w-[70px]" round={true}/>
-            <h2 className="flex flex-col justify-center">{authorUse?.username?? "Default"} </h2> 
+            <h3 className="flex flex-col justify-center">{authorUse?.username?? "Default"} </h3> 
             </section>
 
             <div>
 
                 <section className="flex flex-col items-center gap-10">
-                    <div className="flex flex-row items-center gap-10 justify-center">
-                        <article><ComicPage size="sm"/></article>
+                    <div className="flex flex-row items-center  justify-center  w-auto gap-7">
+                        <article><ComicPage size="tiny"/></article>
                         <article> <ComicPage size="md" comicid={comic.id}/></article>
-                        <article><ComicPage  size="sm"/></article>
+                        <article><ComicPage size="tiny"/></article>
+                        
+                        
                     </div>
                     <Button text="Start Reading"/>
                 </section>
 
                 <section className="flex flex-col gap-10 mt-[40px]">
                     <article className="flex flex-col items-center">
-                        <h1>{comic.title}</h1>
+                        <h1 className="text-center">{comic.title}</h1>
                         <h2 className="text-[var(--primary)]">VOLUME {comic.volume}</h2>
                     </article>
 

@@ -13,7 +13,7 @@ interface ComicProps {
 
 const ComicPage = ({ size = "md", comicid , title}: ComicProps) => {
   const sizeClasses: Record<Size, string> = {
-    tiny: "w-[162px] h-[261px]",
+    tiny: "w-[108px] h-[174px]",
     sm: "w-[162px] h-[261px]",
     md: "w-[207px] h-[333px]",
     lg: "w-[516px] h-[829px]",
@@ -23,7 +23,12 @@ const ComicPage = ({ size = "md", comicid , title}: ComicProps) => {
   const currentDynamicSize = useWindowSize(size);
 
   return (
-    <div className={`lg:w-[207px] md:w-[207px] sm:w-[162px] flex flex-col gap-[5px] h-auto` }>
+    <div className={`
+                    ${size == "sm" && 'w-[207px] h-[333px]'}
+                    ${size == "md" && 'w-[162px] h-[261px]'}
+                    ${size == "lg" && 'w-[516px] h-[829px]'}
+                    ${size == "tiny" && 'w-[108px] h-[174px]'}
+                    flex flex-col gap-[5px] h-auto` }>
       <Card
         custom={sizeClasses[currentDynamicSize]}
         cardid={comicid}
