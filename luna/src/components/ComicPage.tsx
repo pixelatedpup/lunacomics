@@ -19,17 +19,11 @@ const ComicPage = ({ size = "md", comicid , title}: ComicProps) => {
     lg: "w-[516px] h-[829px]",
   };
 
-  const widthClasses: Record<Size,string> = {
-    tiny: "w-[162px]",
-    sm: "w-[162px]",
-    md: "w-[207px]",
-    lg: "w-[516px]",
-  }
 
   const currentDynamicSize = useWindowSize(size);
 
   return (
-    <div className={`md:${widthClasses["md"]} sm:${widthClasses["sm"]} flex flex-col gap-[5px]` }>
+    <div className={`lg:w-[207px] md:w-[207px] sm:w-[162px] flex flex-col gap-[5px] h-auto` }>
       <Card
         custom={sizeClasses[currentDynamicSize]}
         cardid={comicid}
@@ -38,7 +32,7 @@ const ComicPage = ({ size = "md", comicid , title}: ComicProps) => {
       />
 
       {title && 
-      <h3 className="w-full break-words text-wrap text-center">{title}</h3>
+        <h3 className={`w-full whitespace-normal break-words text-center`}>{title} </h3>
       }
 
     </div>

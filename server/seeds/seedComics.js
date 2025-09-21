@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Comic from "./models/Comics.js";
-import {allComics} from "./assets/AllComics.js";
+import Comic from "../models/Comics.js";
+import {allComics} from "../assets/AllComics.js";
 
 dotenv.config();
 
