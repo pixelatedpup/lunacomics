@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js"
+import comicRoutes from "./routes/comic.js"
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 //routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/comics", comicRoutes)
 
 //connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
