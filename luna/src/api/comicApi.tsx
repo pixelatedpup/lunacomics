@@ -22,3 +22,9 @@ export async function fetchComicByTag(tagName:string):Promise<Comic[]> {
     if(!res.ok) throw new Error("Failed to fetch comics");
     return res.json();
 }
+
+export async function fetchUserLibrary(userId: string): Promise<Comic[]>{
+    const res = await fetch(`${API_BASE}/user/library/${userId}`);
+    if(!res.ok) throw new Error("Failed to fetch user library");
+    return res.json();
+}

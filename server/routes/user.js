@@ -39,5 +39,28 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.get("/library/:id", async(req,res)=>{
+  try{
+    const user = await User.findById(req.params.id)
+    .select("-password")
+    .populate({
+      path:"library",
+      populate: [
+        {path: "tag", select:"_id name"},
+        {path:"genre", select:"_id name"}
+      ]
+    })
+    if(!user){
+      return res.status(404).json({error:"User not found"});
+    }
+    res.json(user.library);
+    
+
+
+  }catch(err){
+    res.status(500).json({error: err.message});
+    console.log("Failed to get library", err);
+  }
+})
 
 export default router;

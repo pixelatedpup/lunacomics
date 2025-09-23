@@ -2,12 +2,13 @@ import Icon from "../Icon"
 import Comics from "../ComicPage"
 import Highlight from "../Highlight"
 import {useEffect, useState, useContext } from "react"
-import { allComics } from "../../assets/AllComics.tsx"
+// import { allComics } from "../../assets/AllComics.tsx"
 import { hotComics } from "./DataHome";
 import { library } from "./DataHome"
-import { newComics } from "./DataHome"
+// import { newComics } from "./DataHome"
 import Card from "../Card"
-import { fetchComicByTag, type Comic } from "../../api/comicApi.tsx"
+import { fetchComicByTag, type Comic, fetchUserLibrary } from "../../api/comicApi.tsx"
+
 // import {useWindowSize} from "../../hooks/useWindowSize";
 
 import { useUser } from "../../hooks/useUser"
@@ -29,6 +30,7 @@ const Home = () => {
     const [newComicsDB, setNewComicsDB] = useState<Comic[]>([])
     const [hotComicsDB, setHotComicsDB] = useState<Comic[]>([])
     const [topComicsDB, setTopComicsDB] = useState<Comic[]>([])
+    const[libraryDB, setLibraryDB] = useState<Comic[]>([])
 
     useEffect(()=>{
         fetchComicByTag("New").then(setNewComicsDB).catch(console.error);
@@ -69,13 +71,19 @@ const Home = () => {
                 <h2>Your library</h2>
             </article>
 
-            <div className="flex lg:flex-wrap justify-evenly gap-7 w-full
-                             sm:w-full sm:overflow-y-auto">
-                {library.map((comic) => (
-                    <div className="flex flex-col">
-                        <Icon iconid={comic.comicid} />
-                        
-                            <p className="w-[140px] truncate text-center mt-[15px] font-bold text-[var(--primary)]">{comic.title}</p>
+            <div className="flex flex-row items-center overflow-x-auto w-full gap-5 
+                            lg:h-[200px] md:h-[200px] sm:h-[150px] 
+                            lg:p-[20px] sm:p-[3px]">
+
+                <div className="flex flex-col items-center">
+                    <Icon iconid={0}/>
+                    <p className="w-[140px] truncate text-center font-bold text-[var(--primary)]">Add New</p>
+                </div>
+                {libraryDB.map((comic) => (
+                    <div className="flex flex-col items-center">
+                            
+                            <Icon iconid={comic.imageId} />
+                            <p className="w-[140px] truncate text-center font-bold text-[var(--primary)]">{comic.title}</p>
                         
                     </div>
                 ))}
