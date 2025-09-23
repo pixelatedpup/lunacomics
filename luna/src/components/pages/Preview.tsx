@@ -7,12 +7,31 @@ import { allComics } from "../../assets/AllComics.tsx";
 import { allAuthors } from "../../assets/AllAuthors";
 import Icon from "../Icon";
 import Card from "../Card";
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
+
+//Imports for the server
+import { addToLibrary, fetchComics,type Comic} from "../../api/comicApi";
+import { useUser } from "../../hooks/useUser";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
     const comic = allComics.find(c => c.id === Number(comicId));
     const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
+    const [comicDB, setComicDB] = useState<Comic[]>([])
+    
+    useEffect(()=>{
+        //gets comics and then passes them to comicDB
+        fetchComics()
+        .then(setComicDB)
+        .catch(console.error);
+    })
+    const handleAddToLibrary = async() => {
+        try{
+      
+        }catch(err){
+            console.log("Error adding to library", err)
+        }
+    }
 
     if (!comic){
         return <div>Comic not found</div>

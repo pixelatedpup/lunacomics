@@ -14,6 +14,7 @@ interface CardProps {
   cardid?: number;
   link?: string;
   cardType?: CardType;
+  cardIdDB?:string;
 }
 
 const Card = ({

@@ -28,3 +28,17 @@ export async function fetchUserLibrary(userId: string): Promise<Comic[]>{
     if(!res.ok) throw new Error("Failed to fetch user library");
     return res.json();
 }
+
+export async function addToLibrary(comicId: string, token: string): Promise<Comic[]> {
+    const res = await fetch(`${API_BASE}/user/library/add`, {
+        method: "POST", //Specifise that its a post method
+        headers: {
+            "Content-Type": "application/json", //Tells the server the body that is being sent is JSON and not html
+            "Authorization": `Bearer ${token}` //Proves who the user is through authentication. JSON Web Token
+        },
+        body:JSON.stringify({comicId})//Turns from the fetch String to a a JSON Object.
+    })
+
+    if(!res.ok) throw new Error("Failed to add to library");
+    return res.json();
+}

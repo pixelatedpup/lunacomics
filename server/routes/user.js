@@ -2,6 +2,7 @@
 import express from "express";
 import User from "../models/User.js";
 import verifyToken from "../middleware/verifyToken.js"; 
+import Comic from "../models/Comics.js";
 
 const router = express.Router();
 
@@ -60,6 +61,36 @@ router.get("/library/:id", async(req,res)=>{
   }catch(err){
     res.status(500).json({error: err.message});
     console.log("Failed to get library", err);
+  }
+})
+
+//Adding comics to library 
+router.get("/library/add", verifyToken, async (req,res) =>{
+  try{
+    const {comicId} = req.body;
+    const userId = req.user.id;
+
+    //Check comic exists
+    const comic = await Comic.findById(comicId);
+    if(!comic) return res.status(404).json({error: "Comic not found"});
+
+    //Update user library, preventing duplicates
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {$addToSet: {library: comicId}}, //$addToSet prevents duplicates
+      {new: true}
+    )
+    .populate({
+      path: "library",
+      populate:[{path:"tag"}, {path:"genre"}]
+    })
+    .select("-password");
+
+      res.json(user.library);
+  }
+  catch(err){
+    console.error("Error adding to library:", err);
+    res.status(500).json({error: err.messages});
   }
 })
 
