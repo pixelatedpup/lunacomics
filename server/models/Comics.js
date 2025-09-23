@@ -5,7 +5,6 @@ const ComicSchema = new mongoose.Schema ({
     img: String,
     author: Number,
     volume: Number,
-    tag: String,
     description: String,
     genre:[{type: mongoose.Schema.Types.ObjectId, ref: "Genre"}],
     imageId: Number,

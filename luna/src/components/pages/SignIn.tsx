@@ -2,7 +2,7 @@ import Input from "../Input";
 import Button from "../Button";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/Usercontext";
+import { UserContext } from "../../context/UserContext";
 
 const SignIn = () => {
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import express from "express";
-import Comic from "../models/Comics";
+import Comic from "../models/Comics.js";
 import Tag from "../models/Tag.js"
+import Genre from "../models/Genre.js"
 
 const router = express.Router();
 
@@ -14,7 +15,8 @@ router.get("/", async (req, res) => {
         .populate("genre");
 
         res.json(comics);
-    }catch{
+    }catch(err){
+        console.error("Fetch by tag error:", err);
         res.status(500).json({error: "Failed to fetch comics"})
     }
 });
@@ -30,6 +32,7 @@ router.get("/by-tag/:tagName", async (req,res) => {
 
         res.json(comics);
     }catch(err){
+        console.error("Fetch by tag error:", err);
         res.status(500).json({error: "Failed to fetch by tag"})
     }
 });

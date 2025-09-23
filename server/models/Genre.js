@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
 const GenreSchema = new mongoose.Schema({
-    genre: String
-})
+    name: {
+        type: String,
+        required:true,
+        unique: true,
+    }
+});
 
 const Genre = mongoose.model("Genre", GenreSchema,"Genre");
 export default Genre;

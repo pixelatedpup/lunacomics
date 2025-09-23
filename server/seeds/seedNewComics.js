@@ -18,11 +18,11 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
 
     // 2. Insert Genres and Tags first
     const genres = await Genre.insertMany([
-      { genre: "Comedy" },
-      { genre: "Action" },
-      { genre: "Drama" },
-      { genre: "Sci-Fi" },
-      { genre: "Fantasy" },
+      { name: "Comedy" },
+      { name: "Action" },
+      { name: "Drama" },
+      { name: "Sci-Fi" },
+      { name: "Fantasy" },
     ]);
 
     const tags = await Tag.insertMany([
@@ -33,10 +33,10 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
 
     // 3. Create lookup maps
     const genreMap = {};
-    genres.forEach((g) => (genreMap[g.genre] = g._id));
+    genres.forEach((g) => (genreMap[g.name] = g._id));
 
     const tagMap = {};
-    tags.forEach((t) => (tagMap[t.tag] = t._id));
+    tags.forEach((t) => (tagMap[t.name] = t._id));
 
     // 4. Transform allComics with ObjectIds
     const comicsWithIds = allComics.map((comic) => ({
