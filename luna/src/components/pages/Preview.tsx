@@ -43,6 +43,7 @@ const Preview = () => {
             console.warn("Must be logged in to add to library");
             return;
         }
+        console.log("Client-side: Sending comicId:", comicId, "with type:", typeof comicId);
         try{
             const updatedLibrary = await addToLibrary(comicId, token);
             console.log("Library updated:", updatedLibrary);

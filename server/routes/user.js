@@ -65,10 +65,12 @@ router.get("/library/:id", async(req,res)=>{
 })
 
 //Adding comics to library 
-router.get("/library/add", verifyToken, async (req,res) =>{
+router.post("/library/add", verifyToken, async (req,res) =>{
   try{
     const {comicId} = req.body;
     const userId = req.user.id;
+
+    console.log("Server-side: Received comicId:", comicId, "with type:", typeof comicId);
 
     //Check comic exists
     const comic = await Comic.findById(comicId);
