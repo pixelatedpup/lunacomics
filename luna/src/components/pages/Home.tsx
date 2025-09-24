@@ -37,7 +37,7 @@ const Home = () => {
         fetchComicByTag("Top").then(setTopComicsDB).catch(console.error);
         fetchComicByTag("Hot").then(setHotComicsDB).catch(console.error);
         //console.log(hotComicsNew);
-    },[newComicsDB])
+    },[])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -148,7 +148,7 @@ const Home = () => {
 
             <div className="flex flex-row items-center gap-5 overflow-x-auto justify-evenly gap-7 w-full">
                 {newComicsDB.map((comic)=>(
-                        <Comics comicid={comic.imageId} title={comic.title}/>
+                        <Comics comicid={comic.imageId} title={comic.title} comicIdDB={comic._id}/>
                 ))}
             </div>
         </section>
@@ -160,7 +160,7 @@ const Home = () => {
             </article>
             <div className="flex flex-row items-center gap-5 overflow-x-auto justify-evenly gap-7 w-full">
                 {topComicsDB.map((comic)=>(
-                    <Comics comicid={comic.imageId} title={comic.title}/>
+                    <Comics comicid={comic.imageId} title={comic.title} comicIdDB={comic._id}/>
                 ))}
             </div>
         </section>

@@ -15,21 +15,41 @@ import { useUser } from "../../hooks/useUser";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
-    const comic = allComics.find(c => c.id === Number(comicId));
-    const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
     const [comicDB, setComicDB] = useState<Comic[]>([])
+    const {user, token, isLoggedIn} = useUser();
+
+    
+    // const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
+    
     
     useEffect(()=>{
         //gets comics and then passes them to comicDB
         fetchComics()
         .then(setComicDB)
         .catch(console.error);
-    })
+    },[])
+
+
+    useEffect(() => {
+        console.log("Fetched comics:", comicDB);
+        console.log("Route comicId:", comicId);
+    }, [comicDB, comicId]);
+
+
+    const comic = comicDB.find(c => c._id === comicId);
+
     const handleAddToLibrary = async() => {
+        if (!comicId || !token){
+            console.warn("Must be logged in to add to library");
+            return;
+        }
         try{
-      
+            const updatedLibrary = await addToLibrary(comicId, token);
+            console.log("Library updated:", updatedLibrary);
+            alert(`${comic?.title} added to library!`);
         }catch(err){
-            console.log("Error adding to library", err)
+            console.error("Error adding to library", err);
+            alert("Failed to add comic to libray")
         }
     }
 
@@ -37,29 +57,28 @@ const Preview = () => {
         return <div>Comic not found</div>
     }
 
-    useEffect(()=> (
-        console.log()
-   
-    ), [])
     return (
         <>
         <div>
             <section className="flex flex=row gap-5">
-            <Card cardid={comic.id} custom="h-[70px] w-[70px]" round={true}/>
-            <h3 className="flex flex-col justify-center">{authorUse?.username?? "Default"} </h3> 
+            <Card cardIdDB={comicId} custom="h-[70px] w-[70px]" round={true}/>
+            {/* <h3 className="flex flex-col justify-center">{authorUse?.username?? "Default"} </h3>  */}
             </section>
 
             <div>
 
                 <section className="flex flex-col items-center gap-10">
                     <div className="flex flex-row items-center  justify-center  w-auto gap-7">
-                        <article><ComicPage size="tiny"/></article>
-                        <article> <ComicPage size="md" comicid={comic.id}/></article>
-                        <article><ComicPage size="tiny"/></article>
+                        <article><ComicPage comicIdDB={comicId} size="tiny"/></article>
+                        <article> <ComicPage comicIdDB={comicId}  size="md"/></article>
+                        <article><ComicPage comicIdDB={comicId}  size="tiny"/></article>
                         
                         
                     </div>
                     <Button text="Start Reading"/>
+                    {isLoggedIn && (
+                    <Button text="Start Reading" onClick={handleAddToLibrary}/> 
+                    )}
                 </section>
 
                 <section className="flex flex-col gap-10 mt-[40px]">

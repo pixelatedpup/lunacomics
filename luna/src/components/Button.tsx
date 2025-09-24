@@ -8,6 +8,8 @@ interface ButtonProps{
     bg?: Color; 
     color?: Color; 
     type?:Button;
+    onClick?:React.MouseEventHandler<HTMLButtonElement>
+   
 }
 
 const Button = ({ 
@@ -15,7 +17,8 @@ const Button = ({
     text = "", 
     bg = "accent", 
     color = "white" ,
-    type="button"
+    type="button",
+    onClick,
 }:ButtonProps) => {
     const sizeClasses = {
         sm: "w-[80px] h-[40px]",
@@ -34,7 +37,7 @@ const Button = ({
     const textClasses = {
         white: "text-white",
         light: "text-[var(--light)]",
-        accent: "bg-[var(--accent)]",
+        accent: "text-[var(--accent)]",
         dark: "text-[var(--dark)]",
         primary: "text-[var(--primary)]",
     };
@@ -42,6 +45,7 @@ const Button = ({
     return (
         <button
             type={type}
+            onClick={onClick}
             className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.3s] hover:scale-[110%] hover:bg-white hover:border hover:border-black hover:text-black`}
         >
             {text}

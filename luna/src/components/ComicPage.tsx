@@ -13,7 +13,7 @@ interface ComicProps {
   title?:string;
 }
 
-const ComicPage = ({ size = "md", comicid ,comicIdDB, title}: ComicProps) => {
+const ComicPage = ({ size = "md", comicid ,comicIdDB="", title}: ComicProps) => {
 
 
   const sizeClasses: Record<Size, string> = {
@@ -38,6 +38,7 @@ const ComicPage = ({ size = "md", comicid ,comicIdDB, title}: ComicProps) => {
         cardid={comicid}
         cardType="cover"
         round={true}
+        cardIdDB={comicIdDB}
       />
 
       {title && 
