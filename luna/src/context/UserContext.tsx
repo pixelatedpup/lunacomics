@@ -34,12 +34,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch("http://localhost:8000/api/user/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`, // ✅ use storedToken directly
         },
       });
 
       if (response.status === 401) {
-        // Token invalid/expired → log out
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);
@@ -64,6 +63,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   fetchUser();
 }, []);
+
 
 
   const login = (user: User, newToken: string) => {

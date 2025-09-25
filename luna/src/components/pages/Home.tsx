@@ -22,7 +22,7 @@ const Home = () => {
 
     {/* NOTE: Create a seperate Library Table later on . Use AllComicsData for now*/}
 
-    const {isLoggedIn} = useUser();
+    const {isLoggedIn,user} = useUser();
 
     const[highlightIndex, setHighlightIndex] = useState(0);
     const[resetTrigger, setResetTrigger] = useState(0);
@@ -31,6 +31,16 @@ const Home = () => {
     const [hotComicsDB, setHotComicsDB] = useState<Comic[]>([])
     const [topComicsDB, setTopComicsDB] = useState<Comic[]>([])
     const[libraryDB, setLibraryDB] = useState<Comic[]>([])
+
+    useEffect(() => {
+        if(!isLoggedIn || !user) return;
+
+        fetchUserLibrary(user.id)
+            .then(setLibraryDB)
+            .catch((err)=> {
+                console.error("Failed to fetch library:", err);
+            });
+    }, [isLoggedIn, user]);
 
     useEffect(()=>{
         fetchComicByTag("New").then(setNewComicsDB).catch(console.error);
