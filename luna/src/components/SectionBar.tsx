@@ -1,5 +1,5 @@
 import NavBar from "./NavBar";
-import { UserContext } from "../context/Usercontext";
+import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 

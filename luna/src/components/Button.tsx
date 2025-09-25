@@ -22,7 +22,7 @@ const Button = ({
 }:ButtonProps) => {
     const sizeClasses = {
         sm: "w-[80px] h-[40px]",
-        md: "w-[235px] h-[58px]",
+        md: "w-[150px] h-[45px]",
         lg: "w-[160px] h-[60px]",
     };
 

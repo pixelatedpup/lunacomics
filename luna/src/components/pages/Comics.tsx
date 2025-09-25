@@ -1,12 +1,21 @@
 import NavBar from "../NavBar";
 import ComicPage from "../ComicPage";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { allComics } from "../../assets/AllComics.tsx";
 import Input from "../Input";
+import { fetchComics, type Comic} from "../../api/comicApi.tsx"
 const Comics = () => {
 
     const [genreTag, setGenreTag] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
+    const [comicDB, setComicDB] = useState<Comic[]>([])
+
+    useEffect(()=>{
+            //gets comics and then passes them to comicDB
+            fetchComics()
+            .then(setComicDB)
+            .catch(console.error);
+        },[])
 
     const links = 
     [   {name: "All", id: 0, route:""},
@@ -20,8 +29,12 @@ const Comics = () => {
     // const filteredComics = genreTag
     //     ? allComics.filter(comic => comic.tag === genreTag) : allComics;
       // Filter by genre AND search term
-    const filteredComics = allComics.filter((comic) => {
-        const matchesGenre = genreTag && genreTag !== "All" ? comic.tag === genreTag : true;
+    const filteredComics = comicDB.filter((comic) => {
+        const matchesGenre = genreTag && genreTag !== "All" 
+        ? comic.tag.some((t)=> t.name === genreTag)
+        :true
+
+        //Search filtering
         const matchesSearch = searchTerm
         ? comic.title.toLowerCase().includes(searchTerm.toLowerCase())
         : true;
@@ -56,7 +69,7 @@ const Comics = () => {
                 <div className="flex justify-center">
                     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 ">
                         {filteredComics.map((comic, index) => (
-                            <ComicPage key={index} comicid={comic.id} title={comic.title}/>
+                            <ComicPage key={index} comicid={comic.imageId} comicIdDB={comic._id} title={comic.title}/>
                         ))}
                     </section>
                 </div>
@@ -64,8 +77,8 @@ const Comics = () => {
                 
                 <div className="flex justify-center">
                     <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                        {allComics.map((comic, index) => (
-                            <ComicPage key={index} comicid={comic.id} title={comic.title}/>
+                        {filteredComics.map((comic, index) => (
+                            <ComicPage key={index} comicid={comic.imageId} comicIdDB={comic._id} title={comic.title}/>
                         ))}
                     </section>
                 </div>

@@ -14,7 +14,7 @@ interface CardProps {
   custom?: string;   
   id?: string;
   cardid?: number;
-  link?: string;
+  link?: boolean;
   cardType?: CardType;
   cardIdDB?:string;
 }
@@ -26,10 +26,11 @@ const Card = ({
   source = "",
   round = false,
   id = "",
-  link = "",
+  link = false,
   cardid = 17,
   cardType = "icon",
-  cardIdDB = ""
+  cardIdDB = "",
+  
 }: CardProps) => {
   const navigate = useNavigate();
   const {comicsDb, loading} = useComics();
@@ -66,8 +67,13 @@ const Card = ({
       : navigate(`/creator/${encodeURIComponent(cardid)}`);
   };
 
+  //Temporary
+  const handleLink = (source:string | "") =>{
+    navigate(`/${source}`)
+  }
+
   return (
-    <a className="cursor-pointer" onClick={() => handleCardView(cardIdDB || " ")}>
+    <a className="cursor-pointer" onClick={!link?() => handleCardView(cardIdDB || " "): ()=>handleLink(source)}>
       <div
         className={`
           hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)] duration-[0.5s] transition-all 

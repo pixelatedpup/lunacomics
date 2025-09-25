@@ -10,12 +10,13 @@ import Card from "../Card";
 import { useEffect, useState} from "react";
 
 //Imports for the server
-import { addToLibrary, fetchComics,type Comic} from "../../api/comicApi";
+import { addToLibrary, fetchComics, fetchUserLibrary, type Comic} from "../../api/comicApi";
 import { useUser } from "../../hooks/useUser";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
     const [comicDB, setComicDB] = useState<Comic[]>([])
+    const [libraryDB, setLibraryDB] = useState<Comic[]>([]);
     const {user, token, isLoggedIn} = useUser();
 
     
@@ -27,6 +28,12 @@ const Preview = () => {
         fetchComics()
         .then(setComicDB)
         .catch(console.error);
+
+        //Checks to see if the user is logged in or not
+        if(!isLoggedIn || !user) return;
+        fetchUserLibrary(user.id)
+        .then(setLibraryDB)
+        .catch(console.error);
     },[])
 
 
@@ -36,7 +43,9 @@ const Preview = () => {
     }, [comicDB, comicId]);
 
 
+
     const comic = comicDB.find(c => c._id === comicId);
+    const matchComics = libraryDB.find(comicDB => comicDB._id === comicId);
 
     const handleAddToLibrary = async() => {
         if (!comicId || !token){
@@ -76,10 +85,12 @@ const Preview = () => {
                         
                         
                     </div>
-                    <Button text="Start Reading"/>
-                    {isLoggedIn && (
-                    <Button text="Start Reading" onClick={handleAddToLibrary}/> 
-                    )}
+                    <div className="flex flex-row gap-2">
+                        <Button text="Start Reading"/>
+                        {isLoggedIn && (
+                        <Button color="light" bg="dark" text={!matchComics?'Add to Library':'In Library'} onClick={handleAddToLibrary}/> 
+                        )}
+                    </div>
                 </section>
 
                 <section className="flex flex-col gap-10 mt-[40px]">

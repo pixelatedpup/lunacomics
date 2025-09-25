@@ -86,13 +86,13 @@ const Home = () => {
                             lg:p-[20px] sm:p-[3px]">
 
                 <div className="flex flex-col items-center">
-                    <Icon iconid={0}/>
+                    <Icon iconid={16} link={true} source="comics" />
                     <p className="w-[140px] truncate text-center font-bold text-[var(--primary)]">Add New</p>
                 </div>
                 {libraryDB.map((comic) => (
                     <div className="flex flex-col items-center">
                             
-                            <Icon iconid={comic.imageId} />
+                            <Icon iconid={comic.imageId} comicId={comic._id}/>
                             <p className="w-[140px] truncate text-center font-bold text-[var(--primary)]">{comic.title}</p>
                         
                     </div>
