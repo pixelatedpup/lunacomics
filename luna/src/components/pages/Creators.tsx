@@ -3,8 +3,20 @@ import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
 import { allComics } from "../../assets/AllComics.tsx";
 import Banner from "../Banner";
-
+import { fetchCreators, type Creator } from "../../api/authorApi.tsx";
+import { useState,useEffect } from "react";
 const Creators = () => {
+
+    const [creators, setCreators] = useState<Creator[]>([])
+
+    useEffect(()=>{
+
+        fetchCreators()
+        .then(setCreators)
+        .catch((err) => {
+            console.error("Failed to get and store creators", err)
+        })
+    },[])
 
     return (
         <>
@@ -16,8 +28,8 @@ const Creators = () => {
         </section>
 
         <section className="flex flex-row gap-20 w-full justify-evenly mt-[30px] overflow-y-auto">
-            {allAuthors.map((creator) => (
-                <Banner key={creator.id} cardid={creator.id}/>
+            {creators.map((creator,index) => (
+                <Banner key={index} cardid={creator.imageId} otherId={creator._id}/>
             ))}
 
         </section>

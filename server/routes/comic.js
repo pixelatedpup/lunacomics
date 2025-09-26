@@ -2,6 +2,7 @@ import express from "express";
 import Comic from "../models/Comics.js";
 import Tag from "../models/Tag.js"
 import Genre from "../models/Genre.js"
+import Creator from "../models/Creator.js"
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.get("/", async (req, res) => {
         const comics = 
         await Comic.find({})
         .populate("tag")
-        .populate("genre");
+        .populate("genre")
+        .populate("author");
 
         res.json(comics);
     }catch(err){
@@ -37,7 +39,17 @@ router.get("/by-tag/:tagName", async (req,res) => {
     }
 });
 
+//Get authors info
+router.get("/creator/:id", async(req,res) => {
+    try{
+        const creator = await Creator.findById(req.params.id);
 
+        res.json(creator);
+    }catch(err){
+        console.error("Failed to get author details:");
+        res.status(500).json({error: "Failed to get author"});
+    }
+});
 
 export default router;
 

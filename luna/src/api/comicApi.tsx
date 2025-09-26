@@ -2,7 +2,7 @@ export interface Comic{
     _id:string;
     title:string;
     description:string;
-    author: number;
+    author: {_id:string; name:string; username:string; dateCreated:string; followersCount:number}[];
     imageId: number;
     tag:{_id:string; name:string}[];
     genre:{_id:string; name:string}[];

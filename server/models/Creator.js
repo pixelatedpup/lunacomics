@@ -6,6 +6,7 @@ const CreatorSchema = new mongoose.Schema(
         username: String,
         dateCreated: String,
         followersCount: Number,
+        imageId: Number
 
     },
     {timestamps: true}

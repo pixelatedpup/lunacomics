@@ -17,6 +17,7 @@ interface CardProps {
   link?: boolean;
   cardType?: CardType;
   cardIdDB?:string;
+  otherId?:string;
 }
 
 const Card = ({
@@ -30,6 +31,8 @@ const Card = ({
   cardid = 17,
   cardType = "icon",
   cardIdDB = "",
+  otherId=""
+ 
   
 }: CardProps) => {
   const navigate = useNavigate();
@@ -64,7 +67,7 @@ const Card = ({
     if (!cardid) return;
     cardType !== "banner"
       ? navigate(`/preview/${encodeURIComponent(cardid)}`)
-      : navigate(`/creator/${encodeURIComponent(cardid)}`);
+      : navigate(`/creator/${encodeURIComponent(otherId)}`);
   };
 
   //Temporary

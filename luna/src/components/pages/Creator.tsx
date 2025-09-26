@@ -4,43 +4,72 @@ import ComicPage from "../ComicPage"
 import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-
+import { useEffect,useState } from "react";
+import { fetchCreatorOne, type Creator } from "../../api/authorApi";
+import { fetchComics, type Comic } from "../../api/comicApi";
 
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
-        const comicUse = allComics.filter(c => c.author === Number(cardId));
-        const comicIdUse = allComics.find(c => c.author === Number(cardId));
-        const author = allAuthors.find(a => a.id === Number(cardId))
-        
-        useEffect (() => {
-            (console.log(`CardID: ${cardId}`));
-            (console.log(`AuthorID: ${author?.id}`));
-            (console.log(`AuthorName Object: ${author?.name}`))
-        },[cardId]
-            
-            
+        const [creator, setCreator] = useState<Creator|null>(null);
+        const [comic, setComic] = useState<Comic[]>([]);
+        const [loading, setLoading] = useState(true);
+        const [error,setError] = useState<string|null>(null);
 
+        useEffect (() => {
+            fetchComics()
+            .then((data) => {
+                setComic(data);
+                setError(null);
+            })
+            .catch((err) => {
+                console.error("Could not fetch comics", err);
+                setError("Failed to fetch comics");
+            })
+            .finally(()=>setLoading(false));
+        })
+        useEffect (() => {
+            if(!cardId) return;
+
+            fetchCreatorOne(cardId)
+            .then((data) => {
+                setCreator(data);
+                setError(null);
+            }
+            )
+            .catch((err) => {
+                console.error("Could not fetch details of author", cardId, err);
+                setError("Failed to load creator");
+            })
+            .finally(()=>setLoading(false));
+
+            (console.log(`CardID: ${cardId}`));
+            // (console.log(`AuthorID: ${author?.id}`));
+            // (console.log(`AuthorName Object: ${author?.name}`))
+        },[cardId]
         )
+        
+        const comicUse = comic.filter(c => c.author.some((a) => a._id === cardId)) ;
+        // const comicIdUse = allComics.find(c => c.author === Number(cardId));
+        // const author = allAuthors.find(a => a.id === Number(cardId));
     return (
         <>
         {/* NOTE: I'll turn this into a component later.. */}
         <div className="flex flex-col gap-10">
             <section className="flex flex-row gap-4">
                 <article className="flex-[1/3]">
-                    <Icon iconid={comicIdUse?.id}/>
+                    <Icon iconid={creator?.imageId}/>
                 </article>
 
                 <div className="flex-1 flex flex-row ">
                         <article className="flex-1 flex flex-col">
-                            <h1 className="mb-[20px]">{author?.name}</h1>
+                            <h1 className="mb-[20px]">{creator?.name}</h1>
                             <h2> 2 books published</h2>
-                            <h2> {`Member since ${author?.dateCreated}`}</h2>
+                            <h2> {`Member since ${creator?.dateCreated}`}</h2>
                         </article>
 
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
-                            <h2 className="text-center">{`${author?.followersCount} followers`}</h2>
+                            <h2 className="text-center">{`${creator?.followersCount} followers`}</h2>
                             <Button text="Follow"/>
                         </article>
                     </div>
@@ -66,13 +95,13 @@ const Creator = () => {
                     </div>
                     <div className="flex flex-col border border-black rounded-2xl p-[30px] gap-10">
                         {/* Turn this into a component later */}
-                        {comicUse.map((comic, index)=>(
+                        {comicUse.map((c, index)=>(
                             <article className="flex flex-row">
-                                <ComicPage comicid={comic.id}/>
+                                <ComicPage comicid={c.imageId}/>
                                 <div className="flex flex-col p-[30px]">
-                                    <h2>{comic.title}</h2>
-                                    <h3 className="mb-[20px]">{`${comic.volume} Volumes`}</h3>
-                                    <p>{comic.description}</p>
+                                    <h2>{c.title}</h2>
+                                    <h3 className="mb-[20px]">{`${c.volume} Volumes`}</h3>
+                                    <p>{c.description}</p>
                                 </div>
                         </article>
                         ) )}

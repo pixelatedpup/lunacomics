@@ -3,6 +3,7 @@ import express from "express";
 import User from "../models/User.js";
 import verifyToken from "../middleware/verifyToken.js"; 
 import Comic from "../models/Comics.js";
+import Creator from "../models/Creator.js";
 
 const router = express.Router();
 
@@ -26,6 +27,28 @@ router.get("/me", verifyToken, async (req, res) => {
   }
 });
 
+//Get all authors
+router.get("/creator", async(req,res) => {
+    try{
+        const creator = await Creator.find({});
+        res.json(creator);
+    }catch(err){
+        console.error("Failed to get author details:",err);
+        res.status(500).json({error: err.message});
+    }
+});
+
+//Get specific authors info
+router.get("/creator/:id", async(req,res) => {
+    try{
+        const creator = await Creator.findById(req.params.id);
+
+        res.json(creator);
+    }catch(err){
+        console.error("Failed to get author details:");
+        res.status(500).json({error: "Failed to get author"});
+    }
+});
 
 // Your original route to get user by ID remains
 router.get("/:id", async (req, res) => {
@@ -95,5 +118,6 @@ router.post("/library/add", verifyToken, async (req,res) =>{
     res.status(500).json({error: err.messages});
   }
 })
+
 
 export default router;
