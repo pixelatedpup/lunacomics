@@ -5,8 +5,10 @@ import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
-import { fetchCreatorOne, type Creator } from "../../api/authorApi";
-import { fetchComics, type Comic } from "../../api/comicApi";
+import { fetchCreatorOne, type Creator, followAuthor } from "../../api/authorApi";
+import { fetchComics, type Comic} from "../../api/comicApi";
+
+import { useUser } from "../../hooks/useUser";
 
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
@@ -14,6 +16,8 @@ const Creator = () => {
         const [comic, setComic] = useState<Comic[]>([]);
         const [loading, setLoading] = useState(true);
         const [error,setError] = useState<string|null>(null);
+        const {user, token, isLoggedIn} = useUser();
+
 
         useEffect (() => {
             fetchComics()
@@ -27,6 +31,7 @@ const Creator = () => {
             })
             .finally(()=>setLoading(false));
         })
+
         useEffect (() => {
             if(!cardId) return;
 
@@ -47,6 +52,23 @@ const Creator = () => {
             // (console.log(`AuthorName Object: ${author?.name}`))
         },[cardId]
         )
+
+
+        const handleFollowAuthor = async() => {
+                if (!cardId || !token){
+                    console.warn("Must be logged in to follow creator");
+                    return;
+                }
+                console.log("Client-side: Sending creatorId:", cardId, "with type:", typeof cardId);
+                try{
+                    const updatedFollowers = await followAuthor(cardId, token);
+                    console.log("Followers updated:", updatedFollowers);
+                    alert(`${user?.name} added to followers!`);
+                }catch(err){
+                    console.error("Error following author:", err);
+                    alert("Failed to follow author")
+                }
+            }
         
         const comicUse = comic.filter(c => c.author.some((a) => a._id === cardId)) ;
         // const comicIdUse = allComics.find(c => c.author === Number(cardId));
@@ -70,7 +92,7 @@ const Creator = () => {
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
                             <h2 className="text-center">{`${creator?.followersCount} followers`}</h2>
-                            <Button text="Follow"/>
+                            <Button text="Follow" onClick={handleFollowAuthor}/>
                         </article>
                     </div>
                 </div>

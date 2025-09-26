@@ -50,6 +50,36 @@ router.get("/creator/:id", async(req,res) => {
     }
 });
 
+router.post("/follow", verifyToken,async(req,res) =>{
+  try{
+    //Get the creator to follow
+    const {creatorId} = req.body;
+
+    //Get the current logged in used
+    const userId = req.user.id;
+
+    console.log(`Adding USer: ${userId} to follower array of: ${creatorId}`)
+    const user = await User.findById(userId).select("-password");
+    if(!user) {
+      return res.status(404).json({error: "User not found"});
+    }
+    const creator = await Creator.findByIdAndUpdate(
+        creatorId,
+        {$addToSet: {followers: userId}}, //$addToSet prevents duplicates
+        {new: true}
+    )
+    .populate({
+      path: "followers"
+    })
+
+    res.json(creator.followers);
+  }
+  catch(err){
+    res.status(500).json({ error: err.message });
+    console.error("Failed to follow the user: ", )
+  }
+})
+
 // Your original route to get user by ID remains
 router.get("/:id", async (req, res) => {
     try {
@@ -118,6 +148,8 @@ router.post("/library/add", verifyToken, async (req,res) =>{
     res.status(500).json({error: err.messages});
   }
 })
+
+
 
 
 export default router;

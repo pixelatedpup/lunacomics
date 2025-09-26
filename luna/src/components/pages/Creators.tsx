@@ -3,13 +3,16 @@ import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
 import { allComics } from "../../assets/AllComics.tsx";
 import Banner from "../Banner";
-import { fetchCreators, type Creator } from "../../api/authorApi.tsx";
+import { fetchCreators, followAuthor, type Creator } from "../../api/authorApi.tsx";
 import { useState,useEffect } from "react";
+import { useUser } from "../../hooks/useUser.tsx";
 const Creators = () => {
 
-    const [creators, setCreators] = useState<Creator[]>([])
+    const [creators, setCreators] = useState<Creator[]>([]);
+    
 
     useEffect(()=>{
+
 
         fetchCreators()
         .then(setCreators)
