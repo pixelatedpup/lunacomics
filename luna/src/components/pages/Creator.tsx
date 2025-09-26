@@ -63,7 +63,7 @@ const Creator = () => {
                 <div className="flex-1 flex flex-row ">
                         <article className="flex-1 flex flex-col">
                             <h1 className="mb-[20px]">{creator?.name}</h1>
-                            <h2> 2 books published</h2>
+                            <h2> {comicUse.length} books published</h2>
                             <h2> {`Member since ${creator?.dateCreated}`}</h2>
                         </article>
 

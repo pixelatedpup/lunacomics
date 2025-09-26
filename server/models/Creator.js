@@ -6,6 +6,7 @@ const CreatorSchema = new mongoose.Schema(
         username: String,
         dateCreated: String,
         followersCount: Number,
+        followers:[{type:mongoose.Schema.Types.ObjectId, ref:"User" }],
         imageId: Number
 
     },

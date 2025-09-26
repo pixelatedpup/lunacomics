@@ -4,8 +4,10 @@ import Comic from "../models/Comics.js";
 import Genre from "../models/Genre.js";
 import Tag from "../models/Tag.js";
 import Creator from "../models/Creator.js";
+import User from "../models/User.js";
 import { allComics } from "../assets/AllComics.js";
 import { allAuthors } from "../assets/AllAuthors.js";
+
 
 dotenv.config();
 
@@ -35,13 +37,12 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
       { name: "Top" },
     ]);
 
-
-
-     
-     
-
-     const creators = await Creator.insertMany(allAuthors);
+    const creatorsToInsert = allAuthors.map(({followers, followersCount,...rest}) => rest);
+     const creators = await Creator.insertMany(creatorsToInsert);
      console.log("New authors added", allAuthors);
+
+     const users = await User.find({}).select("-password");
+     console.log("Found the following users: ", users)
 
 
     // 3. Create lookup maps
@@ -54,17 +55,36 @@ mongoose.connect(process.env.MONGO_URI).then(async () => {
     const creatorMap = {};
     creators.forEach((c) => (creatorMap[c.username] = c._id));
 
+    const userMap = {};
+    users.forEach((u) => (userMap[u.username] = u._id));
+
+
     // 4. Transform allComics with ObjectIds
     const comicsWithIds = allComics.map((comic) => ({
       ...comic,
       genre: [genreMap[comic.genre]], // turn "Comedy" → ObjectId
       tag: [tagMap[comic.tag]],       // turn "New" → ObjectId
-      author: [creatorMap[comic.author]]
+      author: [creatorMap[comic.author]],
     }));
 
     // 5. Insert Comics
     await Comic.insertMany(comicsWithIds);
     console.log("Dummy comics inserted successfully");
+
+    //Insert followers
+    for (const author of allAuthors){
+      const creatorId = creatorMap[author.username];
+      const followerIds = author.followers
+      .map((followerUsername) => userMap[followerUsername])
+      .filter(Boolean);
+
+      await Creator.findByIdAndUpdate(
+        creatorId,
+        {$set: {followers: followerIds, followersCount: followerIds.length}}
+      );
+    }
+
+    console.log("Followers added successfully")
 
     const count = await Comic.countDocuments();
     console.log("Total comics in DB:", count);
