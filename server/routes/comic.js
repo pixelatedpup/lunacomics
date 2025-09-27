@@ -39,17 +39,7 @@ router.get("/by-tag/:tagName", async (req,res) => {
     }
 });
 
-//Get authors info
-router.get("/creator/:id", async(req,res) => {
-    try{
-        const creator = await Creator.findById(req.params.id);
 
-        res.json(creator);
-    }catch(err){
-        console.error("Failed to get author details:");
-        res.status(500).json({error: "Failed to get author"});
-    }
-});
 
 export default router;
 

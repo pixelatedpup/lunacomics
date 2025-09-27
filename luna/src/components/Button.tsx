@@ -28,7 +28,7 @@ const Button = ({
 
     const bgClasses = {
         accent: "bg-[var(--accent)]",
-        light: "bg-[var(--light)]",
+        light: "bg-[var(--light)] border border-[black]",
         dark: "bg-[var(--dark)]",
         primary: "bg-[var(--primary)]",
         white: "bg-white"

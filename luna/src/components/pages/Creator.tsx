@@ -5,7 +5,7 @@ import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
-import { fetchCreatorOne, type Creator, followAuthor } from "../../api/authorApi";
+import { fetchCreatorOne, type Creator, followAuthor, unfollowAuthor } from "../../api/authorApi";
 import { fetchComics, type Comic} from "../../api/comicApi";
 
 import { useUser } from "../../hooks/useUser";
@@ -17,6 +17,8 @@ const Creator = () => {
         const [loading, setLoading] = useState(true);
         const [error,setError] = useState<string|null>(null);
         const {user, token, isLoggedIn} = useUser();
+        const [followerCount, setFollowerCount] = useState(0);
+        const [followed, setFollowed] = useState(false);
 
 
         useEffect (() => {
@@ -39,6 +41,13 @@ const Creator = () => {
             .then((data) => {
                 setCreator(data);
                 setError(null);
+                console.log("Adding the following creator data: ", data)
+
+                if(user && data.followers?.some((f:any) => f._id === user.id)) {
+                    setFollowed(true);
+                }else{
+                    setFollowed(false);
+                }
             }
             )
             .catch((err) => {
@@ -50,25 +59,47 @@ const Creator = () => {
             (console.log(`CardID: ${cardId}`));
             // (console.log(`AuthorID: ${author?.id}`));
             // (console.log(`AuthorName Object: ${author?.name}`))
-        },[cardId]
+        },[cardId, user]
         )
 
 
-        const handleFollowAuthor = async() => {
-                if (!cardId || !token){
-                    console.warn("Must be logged in to follow creator");
-                    return;
-                }
-                console.log("Client-side: Sending creatorId:", cardId, "with type:", typeof cardId);
-                try{
-                    const updatedFollowers = await followAuthor(cardId, token);
-                    console.log("Followers updated:", updatedFollowers);
-                    alert(`${user?.name} added to followers!`);
-                }catch(err){
-                    console.error("Error following author:", err);
-                    alert("Failed to follow author")
-                }
+
+
+     
+                
+        const handleFollowAuthor = async () => {
+        if (!cardId || !token) {
+            console.warn("Must be logged in to follow creator");
+            return;
+        }
+
+        console.log("Client-side: Sending creatorId:", cardId, "with type:", typeof cardId);
+
+        try {
+            // Call API
+            if(!followed){
+                const updatedData = await followAuthor(cardId, token);
+
+                // If backend returns { followers, followersCount }
+                setFollowerCount(updatedData.followersCount);
+                setFollowed(true);
+
+                alert(`${user?.name} added to followers!`);
+                return;
             }
+
+            const updatedData = await unfollowAuthor(cardId, token);
+
+            setFollowerCount(updatedData.followersCount);
+            setFollowed(false);
+
+            alert(`You have unfollowed ${creator?.name}!`);
+        } catch (err) {
+            console.error("Error following author:", err);
+            alert("Failed to follow author");
+        }
+        };
+
         
         const comicUse = comic.filter(c => c.author.some((a) => a._id === cardId)) ;
         // const comicIdUse = allComics.find(c => c.author === Number(cardId));
@@ -83,16 +114,18 @@ const Creator = () => {
                 </article>
 
                 <div className="flex-1 flex flex-row ">
-                        <article className="flex-1 flex flex-col">
-                            <h1 className="mb-[20px]">{creator?.name}</h1>
-                            <h2> {comicUse.length} books published</h2>
-                            <h2> {`Member since ${creator?.dateCreated}`}</h2>
+                        <article className="flex-1 flex flex-col gap-4">
+                            <h2>{creator?.name}</h2>
+                            <div>
+                                <h3> {comicUse.length} books published</h3>
+                                <h3> {`Member since ${creator?.dateCreated}`}</h3>
+                            </div>
                         </article>
 
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
-                            <h2 className="text-center">{`${creator?.followersCount} followers`}</h2>
-                            <Button text="Follow" onClick={handleFollowAuthor}/>
+                            <h2 className="text-center">{`${followerCount || creator?.followersCount} followers`}</h2>
+                            <Button text={followed? "Unfollow" : "Follow"} bg = {followed? "light" : "accent"} color = {followed? "dark" : "light"}  onClick={handleFollowAuthor}/>
                         </article>
                     </div>
                 </div>
