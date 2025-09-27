@@ -15,6 +15,9 @@ const Comics = () => {
             fetchComics()
             .then(setComicDB)
             .catch(console.error);
+
+            console.log("Gotten comics: ", comicDB)
+            console.log("Selected genre:", genreTag);
         },[])
 
     const links = 
@@ -30,16 +33,20 @@ const Comics = () => {
     //     ? allComics.filter(comic => comic.tag === genreTag) : allComics;
       // Filter by genre AND search term
     const filteredComics = comicDB.filter((comic) => {
-        const matchesGenre = genreTag && genreTag !== "All" 
-        ? comic.tag.some((t)=> t.name === genreTag)
-        :true
+        // Genre filtering
+        const matchesGenre =
+            genreTag && genreTag !== "All"
+            ? comic.genre.some((g: any) => g.name === genreTag)
+            : true;
 
-        //Search filtering
+        // Search filtering
         const matchesSearch = searchTerm
-        ? comic.title.toLowerCase().includes(searchTerm.toLowerCase())
-        : true;
+            ? comic.title.toLowerCase().includes(searchTerm.toLowerCase())
+            : true;
+
         return matchesGenre && matchesSearch;
     });
+
 
     return (
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">

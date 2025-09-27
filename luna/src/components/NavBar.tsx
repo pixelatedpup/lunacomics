@@ -37,8 +37,8 @@ const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
       return;
     }
     //Checks to see if link object has a route item
+    onLinkSelect?.(links[index].name);
     if(link.route){
-          onLinkSelect?.(links[index].name);
     navigate(`${links[index].route}`);
     }
 

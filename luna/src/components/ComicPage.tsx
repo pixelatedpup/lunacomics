@@ -1,6 +1,6 @@
 // ComicPage.tsx
 import Card from "./Card";
-import { useWindowSize } from "../hooks/useWindowSize";
+// import { useWindowSize } from "../hooks/useWindowSize";
 
 
 type Size = "tiny" | "sm" | "md" | "lg";
@@ -16,15 +16,15 @@ interface ComicProps {
 const ComicPage = ({ size = "md", comicid ,comicIdDB="", title}: ComicProps) => {
 
 
-  const sizeClasses: Record<Size, string> = {
-    tiny: "w-[108px] h-[174px]",
-    sm: "w-[162px] h-[261px]",
-    md: "w-[207px] h-[333px]",
-    lg: "w-[516px] h-[829px]",
-  };
+const sizeClasses: Record<Size, string> = {
+  tiny: "w-[108px] h-[174px]",
+  sm: "w-[162px] h-[261px]",
+  md: "w-[162px] h-[261px]",
+  lg: "w-[516px] h-[829px]",
+};
 
 
-  const currentDynamicSize = useWindowSize(size);
+  // const currentDynamicSize = useWindowSize(size);
 
   return (
     <div className={`
@@ -34,7 +34,7 @@ const ComicPage = ({ size = "md", comicid ,comicIdDB="", title}: ComicProps) => 
                     ${size == "tiny" && 'w-[108px] h-[174px]'}
                     flex flex-col gap-[5px] h-auto` }>
       <Card
-        custom={sizeClasses[currentDynamicSize]}
+        custom={sizeClasses[size]}
         cardid={comicid}
         cardType="cover"
         round={true}
