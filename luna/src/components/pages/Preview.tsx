@@ -12,12 +12,14 @@ import { useEffect, useState} from "react";
 //Imports for the server
 import { addToLibrary, fetchComics, fetchUserLibrary, type Comic} from "../../api/comicApi";
 import { useUser } from "../../hooks/useUser";
+import { useNotifications } from "../../context/NotificationContext.tsx";
 
 const Preview = () => {
     const {comicId} = useParams<{comicId: string}>();
     const [comicDB, setComicDB] = useState<Comic[]>([])
     const [libraryDB, setLibraryDB] = useState<Comic[]>([]);
     const {user, token, isLoggedIn} = useUser();
+    const {addNotification} = useNotifications();
 
     
     // const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
@@ -56,10 +58,12 @@ const Preview = () => {
         try{
             const updatedLibrary = await addToLibrary(comicId, token);
             console.log("Library updated:", updatedLibrary);
-            alert(`${comic?.title} added to library!`);
+            // alert(`${comic?.title} added to library!`);
+            addNotification(`${comic?.title} added to library!`);
         }catch(err){
             console.error("Error adding to library", err);
-            alert("Failed to add comic to libray")
+            // alert("Failed to add comic to libray")
+            addNotification("Failed to add comic to libray");
         }
     }
 

@@ -23,9 +23,15 @@ const Input = ({
         name={name}
         value={value}
         onChange={onChange}
-        className={`${
-          custom ? custom : "w-[383px] h-[20px]"
-        } p-[20px] rounded-2xl border border-black`}
+        className={
+          `
+          ${
+          custom ? custom : "w-[383px] h-[15px]"
+        } 
+          
+        p-[20px] rounded-2xl border border-black`
+        
+      }
       />
     </div>
   );

@@ -59,10 +59,10 @@ const Comics = () => {
             <main className="flex flex-col flex-1 p-4">
                 <section className="flex  lg:flex-row md:flex-col sm:flex-col mb-[20px] gap-5 ">
                     <h1 className="sm:text-center md:text-center">{genreTag || "All"}</h1>
-                    <div className="flex flex-col flex-1 
+                    <div className="flex flex-col  w-full 
                                     md:items-center sm:items-center lg:items-end 
                                     justify-center">
-                        <Input custom="w-[383px] h-[35px] sm:w-full md:w-full"
+                        <Input custom="w-full h-[30px] sm:w-full md:w-full lg:w-full"
                                 typeUse="text"
                                 label=""
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}

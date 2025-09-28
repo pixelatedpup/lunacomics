@@ -9,6 +9,7 @@ import { fetchCreatorOne, type Creator, followAuthor, unfollowAuthor } from "../
 import { fetchComics, type Comic} from "../../api/comicApi";
 
 import { useUser } from "../../hooks/useUser";
+import { useNotifications } from "../../context/NotificationContext";
 
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
@@ -19,6 +20,7 @@ const Creator = () => {
         const {user, token, isLoggedIn} = useUser();
         const [followerCount, setFollowerCount] = useState(0);
         const [followed, setFollowed] = useState(false);
+        const {addNotification} = useNotifications();
 
 
         useEffect (() => {
@@ -84,7 +86,7 @@ const Creator = () => {
                 setFollowerCount(updatedData.followersCount);
                 setFollowed(true);
 
-                alert(`${user?.name} added to followers!`);
+                addNotification(`You just followed ${creator?.name}`);
                 return;
             }
 
@@ -93,7 +95,7 @@ const Creator = () => {
             setFollowerCount(updatedData.followersCount);
             setFollowed(false);
 
-            alert(`You have unfollowed ${creator?.name}!`);
+            addNotification(`You have unfollowed ${creator?.name}`);
         } catch (err) {
             console.error("Error following author:", err);
             alert("Failed to follow author");
