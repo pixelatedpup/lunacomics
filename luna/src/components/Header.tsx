@@ -7,7 +7,7 @@ import { useNotifications } from "../context/NotificationContext";
 const Header = () => {
     const {isLoggedIn} = useUser();
     const[ring, setRing] = useState(false);
-    const {notifications, removeNotification} = useNotifications();
+    const {notifications, removeNotification, clearNotifications} = useNotifications();
     const [open, setOpen] = useState(false);
   return (
     
@@ -35,10 +35,16 @@ const Header = () => {
               </button>
 
               {open && (
-                <div className="absolute right-0 bg-[white] shadow p-2 w-[400px]">
+                <div className="absolute right-0 bg-[white] shadow drop-shadow-xl p-2 w-[400px]">
                   <div className="flex flex-col gap-2">
+                    <div className="flex  justify-end w-full">
+                      <button onClick={clearNotifications} className="flex border bg-[var(--dark)] rounded-2xl 
+                                        px-[28px] 
+                                        text-[white] text-center
+                                        hover:bg-[var(--light)] hover:text-[var(--dark)] transition-all duration-2s">Clear all</button>
+                    </div>
                     {notifications.map((n) => (
-                      <div key={n.id} className="flex justify-between items-center bg-[var(--light)] text-[var(--accent)] p-[10px] border rounded-xl">
+                      <div key={n.id} className="flex justify-between items-center bg-[var(--light)] text-[var(--dark)] p-[10px] border rounded-xl">
                         <span>{n.message}</span>
                         <button onClick={() => removeNotification(n.id)}>x</button>
                       </div>

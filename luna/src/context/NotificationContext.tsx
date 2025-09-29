@@ -8,6 +8,7 @@ type NotificationContextType = {
     notifications: Notification[];
     addNotification: (message: string) => void;
     removeNotification: (id:string) => void;
+    clearNotifications: () => void;
 };
 
 const NotificationContext = createContext<NotificationContextType | null>(null);
@@ -35,8 +36,12 @@ export const NotificationProvider = ({children}: {children: ReactNode}) =>{
         setNotifications((prev)=> prev.filter((n) => n.id !== id));
     };
 
+    const clearNotifications = () => {
+        setNotifications([]);
+    };
+
     return (
-        <NotificationContext.Provider value={{notifications, addNotification,removeNotification}}>
+        <NotificationContext.Provider value={{notifications, addNotification,removeNotification, clearNotifications}}>
             {children}
         </NotificationContext.Provider>
     );

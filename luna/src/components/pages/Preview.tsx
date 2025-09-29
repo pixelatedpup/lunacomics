@@ -10,7 +10,7 @@ import Card from "../Card";
 import { useEffect, useState} from "react";
 
 //Imports for the server
-import { addToLibrary, fetchComics, fetchUserLibrary, type Comic} from "../../api/comicApi";
+import { addToLibrary, removeFromLibrary,  fetchComics, fetchUserLibrary, type Comic} from "../../api/comicApi";
 import { useUser } from "../../hooks/useUser";
 import { useNotifications } from "../../context/NotificationContext.tsx";
 
@@ -20,6 +20,7 @@ const Preview = () => {
     const [libraryDB, setLibraryDB] = useState<Comic[]>([]);
     const {user, token, isLoggedIn} = useUser();
     const {addNotification} = useNotifications();
+    const [inLibrary, setInLibrary] = useState(false);
 
     
     // const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
@@ -28,13 +29,24 @@ const Preview = () => {
     useEffect(()=>{
         //gets comics and then passes them to comicDB
         fetchComics()
-        .then(setComicDB)
+        .then((data) => {
+            setComicDB(data);
+            
+    })
         .catch(console.error);
 
         //Checks to see if the user is logged in or not
         if(!isLoggedIn || !user) return;
         fetchUserLibrary(user.id)
-        .then(setLibraryDB)
+        .then((data) => {
+            setLibraryDB(data);
+            if(data.some((c:any) => c._id === comicId)) {
+                    setInLibrary(true);
+                }else{
+                    setInLibrary(false);
+                }
+            console.log(inLibrary);
+        })
         .catch(console.error);
     },[])
 
@@ -56,10 +68,20 @@ const Preview = () => {
         }
         console.log("Client-side: Sending comicId:", comicId, "with type:", typeof comicId);
         try{
-            const updatedLibrary = await addToLibrary(comicId, token);
-            console.log("Library updated:", updatedLibrary);
-            // alert(`${comic?.title} added to library!`);
-            addNotification(`${comic?.title} added to library!`);
+            if (!inLibrary) {
+                const updatedLibrary = await addToLibrary(comicId, token);
+                console.log("Library updated:", updatedLibrary);
+                setInLibrary(true);
+                addNotification(`${comic?.title} added to library!`);
+                // return;
+            }
+            else{
+                const updatedLibrary = await removeFromLibrary(comicId, token);
+                setLibraryDB(updatedLibrary);
+                setInLibrary(false);
+                addNotification(`${comic?.title} removed from library!`);
+            }
+
         }catch(err){
             console.error("Error adding to library", err);
             // alert("Failed to add comic to libray")
@@ -92,7 +114,7 @@ const Preview = () => {
                     <div className="flex flex-row gap-2">
                         <Button text="Start Reading"/>
                         {isLoggedIn && (
-                        <Button color="light" bg="dark" text={!matchComics?'Add to Library':'In Library'} onClick={handleAddToLibrary}/> 
+                        <Button color="light" bg="dark" text={!inLibrary?'Add to Library':'In Library'} onClick={handleAddToLibrary}/> 
                         )}
                     </div>
                 </section>

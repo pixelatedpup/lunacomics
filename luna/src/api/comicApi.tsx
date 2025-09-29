@@ -42,3 +42,17 @@ export async function addToLibrary(comicId: string, token: string): Promise<Comi
     if(!res.ok) throw new Error("Failed to add to library");
     return res.json();
 }
+
+export async function removeFromLibrary(comicId: string, token: string): Promise<Comic[]> {
+    const res = await fetch(`${API_BASE}/user/library/remove`, {
+        method: "POST", //Specifise that its a post method
+        headers: {
+            "Content-Type": "application/json", //Tells the server the body that is being sent is JSON and not html
+            "Authorization": `Bearer ${token}` //Proves who the user is through authentication. JSON Web Token
+        },
+        body:JSON.stringify({comicId})//Turns from the fetch String to a a JSON Object.
+    })
+
+    if(!res.ok) throw new Error("Failed to remove from library");
+    return res.json();
+}

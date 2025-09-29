@@ -198,6 +198,42 @@ router.post("/library/add", verifyToken, async (req,res) =>{
   }
 })
 
+router.post("/library/remove", verifyToken, async (req, res) => {
+  try {
+    const { comicId } = req.body;
+    const userId = req.user.id;
+
+    console.log(`Removing comic: ${comicId} from user: ${userId} library`);
+
+      //Check comic exists
+    const comic = await Comic.findById(comicId);
+    if(!comic) return res.status(404).json({error: "Comic not found"});
+
+
+    // 2. Remove the comic form the users library array
+    let user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { library: comicId } }, // <-- $pull removes comicId from library
+      { new: true }
+    ).populate({
+      path:"library", 
+      populate: [{path: "tag"}, {path: "genre"}]
+    })
+    .select("-password");
+
+    //Returns the updated user library
+    res.json(user.library);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+  } catch (err) {
+    console.error("Unable to remove book from library: ", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 
 
