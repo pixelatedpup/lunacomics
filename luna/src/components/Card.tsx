@@ -80,7 +80,7 @@ const Card = ({
       <div
         className={`
           hover:scale-[108%] hover:border-[3px] hover:border-[var(--accent)] duration-[0.5s] transition-all 
-          bg-[#D1E4DE] 
+          bg-[var(--light)] border-[var(--dark)]
           ${round ? "rounded-xl" : ""} 
           ${custom}
         `}

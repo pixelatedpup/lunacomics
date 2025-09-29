@@ -8,6 +8,7 @@ import { library } from "./DataHome"
 // import { newComics } from "./DataHome"
 import Card from "../Card"
 import { fetchComicByTag, type Comic, fetchUserLibrary } from "../../api/comicApi.tsx"
+import { useNavigate } from "react-router-dom";
 
 // import {useWindowSize} from "../../hooks/useWindowSize";
 
@@ -32,6 +33,7 @@ const Home = () => {
     const [topComicsDB, setTopComicsDB] = useState<Comic[]>([])
     const[libraryDB, setLibraryDB] = useState<Comic[]>([])
 
+    const navigate = useNavigate();
     useEffect(() => {
         if(!isLoggedIn || !user) return;
 
@@ -85,9 +87,12 @@ const Home = () => {
                             lg:h-[200px] md:h-[200px] sm:h-[150px] 
                             lg:p-[20px] sm:p-[3px]">
 
-                <div className="flex flex-col items-center">
-                    <Icon iconid={16} link={true} source="comics" />
-                    <p className="w-[140px] truncate text-center font-bold text-[var(--primary)]">Add New</p>
+                <div className="flex flex-col  gap-2 h-full justify-center">
+                    {/* <Icon iconid={16} link={true} source="comics" size="sm" /> */}
+                    <div className="flex items-center justify-center w-[100px] h-[100px] bg-[var(--light)] rounded-2xl border text-[var(--primary)] 
+                                    hover:scale-[110%] transition-all duration-[350ms] hover:bg-[var(--primary)] hover:text-[var(--light)] ">
+                        <button onClick={()=> navigate("/comics")}><p className="text-center font-bold text-[50px] ">+</p></button>
+                    </div>
                 </div>
                 {libraryDB.map((comic) => (
                     <div className="flex flex-col items-center">
