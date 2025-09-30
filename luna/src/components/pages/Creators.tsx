@@ -8,9 +8,23 @@ import { useState,useEffect } from "react";
 import { useUser } from "../../hooks/useUser.tsx";
 const Creators = () => {
 
-    const [creators, setCreators] = useState<Creator[]>([]);
     
 
+    const [creators, setCreators] = useState<Creator[]>([]);
+    
+    const updates= [
+        {title: "New Upload",
+         message: "I really like the new comics by James, it really got me back into comics",
+         images:[{}, {}],
+         author:""
+        },
+        {title: "New Upload",
+         message: "I really like the new comics by James, it really got me back into comics",
+         images:[{}, {}],
+         author:""
+        },
+
+    ]
     useEffect(()=>{
 
 
@@ -23,8 +37,28 @@ const Creators = () => {
 
     return (
         <>
-        <section className="flex lg:flex-row flex-col gap-20 md:gap-5 sm:gap-5 ">
-            <h1 className="sm:text-center md:text-center sm:text-start md:text-start ">Creators</h1>
+            <section c>
+                <h2> Updates </h2>
+                <article className="flex flex-col sm:gap-10 lg:gap-10 md:gap-10 mt-[30px] ">
+    
+                    <div className="flex flex-row gap-[10px] overflow-x-auto w-full">
+                        {updates.map ((update, index) => (
+                                <div className="flex flex-col gap-5">
+                                    <div className="w-[350px] h-[170px] p-[15px] border border-[var(--dark)] rounded-2xl">
+                                        <p>{update.message}</p>
+                                    </div>
+                                    <div className="h-[40px] w-[40px] bg-[black]"></div>
+                                </div>
+                            
+                        ))}
+                    </div>
+                    
+
+                </article>
+            </section>
+
+        <section className="flex lg:flex-row md:flex-row flex-col gap-20 md:gap-5 sm:gap-5 mt-[50px]">
+            <h2 className="sm:text-center md:text-center sm:text-start md:text-start ">Creators</h2>
             <div className="flex flex-1 flex-col lg:items-end lg:justify-center sm:items-center md:items-center ">
                 <Input custom="w-[383px] h-[35px]"/>
             </div>
@@ -37,15 +71,7 @@ const Creators = () => {
 
         </section>
 
-        <section className="mt-[70px]">
-            <h2> Updates </h2>
-            <article className="flex flex-col sm:gap-10 md:gap-10 mt-[30px] border">
- 
-                <div className="w-full h-[263px] border border-[3px] border-red" ></div>
-                <div className="w-full h-[263px]"></div>
 
-            </article>
-        </section>
 
         <section className="mt-[70px]">
             <h2>Shop</h2>

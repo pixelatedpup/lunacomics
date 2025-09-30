@@ -34,7 +34,7 @@ const Post = ({name="Default"}:PostItems) =>{
                         {/* Top section with icon and creator name*/}
                         <article className="flex flex-row gap-[8px] w-[308px] ">
                             <Card custom="h-[42px] w-[42px]" round={true} cardType="banner" cardid={1}/>
-                            <h3 className="flex flex-col justify-center ">{com.name}</h3>
+                            <h3 className="flex flex-col justify-center ">{com.title}</h3>
                         </article>
 
                         {/* Posts*/}
