@@ -126,8 +126,10 @@ const Home = () => {
                             md:h-[455px] 
                             sm:h-[455px] 
 
+                            
+
                             rounded-2xl 
-                            bg-[#002C34]">
+                            bg-[black]">
                 <article className="flex flex-col flex-1 gap-15 text-white">
                     <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center 
                                    ">
@@ -149,8 +151,8 @@ const Home = () => {
                     </ul>
                 </article>
 
-                <article className="flex-1 flex flex-col justify-center">           
-                        <Card round={true} custom="w-[443px] h-[178px] sm:w-[369.16px] sm:h-[148.33px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
+                <article className="flex-1 flex flex-col justify-start p-[10px] lg:justify-center sm:w-full  sm:h-full lg:h-full">           
+                        <Card round={true} custom=" w-[443px]   sm:w-full sm:h-[220.33px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
                 </article>
             </div>
         </section>

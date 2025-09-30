@@ -17,7 +17,7 @@ const Symbol: React.FC<SymbolProps> = ({ symbol = "user" }) => {
     <img
       src={images[symbol]}
       alt={symbol}
-      className="h-[25px] w-[25px] hover:scale-[112%] transition-all duration-[0.3s]"
+      className="h-[25px] w-[25px] sm:h-[15px] sm:w-[15px] hover:scale-[112%] transition-all duration-[0.3s]"
     />
   );
 };
