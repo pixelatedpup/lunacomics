@@ -2,16 +2,26 @@ import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 import Symbol from "./Symbol";
 import { useUser } from "../hooks/useUser";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useNotifications } from "../context/NotificationContext";
 const Header = () => {
     const {isLoggedIn} = useUser();
     const[ring, setRing] = useState(false);
     const {notifications, removeNotification, clearNotifications} = useNotifications();
     const [open, setOpen] = useState(false);
+    const [openNav, setOpenNav] = useState(false);
+
+    const handleNav = () => {
+      if (openNav){
+        setOpenNav(false);
+      }else{
+        setOpenNav(true)
+      }
+    }
   return (
     
-
+  
+<section className="flex flex-col">
     <section className="fixed  right-0 px-[20px] w-full bg-white flex flex-row items-center border-b-[2px]  h-[100px] z-50">
       <article className="flex flex-1 justify-start items-center h-full ">
         <NavLink to="/"><h1 className="text-[var(--primary)] m-0 leading-none">Luna</h1></NavLink>
@@ -77,6 +87,28 @@ const Header = () => {
          }
         </div>
       </article>
+
+
+    </section>
+    
+    {/* <section className="z-50 fixed right-0 mt-[70px]">
+      <article>
+        <div className="bg-[black] p-[10px] text-white text-[10px]">
+          <button onClick={handleNav}>Nav</button>
+        </div>
+      </article>
+      {openNav &&
+      <article>
+          <ul className="flex flex-col">
+            <li>Home</li>
+            <li>Comics</li>
+            <li></li>
+            <li></li>
+          </ul>
+      </article>}
+    </section> */}
+    
+    
     </section>
   );
 };

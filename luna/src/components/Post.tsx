@@ -1,17 +1,19 @@
 import Card from "./Card";
+import Symbol from "./Symbol";
 
     const community = [
-        {name: "Creator Name",
-        image:"",
+        {title: "Creator Name",
+         message: "I really like the new comics by James, it really got me back into comics",
+         images:[{}, {}],
          likes:"2",
           comments: [{text:""}]
         },
-
-        {name: "Creator Name",
-        image:"",
+        {title: "Creator Name",
+         message: "I really like the new comics by James, it really got me back into comics",
+         images:[{}, {}],
          likes:"2",
           comments: [{text:""}]
-        }
+        },
 
     ]
 
@@ -30,23 +32,29 @@ const Post = ({name="Default"}:PostItems) =>{
                     <div className="mt-[70px] mb-[100px] border-b border-b-[2px] pb-[40px]">
 
                         {/* Top section with icon and creator name*/}
-                        <article className="flex flex-row gap-10 w-[308px]">
-                            <div className="flex-1 ">
-                                <Card custom="h-[100px] w-[100px]" round={true} cardType="banner" cardid={1}/>
-                            </div>
-                            <h2 className="flex flex-col justify-center">{com.name}</h2>
+                        <article className="flex flex-row gap-[8px] w-[308px] ">
+                            <Card custom="h-[42px] w-[42px]" round={true} cardType="banner" cardid={1}/>
+                            <h3 className="flex flex-col justify-center ">{com.name}</h3>
                         </article>
 
-                        {/* actual post image*/}
+                        {/* Posts*/}
                         <article className="mt-[30px]">
-
-                            <Card custom="h-[459px] w-[867px] sm:w-full border border-black " round={true} cardid={1}/>
+                            <div className="w-full h-[250px] border border-[1px] border-[var(--dark)] rounded-2xl p-[15px] bg-[var(--light)]">
+                                    <p className="text-[var(--dark)]">{com.message}</p>
+                            </div>
+                            {/* <Card custom="h-[459px] w-[867px] sm:w-full border border-black " round={true} cardid={1}/> */}
                         </article>
 
                         {/* Like and comment buttons*/}
                         <article className="flex flex-row gap-5 mt-[30px]">
-                            <Card custom="h-[48px] w-[48px]" round={true} cardid={1}/>
-                            <Card custom="h-[48px] w-[48px]" round={true} cardid={1}/>
+                            <div className="flex flex-row gap-[8px]">
+                                <Symbol symbol="like" />
+                                <p className="flex items-center">{com.likes}</p>
+                            </div>
+                            <div className="flex flex-row gap-[8px]">
+                                <Symbol symbol="comment" />
+                                <p className="flex items-center">{com.likes}</p>
+                            </div>
                         </article>
                         
                     </div>
