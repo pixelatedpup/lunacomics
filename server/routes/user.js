@@ -11,7 +11,7 @@ const router = express.Router();
 //Get all posts
 router.get("/posts", async (req, res) => {
   try{
-    const posts = (await Post.find({}))
+    const posts = await Post.find({})
       .populate("poster", "username name")
       .populate("comments.user", "username");
     res.json(posts);

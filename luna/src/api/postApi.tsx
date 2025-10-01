@@ -13,7 +13,7 @@ export interface PostTypeUse {
   createdAt: string;
 }
 
-const API_URL = "http://localhost:8000/api/users"; // adjust base path
+const API_URL = "http://localhost:8000/api/user"; // adjust base path
 
 // Fetch all posts
 export const fetchPosts = async (): Promise<PostTypeUse[]> => {
