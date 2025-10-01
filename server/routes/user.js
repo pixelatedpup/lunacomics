@@ -4,9 +4,62 @@ import User from "../models/User.js";
 import verifyToken from "../middleware/verifyToken.js"; 
 import Comic from "../models/Comics.js";
 import Creator from "../models/Creator.js";
+import Post from "../models/Post.js";
 
 const router = express.Router();
 
+//Get all posts
+router.get("/posts", async (req, res) => {
+  try{
+    const posts = (await Post.find({}))
+      .populate("poster", "username name")
+      .populate("comments.user", "username");
+    res.json(posts);
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+})
+
+//Add a new posr
+router.post("/posts/add" , verifyToken, async(req,res) => {
+  try{
+    const{title, message, images, isUpdate} = req.body;
+    const userId = req.user.id;
+
+    const newPost = new Post({
+      title,
+      message,
+      images,
+      isUpdate,
+      poster:userId,
+    });
+
+
+    await newPost.save();
+    res.json(newPost);
+  
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+})
+
+//Remove Post
+router.delete("/posts/:id", verifyToken, async(req, res) => {
+  try{
+    const post = await Post.findById(req.params.id);
+    if(!post) return res.status(404).json({error: "Post not found"});
+
+    //Making sure only poster can delete
+    if(post.poster.toString() !== req.user.id) {
+      return res.status(403).json({error: "Not authorized"})
+    }
+    await post.deleteOne();
+    res.json({message: "Post deleted"});
+
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+})
 // Get the currently logged-in user
 router.get("/me", verifyToken, async (req, res) => {
   try {

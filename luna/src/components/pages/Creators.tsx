@@ -37,7 +37,7 @@ const Creators = () => {
 
     return (
         <>
-            <section c>
+            <section >
                 <h2> Updates </h2>
                 <article className="flex flex-col sm:gap-10 lg:gap-10 md:gap-10 mt-[30px] ">
     
@@ -66,7 +66,12 @@ const Creators = () => {
 
         <section className="flex flex-row gap-20 w-full justify-evenly mt-[30px] overflow-y-auto">
             {creators.map((creator,index) => (
+                <div className="flex flex-col gap-[8px]">
                 <Banner key={index} cardid={creator.imageId} otherId={creator._id}/>
+
+                <h2 className="text-center font-bold">{creator.name}</h2>
+                <h3 className="text-center text-[var(--primary)]">@{creator.username}</h3>
+                </div>
             ))}
 
         </section>

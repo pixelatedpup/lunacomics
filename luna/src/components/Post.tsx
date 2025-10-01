@@ -1,69 +1,75 @@
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import Symbol from "./Symbol";
+import { fetchPosts as fetchPostsApi, type PostTypeUse} from "../api/postApi";
 
-    const community = [
-        {title: "Creator Name",
-         message: "I really like the new comics by James, it really got me back into comics",
-         images:[{}, {}],
-         likes:"2",
-          comments: [{text:""}]
-        },
-        {title: "Creator Name",
-         message: "I really like the new comics by James, it really got me back into comics",
-         images:[{}, {}],
-         likes:"2",
-          comments: [{text:""}]
-        },
-
-    ]
-
-interface PostItems {
-    name?:string;
-    image?:string;
-    likes?:number;
-    comments?:string[]
+interface PostType {
+  _id: string;
+  title: string;
+  message: string;
+  likes: string[]; // array of userIds/usernames
+  comments: { user: string; message: string; createdAt: string }[];
+  poster?: string;
+  imageId?: string[];
+  isUpdate?: boolean;
 }
 
-const Post = ({name="Default"}:PostItems) =>{
-    return(
-        <>
-            <section>
-                {community.map((com) => (
-                    <div className="mt-[70px] mb-[100px] border-b border-b-[2px] pb-[40px]">
+const Post = () => {
+  const [posts, setPosts] = useState<PostTypeUse[]>([]);
 
-                        {/* Top section with icon and creator name*/}
-                        <article className="flex flex-row gap-[8px] w-[308px] ">
-                            <Card custom="h-[42px] w-[42px]" round={true} cardType="banner" cardid={1}/>
-                            <h3 className="flex flex-col justify-center ">{com.title}</h3>
-                        </article>
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const data = await fetchPostsApi();
+        setPosts(data);
+      } catch (err) {
+        console.error("Failed to fetch posts:", err);
+      }
+    };
 
-                        {/* Posts*/}
-                        <article className="mt-[30px]">
-                            <div className="w-full h-[250px] border border-[1px] border-[var(--dark)] rounded-2xl p-[15px] bg-[var(--light)]">
-                                    <p className="text-[var(--dark)]">{com.message}</p>
-                            </div>
-                            {/* <Card custom="h-[459px] w-[867px] sm:w-full border border-black " round={true} cardid={1}/> */}
-                        </article>
+    fetchPosts();
+  }, []);
 
-                        {/* Like and comment buttons*/}
-                        <article className="flex flex-row gap-5 mt-[30px]">
-                            <div className="flex flex-row gap-[8px]">
-                                <Symbol symbol="like" />
-                                <p className="flex items-center">{com.likes}</p>
-                            </div>
-                            <div className="flex flex-row gap-[8px]">
-                                <Symbol symbol="comment" />
-                                <p className="flex items-center">{com.likes}</p>
-                            </div>
-                        </article>
-                        
-                    </div>
+  return (
+    <section>
+      {posts.map((post) => (
+        <div
+          key={post._id}
+          className="mt-[70px] mb-[100px] border-b border-b-[2px] pb-[40px]"
+        >
+          {/* Top section with icon and creator name*/}
+          <article className="flex flex-row gap-[8px] w-[308px] ">
+            <Card
+              custom="h-[42px] w-[42px]"
+              round={true}
+              cardType="banner"
+              cardid={1}
+            />
+            <h3 className="flex flex-col justify-center ">{post.title}</h3>
+          </article>
 
-                ))}
-                
-            </section>
-        </>
-    )
-}
+          {/* Posts*/}
+          <article className="mt-[30px]">
+            <div className="w-full h-[250px] border border-[1px] border-[var(--dark)] rounded-2xl p-[15px] bg-[var(--light)]">
+              <p className="text-[var(--dark)]">{post.message}</p>
+            </div>
+          </article>
+
+          {/* Like and comment buttons*/}
+          <article className="flex flex-row gap-5 mt-[30px]">
+            <div className="flex flex-row gap-[8px]">
+              <Symbol symbol="like" />
+              <p className="flex items-center">{post.likes?.length ?? 0}</p>
+            </div>
+            <div className="flex flex-row gap-[8px]">
+              <Symbol symbol="comment" />
+              <p className="flex items-center">{post.comments?.length ?? 0}</p>
+            </div>
+          </article>
+        </div>
+      ))}
+    </section>
+  );
+};
 
 export default Post;
