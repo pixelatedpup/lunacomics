@@ -54,9 +54,9 @@ const Header = () => {
                                         hover:bg-[var(--light)] hover:text-[var(--dark)] transition-all duration-2s">Clear all</button>
                     </div>
                     {notifications.map((n) => (
-                      <div key={n.id} className="flex justify-between items-center bg-[var(--light)] text-[var(--dark)] p-[10px] border rounded-xl">
+                      <div key={n.id} className="flex justify-between items-center bg-[var(--accent)] text-[var(--dark)] p-[10px] border rounded-xl">
                         <span>{n.message}</span>
-                        <button onClick={() => removeNotification(n.id)}>x</button>
+                        <button className="flex items-start bg-white roundedxl p-[5px] h-auto" onClick={() => removeNotification(n.id)}>x</button>
                       </div>
                     ))}
                   </div>

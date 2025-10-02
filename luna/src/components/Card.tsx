@@ -43,7 +43,7 @@ const Card = ({
     console.log(cardIdDB);
   }, [cardIdDB])
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="animat-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>;
 
   const imgSrc = (() => {
     if (cardIdDB) {
@@ -88,6 +88,7 @@ const Card = ({
       >
         <img
           src={imgSrc}
+          loading = "lazy"
           className={`
             ${round ? "rounded-xl" : ""} 
             object-cover w-full h-full border-0 outline-none shadow-none

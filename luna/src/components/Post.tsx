@@ -149,7 +149,7 @@ const Post = () => {
             <div className="w-full h-[150px] bg-[var(--light)] border border-[var(--dark)] mt-[10px]">
                 {post.comments.map((comment, index)=> (
                     <div className="flex border-b border-[var(--dark)] gap-7 p-[12px]">
-                        <div className="font-bold text-[var(--dark)]"> {comment.user.username}</div>
+                        <div className="font-bold text-[var(--primary)]"> {comment.user.username}</div>
                         <h3 className="font-bold">{comment.message}</h3>
                         
                     </div>

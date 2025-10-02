@@ -4,17 +4,20 @@ import { useState , useEffect} from "react";
 import { allComics } from "../../assets/AllComics.tsx";
 import Input from "../Input";
 import { fetchComics, type Comic} from "../../api/comicApi.tsx"
+import Loading from "../Loading.tsx";
 const Comics = () => {
 
     const [genreTag, setGenreTag] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
     const [comicDB, setComicDB] = useState<Comic[]>([])
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
             //gets comics and then passes them to comicDB
             fetchComics()
             .then(setComicDB)
-            .catch(console.error);
+            .catch(console.error)
+            .finally(()=>setLoading(false));
 
             console.log("Gotten comics: ", comicDB)
             console.log("Selected genre:", genreTag);
@@ -49,7 +52,11 @@ const Comics = () => {
 
 
     return (
+
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">
+            {loading && (
+                <Loading/>
+            )}
             {/* Sidebar */}
             
                 <NavBar links={links} onLinkSelect={(name) =>setGenreTag(name)}/>
