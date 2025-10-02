@@ -29,7 +29,7 @@ const Input = ({
           custom ? custom : "w-[383px] h-[15px]"
         } 
           
-        p-[20px] rounded-2xl border border-black`
+        p-[20px] rounded-2xl border border-[var(--primary)] bg-[var(--light)]`
         
       }
       />
