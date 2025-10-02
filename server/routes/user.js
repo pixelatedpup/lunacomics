@@ -13,7 +13,8 @@ router.get("/posts", async (req, res) => {
   try{
     const posts = await Post.find({})
       .populate("poster", "username name")
-      .populate("comments.user", "username");
+      .populate("comments.user", "username")
+    .populate("likes", "username name");
     res.json(posts);
   }catch(err){
     res.status(500).json({error: err.message});
@@ -38,6 +39,70 @@ router.post("/posts/add" , verifyToken, async(req,res) => {
     await newPost.save();
     res.json(newPost);
   
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+})
+
+//Like a post
+router.post("/like", verifyToken, async(req,res) => {
+  try{
+    const { postId } = req.body;
+    const userId = req.user.id;
+
+    console.log(`Adding user: ${userId} to likes array of: ${postId}`);
+
+    // 1. Make sure user exists
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // 2. Add the user to likes array
+    let post= await Post.findByIdAndUpdate(
+      postId,
+      { $addToSet: { likes: userId } }, // only update likes here
+      { new: true }
+    ).populate("poster", "username name")
+    .populate("likes", "username name");
+
+    if(!post){
+      return res.status(404).json({error: "Post not found"});
+    }
+
+    res.json(post);
+  }catch(err){
+    res.status(500).json({error: err.message});
+  }
+})
+
+//UnLike a post
+router.post("/unlike", verifyToken, async(req,res) => {
+  try{
+    const { postId } = req.body;
+    const userId = req.user.id;
+
+    console.log(`Removing user: ${userId} to likes array of: ${postId}`);
+
+    // 1. Make sure user exists
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // 2. Add the user to likes array
+    let post= await Post.findByIdAndUpdate(
+      postId,
+      { $pull: { likes: userId } }, // only update likes here
+      { new: true }
+    ).populate("poster", "username name")
+    .populate("likes", "username name");
+
+    if(!post){
+      return res.status(404).json({error: "Post not found"});
+    }
+
+    res.json(post);
   }catch(err){
     res.status(500).json({error: err.message});
   }

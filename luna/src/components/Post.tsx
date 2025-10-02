@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Symbol from "./Symbol";
-import { fetchPosts as fetchPostsApi, type PostTypeUse} from "../api/postApi";
+import { fetchPosts as fetchPostsApi, type PostTypeUse, likePost, unlikePost, fetchPosts} from "../api/postApi";
 import { fetchUserOne } from "../api/userApi";
+import { useUser } from "../hooks/useUser";
 import { fetchCreatorOne } from "../api/authorApi";
-
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 interface PostType {
   _id: string;
   title: string;
@@ -18,7 +20,13 @@ interface PostType {
 
 const Post = () => {
   const [posts, setPosts] = useState<PostTypeUse[]>([]);
-  const [openComments, setOpenComments] = useState(false);
+  const [openComments, setOpenComments] = useState<string | null> (null) ;
+  const [openLikes, setOpenLikes] = useState<string | null> (null);
+  const {user, token, isLoggedIn} = useUser();
+  const [openModal, setOpenModal] = useState(false);
+  const [numLikes, setNumLikes] = useState(0)
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,17 +43,51 @@ const Post = () => {
     fetchPosts();
   }, []);
 
-  const handleComments = () =>{
-    if(!openComments){
-        setOpenComments(true);
-    }else{
-        setOpenComments(false);
+  const handleComments = (postId:string) =>{
+        setOpenComments(prev => prev === postId ? null : postId);
+}   
+
+  const handlLikeHover = (postId:string) => {
+    setOpenLikes(postId);
+  }
+  const handleLike = async (postId: string) =>{
+        if (!token) {
+            console.warn("Must be logged in to leave a likecreator");
+            setOpenModal(true);
+            
+            return;
+        }
+    try{
+       
+        const postUse = posts.find((f)=> f._id === postId);
+        if (!postUse) return;
+
+        let updatedPost;
+        //Checks if user id is already in liked post
+        if(user && postUse?.likes?.some((likeUser:any) => likeUser._id === user.id)) {
+            //Unlike
+            updatedPost = await unlikePost(postId, token);
+        }else{
+            //Like
+            updatedPost = await likePost(postId, token);
+        }
+
+        //Update posts state with updated data
+        setPosts(prev =>
+            prev.map(p => p._id === updatedPost._id ? updatedPost : p)
+        );
+
+    }catch(err){
+        console.error("Failed to fetch posts:", err);
     }
+
   }
 
 
   return (
     <section>
+
+        <Modal value={openModal} handle={setOpenModal}></Modal>
       {posts.map((post) => (
         <div
           key={post._id}
@@ -72,23 +114,43 @@ const Post = () => {
 
           {/* Like and comment buttons*/}
           <article className="flex flex-row gap-5 mt-[30px]">
-            <button className="flex flex-row gap-[8px]" >
+            <button className="flex flex-row gap-[8px]" onClick={()=> handleLike(post._id)}>
               <Symbol symbol="like" />
-              <p className="flex items-center">{post.likes?.length ?? 0}</p>
+              <div onMouseEnter={()=>handlLikeHover(post._id)} onMouseLeave={()=>setOpenLikes(null)}>
+                <p className="flex items-center">{post.likes?.length ?? 0}</p>
+              </div>
             </button>
-            <button className="flex flex-row gap-[8px]" onClick={handleComments}>
+            <button className="flex flex-row gap-[8px]" onClick={()=>handleComments(post._id)}>
               <Symbol symbol="comment" />
               <p className="flex items-center">{post.comments?.length ?? 0}</p>
             </button>
           </article>
+            
+            {openLikes === post._id && 
+            (
+            <div className="absolute z-50">
+                <div className="flex flex-col gap-5 bg-[var(--accent)] border border-[var(--dark)] rounded-2xl p-[20px]">
+                    <p className="border-b border-black">Liked by</p>
+                    <ul>
+                    {post.likes.map((user, index)=>(
+                        
+                            <li className="font-bold">{user.username}</li>
+                        
+                    ))}
+                    </ul>
+                </div>
+            </div>
+            )
+          }
 
-          { openComments &&
+
+          { openComments === post._id &&
           (
             <div className="w-full h-[150px] bg-[var(--light)] border border-[var(--dark)] mt-[10px]">
                 {post.comments.map((comment, index)=> (
-                    <div className="flex border border-b gap-7 p-[12px]">
-                        <div className="font-bold text-[var(--primary)]"> {comment.user.username}</div>
-                        <h3>{comment.message}</h3>
+                    <div className="flex border-b border-[var(--dark)] gap-7 p-[12px]">
+                        <div className="font-bold text-[var(--dark)]"> {comment.user.username}</div>
+                        <h3 className="font-bold">{comment.message}</h3>
                         
                     </div>
                 ))}
@@ -96,6 +158,8 @@ const Post = () => {
           )
 
           }
+
+
         </div>
       ))}
     </section>
