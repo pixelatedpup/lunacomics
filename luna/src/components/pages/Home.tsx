@@ -175,7 +175,7 @@ const Home = () => {
             <article className="mb-[15px]">
                 <h2>Top Comics</h2>
             </article>
-            <div className="flex flex-row items-center gap-5 overflow-x-auto justify-evenly gap-7 w-full">
+            <div className="flex flex-row items-start gap-5 overflow-x-auto justify-evenly gap-7 w-full">
                 {topComicsDB.map((comic)=>(
                     <Comics comicid={comic.imageId} title={comic.title} comicIdDB={comic._id}/>
                 ))}
