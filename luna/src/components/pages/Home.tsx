@@ -93,8 +93,9 @@ const Home = () => {
   
     return (
         <>
-
-        <Modal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>
+        {!isLoggedIn && 
+        (<Modal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>)}
+        
         {/* Library Section */}
 
         {isLoggedIn &&         

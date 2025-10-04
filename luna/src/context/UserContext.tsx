@@ -5,6 +5,7 @@ interface User {
   username: string;
   isCreator: boolean;
   name: string;
+  dateCreated: string;
 }
 
 interface UserContextType {

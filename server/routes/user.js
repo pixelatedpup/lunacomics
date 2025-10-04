@@ -138,7 +138,9 @@ router.get("/me", verifyToken, async (req, res) => {
       id: user._id,
       username: user.username,
       isCreator: user.isCreator,
-      name: user.name
+      name: user.name,
+      dateCreated: user.createdAt,
+      
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
