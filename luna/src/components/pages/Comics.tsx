@@ -63,13 +63,17 @@ const Comics = () => {
 
 
             {/* Comics Grid */}
-            <main className="flex flex-col flex-1 p-4">
-                <section className="flex  lg:flex-row md:flex-col sm:flex-col mb-[20px] gap-5 ">
-                    <h1 className="sm:text-center md:text-center">{genreTag || "All"}</h1>
-                    <div className="flex flex-col  w-full 
-                                    md:items-center sm:items-center lg:items-end 
-                                    justify-center">
-                        <Input custom="w-full h-[30px] sm:w-full md:w-full lg:w-full"
+            <main className="flex flex-col flex-1 p-4 ">
+                <section className="flex  lg:flex-row md:flex-col sm:flex-col 
+                                    mb-[20px] sm:mt-[50px] md:mt-[50px] gap-5 w-full ">
+
+                    <div className="w-[300px] ">
+                        <h1 className="sm:text-center md:text-center">{genreTag || "All"}</h1>
+                    </div>
+                    <div className="flex flex-col  w-full  md:items-center 
+                                     lg:items-end 
+                                    justify-center ">
+                        <Input custom="lg:w-[350px] h-[15px] sm:w-full md:w-full "
                                 typeUse="text"
                                 label=""
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
@@ -80,8 +84,8 @@ const Comics = () => {
 
                 {genreTag != "All"?(
 
-                <div className="flex justify-center">
-                    <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 ">
+                <div className="flex justify-center ">
+                    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-7 ">
                         {filteredComics.map((comic, index) => (
                             <ComicPage key={index} comicid={comic.imageId} comicIdDB={comic._id} title={comic.title}/>
                         ))}
@@ -90,7 +94,7 @@ const Comics = () => {
                 ):(
                 
                 <div className="flex justify-center">
-                    <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-7 ">
                         {filteredComics.map((comic, index) => (
                             <ComicPage key={index} comicid={comic.imageId} comicIdDB={comic._id} title={comic.title}/>
                         ))}

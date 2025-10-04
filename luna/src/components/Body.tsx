@@ -5,7 +5,7 @@ import Library from "./pages/Library"
 import Comics from "./pages/Comics"
 import Community from "./pages/Community"
 import Creator from "./pages/Creator"
-import Notifications from "./pages/Notifications"
+import Inbox from "./pages/Inbox"
 import Preview from "./pages/Preview"
 import Reading from "./pages/Reading"
 import SignIn from "./pages/SignIn"
@@ -26,7 +26,7 @@ const Body = () => {
             <Route path="/comics" element={<Comics/>}></Route>
             <Route path="/community" element={<Community/>}></Route>
             <Route path="/creator/:cardId" element={<Creator/>}></Route>
-            <Route path="/notifications" element={<Notifications/>}></Route>
+            <Route path="/inbox" element={<Inbox/>}></Route>
             <Route path="/preview/:comicId" element={<Preview/>}></Route>
             <Route path="/reading" element={<Reading/>}></Route>
             <Route path="/signin" element={<SignIn/>}></Route>

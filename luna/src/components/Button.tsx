@@ -8,7 +8,9 @@ interface ButtonProps{
     bg?: Color; 
     color?: Color; 
     type?:Button;
-    onClick?:React.MouseEventHandler<HTMLButtonElement>
+    onClick?:React.MouseEventHandler<HTMLButtonElement>;
+    onMouseEnter?:React.MouseEventHandler<HTMLButtonElement>;
+    onMouseLeave?:React.MouseEventHandler<HTMLButtonElement>;
    
 }
 
@@ -19,6 +21,8 @@ const Button = ({
     color = "white" ,
     type="button",
     onClick,
+    onMouseEnter,
+    onMouseLeave
 }:ButtonProps) => {
     const sizeClasses = {
         sm: "w-[80px] h-[40px]",
@@ -46,6 +50,8 @@ const Button = ({
         <button
             type={type}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className={`${sizeClasses[size]} ${bgClasses[bg]} ${textClasses[color]} p-[12px] rounded-2xl transition-all duration-[0.3s] hover:scale-[110%] hover:bg-white hover:border hover:border-black hover:text-black`}
         >
             {text}

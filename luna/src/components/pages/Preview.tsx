@@ -21,6 +21,7 @@ const Preview = () => {
     const {user, token, isLoggedIn} = useUser();
     const {addNotification} = useNotifications();
     const [inLibrary, setInLibrary] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
 
     
     // const authorUse = allAuthors.find(a => a.id === Number(comic?.author))
@@ -45,16 +46,26 @@ const Preview = () => {
                 }else{
                     setInLibrary(false);
                 }
-            console.log(inLibrary);
+            
         })
         .catch(console.error);
-    },[])
+    },[isLoggedIn, user])
+
+    useEffect(() => {
+        console.log("InLibrary changed: ", inLibrary);
+    }, [inLibrary])
 
 
     useEffect(() => {
         console.log("Fetched comics:", comicDB);
         console.log("Route comicId:", comicId);
     }, [comicDB, comicId]);
+
+    useEffect(() => {
+  if (!comicId) return;
+  setInLibrary(libraryDB.some(c => c._id === comicId));
+}, [libraryDB, comicId]);
+
 
 
 
@@ -72,12 +83,14 @@ const Preview = () => {
                 const updatedLibrary = await addToLibrary(comicId, token);
                 console.log("Library updated:", updatedLibrary);
                 setInLibrary(true);
+                setLibraryDB(updatedLibrary);
                 addNotification(`${comic?.title} added to library!`);
                 // return;
             }
             else{
                 const updatedLibrary = await removeFromLibrary(comicId, token);
                 setLibraryDB(updatedLibrary);
+                
                 setInLibrary(false);
                 addNotification(`${comic?.title} removed from library!`);
             }
@@ -114,7 +127,13 @@ const Preview = () => {
                     <div className="flex flex-row gap-2">
                         <Button text="Start Reading"/>
                         {isLoggedIn && (
-                        <Button color="light" bg="dark" text={!inLibrary?'Add to Library':'In Library'} onClick={handleAddToLibrary}/> 
+                        <Button 
+                        color="light" 
+                        bg="dark" 
+                        text={!inLibrary?'Add to Library': isHovering?"Remove" : "In Library"} 
+                        onClick={handleAddToLibrary}
+                        onMouseEnter={()=>inLibrary && setIsHovering(true)}
+                        onMouseLeave={()=>inLibrary && setIsHovering(false)}/> 
                         )}
                     </div>
                 </section>

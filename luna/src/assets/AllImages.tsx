@@ -7,6 +7,7 @@ const banner = import.meta.glob("./images/cover*.png", { eager: true, import: "d
 
 export const allImages = Array.from({ length: 18 }, (_, i) => {
   const id = i + 1;
+
   return {
     id,
     icon: icons[`./images/card${id}.png`] as string,
@@ -14,3 +15,5 @@ export const allImages = Array.from({ length: 18 }, (_, i) => {
     banner: covers[`./images/cover${id}.png`] as string,
   };
 });
+
+

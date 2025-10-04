@@ -2,7 +2,7 @@ import Description from "../Description";
 import NavBar from "../NavBar";
 import SectionBar from "../SectionBar";
 
-const Notifications = () => {
+const Inbox = () => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const Notifications = () => {
         
             <main className="flex flex-col flex-1 p-4 gap-10">
                 <section>
-                    <h1>Notifications</h1>
+                    <h1>Inbox</h1>
                 </section>
 
 
@@ -29,4 +29,4 @@ const Notifications = () => {
     );
 }
 
-export default Notifications;
+export default Inbox;

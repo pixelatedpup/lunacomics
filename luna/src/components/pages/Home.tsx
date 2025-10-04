@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 // import {useWindowSize} from "../../hooks/useWindowSize";
 
 import { useUser } from "../../hooks/useUser"
+import Modal from "../Modal.tsx";
 // import { NavLink } from "react-router-dom"
 
 
@@ -32,8 +33,13 @@ const Home = () => {
     const [hotComicsDB, setHotComicsDB] = useState<Comic[]>([])
     const [topComicsDB, setTopComicsDB] = useState<Comic[]>([])
     const[libraryDB, setLibraryDB] = useState<Comic[]>([])
+      const [openModal, setOpenModal] = useState(true);
+      const [highlightID, setHighlightID] = useState("");
 
     const navigate = useNavigate();
+    useEffect(() => {
+        console.log("Fetched hotComicsDB: ", hotComicsDB);
+    }, [hotComicsDB])
     useEffect(() => {
         if(!isLoggedIn || !user) return;
 
@@ -52,14 +58,15 @@ const Home = () => {
     },[])
 
     useEffect(() => {
+        if(hotComicsDB.length === 0) return; //wait until data loads
+
         const interval = setInterval(() => {
-            
-            setHighlightIndex((prev) => (prev + 1) % hotComics.length)
+            setHighlightIndex((prev) => (prev + 1) % hotComicsDB.length);
         }, 2000);
             
         return() => clearInterval(interval);
 
-    }, [hotComics.length, resetTrigger])
+    }, [hotComicsDB.length, resetTrigger])
 
     const handleHighlightClick = (index:number) => {
         setHighlightIndex(index);
@@ -67,11 +74,27 @@ const Home = () => {
     }
 
     useEffect(() => {
-        setSelectedCard(hotComics[highlightIndex].comicid);
+        // setSelectedCard(hotComics[highlightIndex].comicid);
+        if(hotComicsDB.length > 0){
+            const comic = hotComicsDB[highlightIndex];
+            if (comic) {
+                setSelectedCard(comic.imageId)
+                setHighlightID(comic._id);
+            }
+        }
 
-    },[highlightIndex,hotComics])
+    },[highlightIndex,hotComicsDB])
+
+    useEffect(()=>{
+        console.log("Highlight Index", highlightIndex);
+        console.log("Selected Card: ", selectedCard)
+    },[selectedCard, highlightIndex])
+
+  
     return (
         <>
+
+        <Modal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>
         {/* Library Section */}
 
         {isLoggedIn &&         
@@ -107,55 +130,47 @@ const Home = () => {
         </section>}
 
 
+
         {/* Hot Comics Section */}
         <section className={`flex flex-1 flex-col ${isLoggedIn && 'mt-[30px]'}`}>
+  <article className="mb-[15px]">
+    <h2>Hot</h2>
+  </article>
 
-            <article className="mb-[15px]">
-                <h2>Hot</h2>
-            </article>
+  <div className="flex flex-col md:flex-row sm:items-center rounded-2xl bg-black lg:h-[255px] md:h-[455px] sm:h-[455px]">
+    <article className="flex flex-col flex-1 text-white">
+      <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center">
+        {hotComicsDB.map((comic, index) => {
+          const isHighlighted = index === highlightIndex;
+          return (
+            <li
+              key={comic._id || index}
+              onClick={() => handleHighlightClick(index)}
+              className={`cursor-pointer transition-all duration-300 ${
+                isHighlighted
+                  ? "text-[var(--accent)] font-bold"
+                  : "text-white/70 hover:text-[var(--accent)]"
+              }`}
+            >
+              {comic.title}
+            </li>
+          );
+        })}
+      </ul>
+    </article>
 
-            <div className="flex 
-                            g:flex-row md:flex-col 
-                            lg:flex-row
-                            sm:flex-col-reverse 
-                            md:flex-col-reverse 
-                            sm:items-center
-                            md:items-center
-                           
-                            lg:h-[255px] 
-                            md:h-[455px] 
-                            sm:h-[455px] 
+    <article className="flex-1 flex justify-center items-center">
+      <Card
+        key={selectedCard}
+        round
+        custom="w-[443px] sm:w-full sm:h-[220.33px] border border-[var(--accent)] rounded-2xl"
+        cardid={selectedCard}
+        cardIdDB={highlightID}
+      />
+    </article>
+  </div>
+</section>
 
-                            
-
-                            rounded-2xl 
-                            bg-[black]">
-                <article className="flex flex-col flex-1 gap-15 text-white">
-                    <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center 
-                                   ">
-                        {hotComics.map((comic, index) =>  {
-                            
-                            const isHighlighted = index === highlightIndex;
-                            return(
-                            <li className="cursor-pointer" key={index} onClick={()=> handleHighlightClick(index) }>
-                                {isHighlighted ? (
-                                    <Highlight>
-                                        <h3 className="px-[20px] font-bold">{comic.title}</h3>
-                                    </Highlight>
-                                    ):(
-                                    <h3 className="px-[20px]">{comic.title}</h3>
-                                )}
-                            </li>
-                            )
-                        })}
-                    </ul>
-                </article>
-
-                <article className="flex-1 flex flex-col justify-start p-[10px] lg:justify-center sm:w-full  sm:h-full lg:h-full">           
-                        <Card round={true} custom=" w-[443px]   sm:w-full sm:h-[220.33px] border border-[var(--accent)] rounded-2xl" cardid={selectedCard}/>
-                </article>
-            </div>
-        </section>
 
         {/* New Comics Section */}
         <section className="flex flex-col flex-wrap flex-1 flex-col mt-[70px] w-full">

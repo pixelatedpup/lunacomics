@@ -5,7 +5,7 @@ import { allComics } from "../../assets/AllComics";
 import { allAuthors } from "../../assets/AllAuthors";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
-import { fetchCreatorOne, type Creator, followAuthor, unfollowAuthor } from "../../api/authorApi";
+import { fetchCreatorOne, type CreatorUse, followAuthor, unfollowAuthor } from "../../api/authorApi";
 import { fetchComics, type Comic} from "../../api/comicApi";
 
 import { useUser } from "../../hooks/useUser";
@@ -13,7 +13,7 @@ import { useNotifications } from "../../context/NotificationContext";
 
 const Creator = () => {
         const {cardId} = useParams<{cardId: string}>();
-        const [creator, setCreator] = useState<Creator|null>(null);
+        const [creator, setCreator] = useState<CreatorUse|null>(null);
         const [comic, setComic] = useState<Comic[]>([]);
         const [loading, setLoading] = useState(true);
         const [error,setError] = useState<string|null>(null);

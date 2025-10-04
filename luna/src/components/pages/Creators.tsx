@@ -3,7 +3,7 @@ import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
 import { allComics } from "../../assets/AllComics.tsx";
 import Banner from "../Banner";
-import { fetchCreators, followAuthor, type Creator } from "../../api/authorApi.tsx";
+import { fetchCreators, followAuthor, type CreatorUse } from "../../api/authorApi.tsx";
 import { fetchPosts as fetchPostsApi, type PostTypeUse } from "../../api/postApi.tsx";
 import { useState,useEffect } from "react";
 import { useUser } from "../../hooks/useUser.tsx";
@@ -12,7 +12,7 @@ const Creators = () => {
 
     
 
-    const [creators, setCreators] = useState<Creator[]>([]);
+    const [creators, setCreators] = useState<CreatorUse[]>([]);
     const [posts, setPosts] = useState<PostTypeUse[]>([]);
     const [loading, setLoading] = useState(true);
     
