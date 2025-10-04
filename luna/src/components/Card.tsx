@@ -43,7 +43,7 @@ const Card = ({
     console.log(cardIdDB);
   }, [cardIdDB])
 
-  if (loading) return <div className="animat-spin rounded-full h-16 w-16 border-t-4 border-[var(--accent)]"></div>;
+  if (loading) return <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[var(--accent)]"></div>;
 
   const imgSrc = (() => {
     if (cardIdDB) {

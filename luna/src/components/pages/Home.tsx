@@ -137,37 +137,39 @@ const Home = () => {
     <h2>Hot</h2>
   </article>
 
-  <div className="flex flex-col md:flex-row sm:items-center rounded-2xl bg-black lg:h-[255px] md:h-[455px] sm:h-[455px]">
-    <article className="flex flex-col flex-1 text-white">
-      <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center">
-        {hotComicsDB.map((comic, index) => {
-          const isHighlighted = index === highlightIndex;
-          return (
-            <li
-              key={comic._id || index}
-              onClick={() => handleHighlightClick(index)}
-              className={`cursor-pointer transition-all duration-300 ${
-                isHighlighted
-                  ? "text-[var(--accent)] font-bold"
-                  : "text-white/70 hover:text-[var(--accent)]"
-              }`}
-            >
-              {comic.title}
-            </li>
-          );
-        })}
-      </ul>
-    </article>
+  <div className="flex flex-col md:flex-row sm:items-center rounded-2xl bg-black 
+                  lg:h-[255px] md:h-[455px] sm:h-[455px] ">
+        <article className="flex flex-col flex-1 text-white">
+        <ul className="flex-1 flex flex-col gap-5 px-[75px] justify-center">
+            {hotComicsDB.map((comic, index) => {
+            const isHighlighted = index === highlightIndex;
+            return (
+                <li
+                key={comic._id || index}
+                onClick={() => handleHighlightClick(index)}
+                className={`cursor-pointer transition-all duration-300 ${
+                    isHighlighted
+                    ? "text-[var(--accent)] font-bold"
+                    : "text-white/70 hover:text-[var(--accent)]"
+                }`}
+                >
+                {comic.title}
+                </li>
+            );
+            })}
+        </ul>
+        </article>
 
-    <article className="flex-1 flex justify-center items-center">
-      <Card
-        key={selectedCard}
-        round
-        custom="w-[443px] sm:w-full sm:h-[220.33px] border border-[var(--accent)] rounded-2xl"
-        cardid={selectedCard}
-        cardIdDB={highlightID}
-      />
-    </article>
+        <article className="flex-1 flex justify-center items-center h-full  overflow-hidden">
+        <Card
+            key={selectedCard}
+            round
+            custom="border border-[var(--accent)] rounded-2xl 
+                    w-full  h-full max-h-full overflow-hidden"
+            cardid={selectedCard}
+            cardIdDB={highlightID}
+        />
+        </article>
   </div>
 </section>
 
