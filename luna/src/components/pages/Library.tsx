@@ -5,11 +5,16 @@ import { fetchComicByTag, type Comic, fetchUserLibrary } from "../../api/comicAp
 import { useEffect, useState } from "react";
 import { useUser } from "../../hooks/useUser";
 import Button from "../Button.tsx";
+import { fetchCreators , type CreatorUse} from "../../api/authorApi.tsx";
+import { data } from "framer-motion/client";
 
 const Library= () => {
         const[libraryDB, setLibraryDB] = useState<Comic[]>([])
+        const[creatorsDB, setCreatorsDB] = useState<CreatorUse[]>([])
+        const [isLoading, setIsLoading] = useState(true);
 
         const {user, token, isLoggedIn} = useUser();
+        
 
         useEffect(() => {
             if(!isLoggedIn || !user) return;
@@ -19,7 +24,22 @@ const Library= () => {
                 .catch((err)=> {
                     console.error("Failed to fetch library:", err);
                 });
+
+            fetchCreators()
+            .then((data)=>{
+                setCreatorsDB(data);
+            }
+            )
+            .catch((err)=> {
+                console.error("Failed to return all Creators", err)
+            })
+            .finally(()=>{
+                console.log("Here are the following creators: ", data);
+                setIsLoading(false)
+        })
         }, [isLoggedIn, user]);
+
+
 
 
 

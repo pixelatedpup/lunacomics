@@ -3,7 +3,7 @@ import express from "express";
 import User from "../models/User.js";
 import verifyToken from "../middleware/verifyToken.js"; 
 import Comic from "../models/Comics.js";
-import Creator from "../models/Creator.js";
+// import Creator from "../models/Creator.js";
 import Post from "../models/Post.js";
 
 const router = express.Router();
@@ -147,21 +147,28 @@ router.get("/me", verifyToken, async (req, res) => {
   }
 });
 
-//Get all authors
+//Get all authors - UPDATED
 router.get("/creator", async(req,res) => {
     try{
-        const creator = await Creator.find({});
-        res.json(creator);
+        const creators = await User.find({isCreator: true})
+        .select("name username followersCount followers imageId createdAt bio");
+        res.json(creators);
     }catch(err){
         console.error("Failed to get author details:",err);
         res.status(500).json({error: err.message});
     }
 });
 
-//Get specific authors info
+//Get specific authors info - UPDATED
 router.get("/creator/:id", async(req,res) => {
     try{
-        const creator = await Creator.findById(req.params.id).populate("followers", "_id name username");
+        const creator= await User.findById(req.params.id)
+        .select("-password")
+        .populate("followers", "_id name username");
+
+        if(!creator || !creator.isCreator) {
+          return res.status(404).json({error: "Creator not found"})
+        }
 
         res.json(creator);
     }catch(err){
@@ -179,28 +186,42 @@ router.post("/follow", verifyToken, async (req, res) => {
 
     // 1. Make sure user exists
     const user = await User.findById(userId).select("-password");
+    const creator = await User.findById(creatorId).select("-password");
+
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // 2. Add the user to followers array
-    let creator = await Creator.findByIdAndUpdate(
+    if(!creator || !creator.isCreator) {
+          return res.status(404).json({error: "Creator not found"})
+    }
+
+    // 2. Add the user to creators followers array
+    await User.findByIdAndUpdate(
       creatorId,
       { $addToSet: { followers: userId } }, // only update followers here
       { new: true }
-    ).populate("followers");
+    );
 
-    if (!creator) {
-      return res.status(404).json({ error: "Creator not found" });
-    }
+    // 2. Add the creator to users following array
+    await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { following: creatorId } }, // only update followinghere
+      { new: true }
+    );
+
+    const updatedCreator = await User.findById(creatorId)
+    .populate("followers", "_id name username");
 
     // 3. Update followersCount dynamically
-    creator.followersCount = creator.followers.length;
-    await creator.save();
+    updatedCreator.followersCount = updatedCreator.followers.length;
+    await updatedCreator.save();
+
 
     res.json({
-      followers: creator.followers,
-      followersCount: creator.followersCount,
+      followers: updatedCreator.followers,
+      followersCount: updatedCreator.followersCount,
     });
   } catch (err) {
     console.error("Failed to follow the user: ", err);
@@ -214,35 +235,29 @@ router.post("/unfollow", verifyToken, async (req, res) => {
     const { creatorId } = req.body;
     const userId = req.user.id;
 
-    console.log(`Removing user: ${userId} from follower array of: ${creatorId}`);
-
-    // 1. Make sure user exists
     const user = await User.findById(userId).select("-password");
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    const creator = await User.findById(creatorId);
 
-    // 2. Remove the user from followers array
-    let creator = await Creator.findByIdAndUpdate(
-      creatorId,
-      { $pull: { followers: userId } }, // <-- $pull removes userId from followers
-      { new: true }
-    ).populate("followers");
-
-    if (!creator) {
+    if (!user) return res.status(404).json({ error: "User not found" });
+    if (!creator || !creator.isCreator)
       return res.status(404).json({ error: "Creator not found" });
-    }
 
-    // 3. Update followersCount dynamically
-    creator.followersCount = creator.followers.length;
-    await creator.save();
+    // Remove follower references
+    await User.findByIdAndUpdate(creatorId, { $pull: { followers: userId } });
+    await User.findByIdAndUpdate(userId, { $pull: { following: creatorId } });
+
+    const updatedCreator = await User.findById(creatorId)
+      .populate("followers", "_id name username");
+
+    updatedCreator.followersCount = updatedCreator.followers.length;
+    await updatedCreator.save();
 
     res.json({
-      followers: creator.followers,
-      followersCount: creator.followersCount,
+      followers: updatedCreator.followers,
+      followersCount: updatedCreator.followersCount,
     });
   } catch (err) {
-    console.error("Failed to unfollow the user: ", err);
+    console.error("Failed to unfollow the user:", err);
     res.status(500).json({ error: err.message });
   }
 });
