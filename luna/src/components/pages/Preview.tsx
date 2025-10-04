@@ -125,11 +125,12 @@ const Preview = () => {
                         
                     </div>
                     <div className="flex flex-row gap-2">
-                        <Button text="Start Reading"/>
+                        <Button text="Start Reading" size="auto"/>
                         {isLoggedIn && (
                         <Button 
                         color="light" 
                         bg="dark" 
+                        size="auto"
                         text={!inLibrary?'Add to Library': isHovering?"Remove" : "In Library"} 
                         onClick={handleAddToLibrary}
                         onMouseEnter={()=>inLibrary && setIsHovering(true)}

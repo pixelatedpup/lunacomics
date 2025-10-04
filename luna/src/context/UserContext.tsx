@@ -6,6 +6,9 @@ interface User {
   isCreator: boolean;
   name: string;
   dateCreated: string;
+  following: [];
+  followers: [];
+  imageId?:string;
 }
 
 interface UserContextType {

@@ -76,7 +76,7 @@ const Header = () => {
         {/* <NavLink to="/library"><p className="m-0">Profile</p></NavLink> */}
         <div className="">
         {isLoggedIn ?
-         <NavLink to="/library">
+         <NavLink to="/profile">
           <Symbol/>
           </NavLink>:
         <NavLink to="/signin">

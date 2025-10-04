@@ -140,6 +140,10 @@ router.get("/me", verifyToken, async (req, res) => {
       isCreator: user.isCreator,
       name: user.name,
       dateCreated: user.createdAt,
+      imageId: user.imageId,
+      followers: user.followers,
+      following: user.following
+
       
     });
   } catch (err) {

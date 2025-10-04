@@ -14,7 +14,7 @@ const Community = () => {
                 <section className="border-b pb-[40px]">
                     <Text/>
                     <div className="flex justify-end w-full">
-                        <Button text="Post" bg="accent" color="light"/>
+                        <Button text="Post" bg="accent" color="light" size="auto"/>
                     </div>
                 </section>
 

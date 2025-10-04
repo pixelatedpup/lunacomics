@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home"
 import Creators from "./pages/Creators"
-import Library from "./pages/Library"
+import Profile from "./pages/Profile"
 import Comics from "./pages/Comics"
 import Community from "./pages/Community"
 import Creator from "./pages/Creator"
@@ -22,7 +22,7 @@ const Body = () => {
             
             <Route path="/" element={<Home/>}></Route>
             <Route path="/creators" element={<Creators/>}></Route>
-            <Route path="/library" element={<Library/>}></Route>
+            <Route path="/profile" element={<Profile/>}></Route>
             <Route path="/comics" element={<Comics/>}></Route>
             <Route path="/community" element={<Community/>}></Route>
             <Route path="/creator/:cardId" element={<Creator/>}></Route>

@@ -19,7 +19,7 @@ const SectionBar = () => {
         }
 
         const links  = [
-        {id: 1 , name: "Library" , route:"/library"},
+        {id: 1 , name: "Profile" , route:"/profile"},
         {id: 2 , name: "Inbox", route:"/inbox"},
         {id: 3 , name: "Settings", route:"/settings"},
         {id: 4 , name: "Logout", onClick: () => setShowModal(true)},

@@ -1,4 +1,4 @@
-type Size = "sm" | "md" | "lg";
+type Size = "sm" | "md" | "auto";
 type Color = "light" | "dark" | "accent" | "primary" | "white";
 type Button = "button" | "submit" | "reset";
 
@@ -26,8 +26,8 @@ const Button = ({
 }:ButtonProps) => {
     const sizeClasses = {
         sm: "w-[80px] h-[40px]",
-        md: "w-[150px] h-[45px]",
-        lg: "w-[160px] h-[60px]",
+        md: "w-[120px] h-[35px]",
+        auto: "w-auto h-auto p-[6px] px-[10px]",
     };
 
     const bgClasses = {
