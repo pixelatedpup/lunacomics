@@ -50,7 +50,7 @@ const Profile= () => {
                 <SectionBar/>
 
                 {/* Comics Grid */}
-                <main className="flex flex-col gap-7 flex-1 p-4 mt-[40px]">
+                <main className="flex flex-col gap-7 flex-1 p-4 lg:mt-0 md:mt-[40px] sm:mt-[40px]">
                     <section className="flex  w-full border-b p-[20px]">
                         <div className="flex gap-7">
                             <div className="flex justify-start h-auto w-[100px]  items-center w-full h-full">

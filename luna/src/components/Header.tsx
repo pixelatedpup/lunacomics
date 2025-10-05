@@ -55,8 +55,8 @@ const Header = () => {
                     </div>
                     {notifications.map((n) => (
                       <div key={n.id} className="flex justify-between items-center bg-[var(--accent)] text-[var(--dark)] p-[10px] border rounded-xl">
-                        <span>{n.message}</span>
-                        <button className="flex items-start bg-white roundedxl p-[5px] h-auto" onClick={() => removeNotification(n.id)}>x</button>
+                        <span className="text-[var(--light)]">{n.message}</span>
+                        <button className="flex items-center justify-center bg-white rounded-full h-[24px] w-[24px]" onClick={() => removeNotification(n.id)}>x</button>
                       </div>
                     ))}
                   </div>

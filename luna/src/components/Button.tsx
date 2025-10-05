@@ -1,4 +1,4 @@
-type Size = "sm" | "md" | "auto";
+type Size = "sm" | "md" | "auto" ;
 type Color = "light" | "dark" | "accent" | "primary" | "white";
 type Button = "button" | "submit" | "reset";
 
