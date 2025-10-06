@@ -12,6 +12,8 @@ import { useUser } from "../../hooks/useUser";
 import { useNotifications } from "../../context/NotificationContext";
 
 const Creator = () => {
+
+        type Display = "comic" | "shop";
         const {cardId} = useParams<{cardId: string}>();
         const [creator, setCreator] = useState<CreatorUse|null>(null);
         const [comic, setComic] = useState<Comic[]>([]);
@@ -21,20 +23,37 @@ const Creator = () => {
         const [followerCount, setFollowerCount] = useState(0);
         const [followed, setFollowed] = useState(false);
         const {addNotification} = useNotifications();
+        const[displayUse, setDisplayUse] = useState<Display>("comic")
+        const[filteredComics, setFilteredComics] = useState<Comic[]>([]);
 
 
-        useEffect (() => {
-            fetchComics()
+
+        useEffect(() => {
+        fetchComics()
             .then((data) => {
-                setComic(data);
-                setError(null);
+            setComic(data);
+            setError(null);
+            console.log("Fetched comics (Creator): ", data);
             })
             .catch((err) => {
-                console.error("Could not fetch comics", err);
-                setError("Failed to fetch comics");
+            console.error("Could not fetch comics", err);
+            setError("Failed to fetch comics");
             })
-            .finally(()=>setLoading(false));
-        })
+            .finally(() => setLoading(false));
+        }, []);
+
+        useEffect(() => {
+            if (!cardId || comic.length === 0) return;
+
+            const filtered = comic.filter((c) =>
+            c.author.some((a) => a._id === cardId)
+            );
+
+
+            setFilteredComics(filtered);
+            console.log("Filtered comics (Creator): ", filtered);
+        }, [cardId, comic]);
+
 
         useEffect (() => {
             if(!cardId) return;
@@ -66,6 +85,15 @@ const Creator = () => {
 
 
 
+        const handleDisplay = (displayInUse:string) =>{
+            if (displayInUse === "comic" && displayUse === "comic"){
+                setDisplayUse("comic");
+            }else if(displayInUse === "shop" && displayUse === "comic"){
+                setDisplayUse("shop");
+            }else{
+                setDisplayUse("comic")
+            }
+        }
 
      
                 
@@ -127,7 +155,7 @@ const Creator = () => {
                     <div className="flex flex-1 flex-col items-center justify-center ">
                         <article className="flex flex-col gap-10">
                             <h2 className="text-center">{`${followerCount || creator?.followersCount} followers`}</h2>
-                            <Button text={followed? "Unfollow" : "Follow"} bg = {followed? "light" : "accent"} color = {followed? "dark" : "light"}  onClick={handleFollowAuthor}/>
+                            <Button text={followed? "Unfollow" : "Follow"} bg = {followed? "light" : "accent"} color = {followed? "dark" : "light"}  onClick={handleFollowAuthor} size="auto"/>
                         </article>
                     </div>
                 </div>
@@ -145,13 +173,16 @@ const Creator = () => {
             </section>
 
             <section>
-                <div>
+                <div className="flex flex-col gap-5">
                     <div className="flex flex-row gap-7">
-                        <h2>Comics</h2>
-                        <h2>Shop</h2>
+                        <button className={`${displayUse === "comic"? "text-[var(--accent)]":"text-[var(--dark)]"}`} onClick={()=>handleDisplay("comic")}><h2>Comics</h2></button>
+                        <button className={`${displayUse === "shop"? "text-[var(--accent)]":"text-[var(--dark)]"}`} onClick={()=>handleDisplay("shop")}><h2>Shop</h2></button>
                     </div>
+
                     <div className="flex flex-col border border-black rounded-2xl p-[30px] gap-10">
-                        {/* Turn this into a component later */}
+                        
+                    {displayUse === "comic" && 
+                    ( <>
                         {comicUse.map((c, index)=>(
                             <article className="flex flex-row">
                                 <ComicPage comicid={c.imageId}/>
@@ -160,11 +191,20 @@ const Creator = () => {
                                     <h3 className="mb-[20px]">{`${c.volume} Volumes`}</h3>
                                     <p>{c.description}</p>
                                 </div>
-                        </article>
+                            </article>
                         ) )}
-
-
+                        </>
+                        )}
+                    {displayUse ==="shop" && 
+                    (
+                       <>
+                            <p className="text-grey">Shop is empty at the moment</p>
+                       </> 
+                    )}
                     </div>
+
+
+
                 </div>
             </section>
         </div>
