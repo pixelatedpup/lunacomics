@@ -8,11 +8,13 @@ import Button from "../Button.tsx";
 import { fetchCreators , type CreatorUse} from "../../api/authorApi.tsx";
 import { data } from "framer-motion/client";
 import Icon from "../Icon.tsx";
+import DashModal from "../DashModal.tsx";
 
 const Profile= () => {
         const[libraryDB, setLibraryDB] = useState<Comic[]>([])
         const[creatorsDB, setCreatorsDB] = useState<CreatorUse[]>([])
         const [isLoading, setIsLoading] = useState(true);
+        const[openModal, setOpenModal] = useState(false);
 
         const {user, token, isLoggedIn} = useUser();
         
@@ -45,6 +47,7 @@ const Profile= () => {
         <>
 
         <section>
+            {openModal && (<DashModal handle={setOpenModal} value={openModal} />)}
             <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row min-h-screen">
                 <h1> </h1>
                 <SectionBar/>
@@ -70,7 +73,7 @@ const Profile= () => {
                                 <h3>{user?.following.length !== 0 ? user?.following.length : "0"} Following </h3>
                             </div>
                             <div className="flex flex-row">
-                                <Button text="Dashboard" color="dark" bg="light" size="auto"/>
+                                <Button text="Dashboard" color="dark" bg="light" size="auto" onClick={() => setOpenModal(true)}/>
                             </div>
                         </div>
                         

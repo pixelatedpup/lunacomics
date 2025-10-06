@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useUser } from "../../hooks/useUser"
 import Modal from "../Modal.tsx";
+import AlertModal from "../AlertModal.tsx";
 // import { NavLink } from "react-router-dom"
 
 
@@ -94,7 +95,7 @@ const Home = () => {
     return (
         <>
         {!isLoggedIn && 
-        (<Modal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>)}
+        (<AlertModal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>)}
         
         {/* Library Section */}
 
