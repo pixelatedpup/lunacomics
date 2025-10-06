@@ -73,7 +73,7 @@ const Profile= () => {
                                 <h3>{user?.following.length !== 0 ? user?.following.length : "0"} Following </h3>
                             </div>
                             <div className="flex flex-row">
-                                <Button text="Dashboard" color="dark" bg="light" size="auto" onClick={() => setOpenModal(true)}/>
+                                <Button text="Dashboard" color="light" bg="dark" size="auto" onClick={() => setOpenModal(true)}/>
                             </div>
                         </div>
                         

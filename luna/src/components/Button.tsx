@@ -1,8 +1,8 @@
 type Size = "sm" | "md" | "auto" ;
-type Color = "light" | "dark" | "accent" | "primary" | "white";
+export type Color = "light" | "dark" | "accent" | "primary" | "white";
 type Button = "button" | "submit" | "reset";
 
-interface ButtonProps{
+export interface ButtonProps{
     size?: Size; 
     text?: string; 
     bg?: Color; 
