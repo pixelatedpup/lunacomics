@@ -1,22 +1,17 @@
-import NavBar from "../NavBar.tsx";
 import ComicPage from "../ComicPage.tsx";
 import SectionBar from "../SectionBar.tsx";
-import { fetchComicByTag, type Comic, fetchUserLibrary } from "../../api/comicApi.tsx"
+import {type Comic, fetchUserLibrary } from "../../api/comicApi.tsx"
 import { useEffect, useState } from "react";
 import { useUser } from "../../hooks/useUser.tsx";
 import Button from "../Button.tsx";
-import { fetchCreators , type CreatorUse} from "../../api/authorApi.tsx";
-import { data } from "framer-motion/client";
 import Icon from "../Icon.tsx";
 import DashModal from "../DashModal.tsx";
 
 const Profile= () => {
         const[libraryDB, setLibraryDB] = useState<Comic[]>([])
-        const[creatorsDB, setCreatorsDB] = useState<CreatorUse[]>([])
-        const [isLoading, setIsLoading] = useState(true);
         const[openModal, setOpenModal] = useState(false);
 
-        const {user, token, isLoggedIn} = useUser();
+        const {user, isLoggedIn} = useUser();
         
 
         useEffect(() => {

@@ -11,7 +11,7 @@ interface DashProps {
   handle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DashModal = ({ value, handle }: DashProps) => {
+const DashModal = ({ handle }: DashProps) => {
   const [createComic, setCreateComic] = useState(false);
   const [buttonText, setButtonText] = useState("Create a new comic");
   const [buttonColor, setButtonColor] = useState<Color>("light");

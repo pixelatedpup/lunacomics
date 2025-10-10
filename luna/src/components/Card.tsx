@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { allImages } from "../assets/AllImages.tsx";
 import { allComics } from "../assets/AllComics.tsx";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useComics } from "../hooks/useComics.tsx";
 
 type CardType = "icon" | "cover" | "banner";
@@ -26,7 +26,6 @@ const Card = ({
   height = "209px",
   source = "",
   round = false,
-  id = "",
   link = false,
   cardid = 17,
   cardType = "icon",

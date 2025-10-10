@@ -1,12 +1,9 @@
 import Card from "../Card";
-import { allAuthors } from "../../assets/AllAuthors";
 import Input from "../Input";
-import { allComics } from "../../assets/AllComics.tsx";
 import Banner from "../Banner";
-import { fetchCreators, followAuthor, type CreatorUse } from "../../api/authorApi.tsx";
+import { fetchCreators, type CreatorUse } from "../../api/authorApi.tsx";
 import { fetchPosts as fetchPostsApi, type PostTypeUse } from "../../api/postApi.tsx";
 import { useState,useEffect } from "react";
-import { useUser } from "../../hooks/useUser.tsx";
 import Loading from "../Loading.tsx";
 const Creators = () => {
 
@@ -16,19 +13,6 @@ const Creators = () => {
     const [posts, setPosts] = useState<PostTypeUse[]>([]);
     const [loading, setLoading] = useState(true);
     
-    const updates= [
-        {title: "New Upload",
-         message: "I really like the new comics by James, it really got me back into comics",
-         images:[{}, {}],
-         author:""
-        },
-        {title: "New Upload",
-         message: "I really like the new comics by James, it really got me back into comics",
-         images:[{}, {}],
-         author:""
-        },
-
-    ]
     useEffect(()=>{
 
         fetchCreators()
@@ -68,7 +52,7 @@ const Creators = () => {
     
                     <div className="flex flex-row gap-[10px] overflow-x-auto w-full hide-scrollbar">
                         {posts.map ((post, index) => (
-                                <div className="flex flex-col gap-5">
+                                <div key={index} className="flex flex-col gap-5">
                                     <div className="w-[350px] h-[170px] p-[15px] border border-[var(--dark)] rounded-2xl">
                                         <p>{post.message}</p>
                                     </div>

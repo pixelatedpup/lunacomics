@@ -10,7 +10,7 @@ interface AlertModalProps {
   secondButton?: string;
   content?: string;
 }
-const AlertModal = ({ value, handle, title="You need to Login to use this service", content, firstButton, secondButton}: AlertModalProps) =>{
+const AlertModal = ({ value, handle, title="You need to Login to use this service", content}: AlertModalProps) =>{
     const navigate = useNavigate();
     return(
         <>

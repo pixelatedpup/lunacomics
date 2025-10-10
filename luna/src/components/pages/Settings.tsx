@@ -1,6 +1,3 @@
-import Button from "../Button";
-import Description from "../Description";
-import NavBar from "../NavBar";
 import SectionBar from "../SectionBar";
 
 const Settings = () => {

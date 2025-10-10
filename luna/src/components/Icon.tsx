@@ -1,6 +1,5 @@
 import Card from "./Card";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { source } from "framer-motion/client";
 
 type IconSize = "tiny" | "sm" | "md" | "lg";
 

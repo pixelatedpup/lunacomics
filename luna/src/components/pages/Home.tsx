@@ -1,25 +1,11 @@
 import Icon from "../Icon"
 import Comics from "../ComicPage"
-import Highlight from "../Highlight"
-import {useEffect, useState, useContext } from "react"
-// import { allComics } from "../../assets/AllComics.tsx"
-import { hotComics } from "./DataHome";
-import { library } from "./DataHome"
-// import { newComics } from "./DataHome"
+import {useEffect, useState} from "react"
 import Card from "../Card"
 import { fetchComicByTag, type Comic, fetchUserLibrary } from "../../api/comicApi.tsx"
 import { useNavigate } from "react-router-dom";
-
-// import {useWindowSize} from "../../hooks/useWindowSize";
-
 import { useUser } from "../../hooks/useUser"
-import Modal from "../Modal.tsx";
 import AlertModal from "../AlertModal.tsx";
-// import { NavLink } from "react-router-dom"
-
-
-
-
 
 const Home = () => {
 

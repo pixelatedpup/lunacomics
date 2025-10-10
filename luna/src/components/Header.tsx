@@ -2,22 +2,21 @@ import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 import Symbol from "./Symbol";
 import { useUser } from "../hooks/useUser";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useNotifications } from "../context/NotificationContext";
 const Header = () => {
     const {isLoggedIn} = useUser();
-    const[ring, setRing] = useState(false);
     const {notifications, removeNotification, clearNotifications} = useNotifications();
     const [open, setOpen] = useState(false);
-    const [openNav, setOpenNav] = useState(false);
+    // const [openNav, setOpenNav] = useState(false);
 
-    const handleNav = () => {
-      if (openNav){
-        setOpenNav(false);
-      }else{
-        setOpenNav(true)
-      }
-    }
+    // const handleNav = () => {
+    //   if (openNav){
+    //     setOpenNav(false);
+    //   }else{
+    //     setOpenNav(true)
+    //   }
+    // }
   return (
     
   

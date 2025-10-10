@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { useState } from "react";
+// import { useState } from "react";
 
 interface TextProps {
   id?: string;
@@ -22,7 +22,7 @@ const Text = ({
   value,
   onChange,
 }: TextProps) => {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
   return (
     <textarea

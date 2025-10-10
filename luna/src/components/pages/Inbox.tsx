@@ -1,5 +1,4 @@
 import Description from "../Description";
-import NavBar from "../NavBar";
 import SectionBar from "../SectionBar";
 
 const Inbox = () => {

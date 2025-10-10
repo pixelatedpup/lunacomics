@@ -1,32 +1,30 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import Symbol from "./Symbol";
-import { fetchPosts as fetchPostsApi, type PostTypeUse, likePost, unlikePost, fetchPosts} from "../api/postApi";
-import { fetchUserOne } from "../api/userApi";
+import { fetchPosts as fetchPostsApi, type PostTypeUse, likePost, unlikePost} from "../api/postApi";
 import { useUser } from "../hooks/useUser";
-import { fetchCreatorOne } from "../api/authorApi";
-import { useNavigate } from "react-router-dom";
-import Modal from "./Modal";
-interface PostType {
-  _id: string;
-  title: string;
-  message: string;
-  likes: string[]; // array of userIds/usernames
-  comments: { user: string; message: string; createdAt: string }[];
-  poster?: string;
-  imageId?: string[];
-  isUpdate?: boolean;
-}
+// import { useNavigate } from "react-router-dom";
+import AlertModal from "./AlertModal";
+// interface PostType {
+//   _id: string;
+//   title: string;
+//   message: string;
+//   likes: string[]; // array of userIds/usernames
+//   comments: { user: string; message: string; createdAt: string }[];
+//   poster?: string;
+//   imageId?: string[];
+//   isUpdate?: boolean;
+// }
 
 const Post = () => {
   const [posts, setPosts] = useState<PostTypeUse[]>([]);
   const [openComments, setOpenComments] = useState<string | null> (null) ;
   const [openLikes, setOpenLikes] = useState<string | null> (null);
-  const {user, token, isLoggedIn} = useUser();
+  const {user, token} = useUser();
   const [openModal, setOpenModal] = useState(false);
-  const [numLikes, setNumLikes] = useState(0)
+  // const [numLikes, setNumLikes] = useState(0)
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -87,7 +85,7 @@ const Post = () => {
   return (
     <section>
 
-        <Modal value={openModal} handle={setOpenModal}></Modal>
+        <AlertModal value={openModal} handle={setOpenModal}></AlertModal>
       {posts.map((post) => (
         <div
           key={post._id}
@@ -132,11 +130,12 @@ const Post = () => {
                 <div className="flex flex-col gap-5 bg-[var(--accent)] border border-[var(--dark)] rounded-2xl p-[20px]">
                     <p className="border-b border-black">Liked by</p>
                     <ul>
-                    {post.likes.map((user, index)=>(
+                    {/* {post.likes.map((user, index)=>(
                         
-                            <li className="font-bold">{user.username}</li>
+                            // <li className="font-bold">{user}</li>
+                            <li>Hi</li>
                         
-                    ))}
+                    ))} */}
                     </ul>
                 </div>
             </div>
@@ -148,7 +147,7 @@ const Post = () => {
           (
             <div className="w-full h-[150px] bg-[var(--light)] border border-[var(--dark)] mt-[10px]">
                 {post.comments.map((comment, index)=> (
-                    <div className="flex border-b border-[var(--dark)] gap-7 p-[12px]">
+                    <div key = {index} className="flex border-b border-[var(--dark)] gap-7 p-[12px]">
                         <div className="font-bold text-[var(--primary)]"> {comment.user.username}</div>
                         <h3 className="font-bold">{comment.message}</h3>
                         

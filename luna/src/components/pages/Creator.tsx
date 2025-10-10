@@ -1,8 +1,6 @@
 import Button from "../Button";
 import Icon from "../Icon";
 import ComicPage from "../ComicPage"
-import { allComics } from "../../assets/AllComics";
-import { allAuthors } from "../../assets/AllAuthors";
 import { useParams } from "react-router-dom";
 import { useEffect,useState } from "react";
 import { fetchCreatorOne, type CreatorUse, followAuthor, unfollowAuthor } from "../../api/authorApi";
@@ -19,7 +17,7 @@ const Creator = () => {
         const [comic, setComic] = useState<Comic[]>([]);
         const [loading, setLoading] = useState(true);
         const [error,setError] = useState<string|null>(null);
-        const {user, token, isLoggedIn} = useUser();
+        const {user, token} = useUser();
         const [followerCount, setFollowerCount] = useState(0);
         const [followed, setFollowed] = useState(false);
         const {addNotification} = useNotifications();
@@ -82,6 +80,10 @@ const Creator = () => {
             // (console.log(`AuthorName Object: ${author?.name}`))
         },[cardId, user]
         )
+
+        useEffect(()=>{
+            console.log(loading,error,filteredComics);
+        },[])
 
 
 
@@ -184,7 +186,7 @@ const Creator = () => {
                     {displayUse === "comic" && 
                     ( <>
                         {comicUse.map((c, index)=>(
-                            <article className="flex flex-row">
+                            <article key={index} className="flex flex-row">
                                 <ComicPage comicid={c.imageId}/>
                                 <div className="flex flex-col p-[30px]">
                                     <h2>{c.title}</h2>

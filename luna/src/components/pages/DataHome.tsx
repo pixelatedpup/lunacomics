@@ -1,5 +1,4 @@
 import { allComics } from "../../assets/AllComics.tsx"
-import { allAuthors } from "../../assets/AllAuthors"
 
 interface LibraryData {
     id:number,

@@ -1,7 +1,6 @@
 import NavBar from "../NavBar";
 import ComicPage from "../ComicPage";
 import { useState , useEffect} from "react";
-import { allComics } from "../../assets/AllComics.tsx";
 import Input from "../Input";
 import { fetchComics, type Comic} from "../../api/comicApi.tsx"
 import Loading from "../Loading.tsx";

@@ -16,7 +16,7 @@ interface NavBarProps {
 }
 
 
-const NavBar = ({ children, links, onLinkSelect }: NavBarProps) => {
+const NavBar = ({ links, onLinkSelect }: NavBarProps) => {
   const navigate = useNavigate();
   const [highlightLink, setHighlightLink] = useState(0);
 

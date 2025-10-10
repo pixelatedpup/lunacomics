@@ -1,5 +1,4 @@
 import Card from "./Card";
-import { allComics } from "../assets/AllComics";
 
 
 interface BannerProps {

@@ -3,7 +3,7 @@ import Button from "../Button";
 import Post from "../Post";
 import Text from "../Text";
 import { useUser } from "../../hooks/useUser";
-import { addPost, fetchPosts, type PostTypeUse } from "../../api/postApi";
+import { addPost, type PostTypeUse } from "../../api/postApi";
 
 const Community = () => {
   const [message, setMessage] = useState("");

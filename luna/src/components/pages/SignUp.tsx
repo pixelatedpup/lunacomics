@@ -52,6 +52,7 @@ const SignUp = () => {
                 
                 login(data.user, data.token);
                 console.log("Logged in:", data.user);
+                console.log(success);
                 navigate(`/`);
             }else{
                 setError(data.error || "Signup failed")

@@ -1,5 +1,3 @@
-import { Children } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   children: React.ReactNode;

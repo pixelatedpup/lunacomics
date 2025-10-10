@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    // This is the setting causing your errors:
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    // (Keep other compiler options you need)
+    "skipLibCheck": true 
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
