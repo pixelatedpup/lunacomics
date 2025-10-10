@@ -1,5 +1,20 @@
 {
   "scripts": {
     "vercel-build": "cd luna && npm install && npm run build"
-  }
+  },
+  "name": "lunacomics",
+  "version": "1.0.0",
+  "description": "A website for indie comics made using React, JavaScript and TypeScript",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixelatedpup/lunacomics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pixelatedpup/lunacomics/issues"
+  },
+  "homepage": "https://github.com/pixelatedpup/lunacomics#readme"
 }
