@@ -94,7 +94,7 @@ const Home = () => {
   
     return (
         <>
-        {!isLoggedIn && 
+        {(!isLoggedIn && openModal )&& 
         (<AlertModal value={openModal}    handle={setOpenModal} title="Welcome to Luna Comics" content="The website is still in it's early development stage. To access all current features, please Log in or Register an account. "/>)}
         
         {/* Library Section */}
@@ -110,7 +110,7 @@ const Home = () => {
 
             <div className="flex flex-row items-center overflow-x-auto w-full gap-5 
                             lg:h-[200px] md:h-[200px] sm:h-[150px] 
-                            lg:p-[20px] sm:p-[3px]">
+                            lg:p-[20px] sm:p-[3px] hide-scrollbar">
 
                 <div className="flex flex-col  gap-2 h-full justify-center">
                     {/* <Icon iconid={16} link={true} source="comics" size="sm" /> */}
@@ -182,7 +182,7 @@ const Home = () => {
                 <h2>New Comics</h2>
             </article>
 
-            <div className="flex flex-row items-center gap-5 overflow-x-auto justify-evenly gap-7 w-full">
+            <div className="flex flex-row items-center gap-5 overflow-x-auto hide-scrollbar justify-evenly gap-7 w-full">
                 {newComicsDB.map((comic)=>(
                         <Comics comicid={comic.imageId} title={comic.title} comicIdDB={comic._id}/>
                 ))}

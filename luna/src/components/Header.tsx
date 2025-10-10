@@ -54,9 +54,9 @@ const Header = () => {
                                         hover:bg-[var(--light)] hover:text-[var(--dark)] transition-all duration-2s">Clear all</button>
                     </div>
                     {notifications.map((n) => (
-                      <div key={n.id} className="flex justify-between items-center bg-[var(--accent)] text-[var(--dark)] p-[10px] border rounded-xl">
-                        <span className="text-[var(--light)]">{n.message}</span>
-                        <button className="flex items-center justify-center bg-white rounded-full h-[24px] w-[24px]" onClick={() => removeNotification(n.id)}>x</button>
+                      <div key={n.id} className="flex justify-between items-center bg-[var(--light)] text-[var(--dark)] p-[10px] border border-[2px] rounded-xl">
+                        <span className="">{n.message}</span>
+                        <button className="flex items-center justify-center bg-[var(--accent)] text-white rounded-full h-[24px] w-[24px]" onClick={() => removeNotification(n.id)}>x</button>
                       </div>
                     ))}
                   </div>
@@ -81,10 +81,7 @@ const Header = () => {
           </NavLink>:
         <NavLink to="/signin">
          <h3>Login</h3>
-        </NavLink>
-
-         
-         }
+        </NavLink> }
         </div>
       </article>
 

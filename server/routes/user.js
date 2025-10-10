@@ -3,8 +3,10 @@ import express from "express";
 import User from "../models/User.js";
 import verifyToken from "../middleware/verifyToken.js"; 
 import Comic from "../models/Comics.js";
+import Tag from "../models/Tag.js";
 // import Creator from "../models/Creator.js";
 import Post from "../models/Post.js";
+import Genre from "../models/Genre.js";
 
 const router = express.Router();
 
@@ -43,6 +45,54 @@ router.post("/posts/add" , verifyToken, async(req,res) => {
     res.status(500).json({error: err.message});
   }
 })
+
+router.post("/comic/add", verifyToken, async (req, res) => {
+  try {
+    const { title, description, volume, genre, imageId } = req.body;
+    const userId = req.user.id;
+
+    // 1️⃣ Find tag for "New"
+    const tag = await Tag.findOne({ name: "New" });
+    if (!tag) {
+      return res.status(500).json({ error: "Default tag 'New' not found" });
+    }
+
+    // 2️⃣ Find or create genre
+    let genreUse = await Genre.findOne({ name: genre }); // ✅ Use Genre model
+    if (!genreUse) {
+      genreUse = await Genre.create({ name: genre });
+    }
+
+    // 3️⃣ Create the new comic
+    const newComic = new Comic({
+      title,
+      description,
+      volume,
+      genre: [genreUse._id],
+      author: [userId],
+      imageId,
+      tag: [tag._id],
+    });
+
+    await newComic.save();
+
+    // Optional: populate genre & tag for cleaner frontend data
+    await newComic.populate([
+      { path: "genre", select: "_id name" },
+      { path: "tag", select: "_id name" },
+      { path: "author", select: "_id name username" },
+    ]);
+
+    res.json(newComic);
+  } catch (err) {
+    console.error("❌ Failed to add comic:", err);
+    res.status(500).json({
+      error: "Failed to save new comic",
+      details: err.message,
+    });
+  }
+});
+
 
 //Like a post
 router.post("/like", verifyToken, async(req,res) => {

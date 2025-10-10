@@ -56,3 +56,20 @@ export async function removeFromLibrary(comicId: string, token: string): Promise
     if(!res.ok) throw new Error("Failed to remove from library");
     return res.json();
 }
+
+export async function addComic(comicData:{title: string; description: string; volume: number; genre:string; imageId: number}, token:string):Promise<Comic>{
+    const res = await fetch(`${API_BASE}/user/comic/add`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(comicData)
+    })
+
+    if(!res.ok){
+     throw new Error("Failed to save new comic");
+    }
+
+    return res.json();
+}

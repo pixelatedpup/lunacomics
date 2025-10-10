@@ -66,7 +66,7 @@ const Creators = () => {
                 <h2> Updates </h2>
                 <article className="flex flex-col sm:gap-10 lg:gap-10 md:gap-10 mt-[30px] ">
     
-                    <div className="flex flex-row gap-[10px] overflow-x-auto w-full">
+                    <div className="flex flex-row gap-[10px] overflow-x-auto w-full hide-scrollbar">
                         {posts.map ((post, index) => (
                                 <div className="flex flex-col gap-5">
                                     <div className="w-[350px] h-[170px] p-[15px] border border-[var(--dark)] rounded-2xl">

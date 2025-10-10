@@ -77,7 +77,7 @@ const SignUp = () => {
                     <Input label="USERNAME" typeUse="text" name="username" value={formData.username} onChange={handleChange}/>
                     <Input label="PASSWORD" typeUse="password" name="password" value={formData.password} onChange={handleChange}/>
                     <Input label="RE-TYPE PASSWORD" typeUse="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}/>
-                    <Button text="Register" bg="dark" type="submit"/>
+                    <Button text="Register" bg="dark" type="submit" size="auto"/>
 
 
                 </form>

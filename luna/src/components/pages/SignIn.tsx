@@ -52,8 +52,8 @@ const SignIn = () => {
         <h1>Login</h1>
       </section>
 
-      <section className="flex flex-col text-left items-center gap-7">
-        <form onSubmit={handleSubmit}>
+      <section className="flex flex-col text-left items-center ">
+        <form className="flex flex-col gap-7" onSubmit={handleSubmit}>
           <Input
             label="USERNAME"
             typeUse="text"
@@ -68,7 +68,9 @@ const SignIn = () => {
             value={formData.password}
             onChange={handleChange}
           />
-          <Button text="Sign In" bg="dark" type="submit" />
+          <div className="flex justify-center w-full ">
+            <Button text="Sign In" bg="dark" type="submit" size="auto"/>
+          </div>
         </form>
 
         {error && <p className="text-red-500 mt-4">{error}</p>}
