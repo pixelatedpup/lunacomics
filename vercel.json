@@ -6,11 +6,8 @@
       "use": "@vercel/node"
     },
     {
-      "src": "luna/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "luna/dist"
-      }
+      "src": "luna/dist/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
