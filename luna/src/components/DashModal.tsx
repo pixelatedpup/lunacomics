@@ -19,7 +19,7 @@ const DashModal = ({ value, handle }: DashProps) => {
   const { token, user } = useUser();
   const [publishedComics, setPublishedComics] = useState<Comic[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [openOptions, setOpenOptions] = useState(false);
+  const [openOptions, setOpenOptions] = useState<string | null>(null);
 
   // ✅ Only run when user changes
   useEffect(() => {
@@ -54,11 +54,11 @@ const DashModal = ({ value, handle }: DashProps) => {
     genre: "",
     imageId: 1,
   });
-    const handleOptions = (index:number) => {
+    const handleOptions = (index:string) => {
         if(!openOptions) {
-            setOpenOptions(true);
+            setOpenOptions(index);
         }else{
-            setOpenOptions(false);
+            setOpenOptions(null);
         }
     }
 
@@ -116,7 +116,7 @@ const DashModal = ({ value, handle }: DashProps) => {
 
   return (
     <Modal>
-      <section className="bg-white p-[70px] w-[1100px] h-[900px]">
+      <section className="flex flex-col bg-white p-[70px] w-[1100px] h-[90vh] max-h-[90vh] overflow-hidden">
         <div className="flex flex-row border-b pb-[15px] w-full">
           <div className="flex w-full">
             <p>Your dashboard</p>
@@ -128,7 +128,7 @@ const DashModal = ({ value, handle }: DashProps) => {
           </div>
         </div>
 
-        <div className="py-[20px]">
+        <div className="flex flex-col flex-1 overflow-hidden py-[20px]">
           <div className="pb-[10px]">
             <Button
               size="auto"
@@ -138,7 +138,7 @@ const DashModal = ({ value, handle }: DashProps) => {
               onClick={handleCreateComic}
             />
           </div>
-          <article className="h-full w-full overflow-y-auto">
+          <article className="flex flex-col flex-1  w-full overflow-y-auto">
             {createComic && (
                 <div className="flex justify-center relative ">
                 <form onSubmit={handleSubmit} className=" bg-[var(--light)] w-full p-[30px] rounded-2xl border border-black ">
@@ -200,7 +200,7 @@ const DashModal = ({ value, handle }: DashProps) => {
                 <div className="flex flex-col gap-10 bg-[var(--dark)] w-full h-full rounded-2xl border p-[50px]">
                     {publishedComics.map((comic, index) => (
                         <>
-                        <div key={index} className="flex bg-[white] w-full h-full p-[10px] rounded-2xl">
+                        <div key={index} className="flex bg-[white] w-full h-full p-[10px] rounded-2xl ">
                             <div className="flex flex-col h-full w-full  items-center" >
                                 <ComicPage size="tiny"/>
                             </div>
@@ -211,9 +211,9 @@ const DashModal = ({ value, handle }: DashProps) => {
                                     <h3 className="mt-[30px]" key={comic._id}>Volume {comic.volume}</h3>
                                 </div>
                                 <div className="flex justify-center bg-[var(--accent)] h-[30px] w-[30px] rounded-2xl text-white border ">
-                                    <button onClick={()=>handleOptions(index)} className="w-full h-full"><p>...</p></button>
-                                    {openOptions && (
-                                        <div className="absolute mt-[30px] mr-[40px] flex flex-col gap-3 bg-black text-white p-[15px] rounded-2xl">
+                                    <button onClick={()=>handleOptions(comic._id)} className="w-full h-full"><p>...</p></button>
+                                    {openOptions === comic._id&& (
+                                        <div key={index} className="absolute mt-[30px] mr-[40px] flex flex-col gap-3 bg-black text-white p-[15px] rounded-2xl">
                                             <ul>
                                                 <li className="border-b border-white"><p>Modify</p></li>
                                                 <li className=""><p>Delete</p></li>
