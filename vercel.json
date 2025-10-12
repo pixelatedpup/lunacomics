@@ -21,6 +21,11 @@
     {
       "src": "/(.*)",
       "dest": "/luna/dist/$1"
-    }
+    },
+    {
+  "src": "/(.*)",
+  "dest": "/luna/dist/index.html"
+}
+
   ]
 }
