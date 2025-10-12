@@ -23,9 +23,8 @@
       "dest": "/luna/dist/$1"
     },
     {
-  "src": "/(.*)",
-  "dest": "/luna/dist/index.html"
-}
-
+      "src": "/(.*)",
+      "dest": "/luna/dist/index.html"
+    }
   ]
 }
