@@ -5,7 +5,7 @@
       "src": "luna/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "luna/dist"
+        "distDir": "dist"
       }
     },
     {
@@ -14,17 +14,8 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/luna/dist/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/luna/dist/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/server/server.js" },
+    { "src": "/(.*)", "dest": "/luna/dist/$1" },
+    { "src": "/(.*)", "dest": "/luna/dist/index.html" }
   ]
 }
