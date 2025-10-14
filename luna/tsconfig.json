@@ -4,7 +4,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     // (Keep other compiler options you need)
-    "skipLibCheck": true 
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "files": [],
   "references": [
