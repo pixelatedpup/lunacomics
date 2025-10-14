@@ -25,6 +25,5 @@
       "src": "/(.*)",
       "dest": "/luna/dist/index.html"
     }
-  ],
-  "outputDirectory": "luna/dist"
+  ]
 }
