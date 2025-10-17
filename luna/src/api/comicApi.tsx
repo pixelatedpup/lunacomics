@@ -9,7 +9,7 @@ export interface Comic{
     volume:number;
 }
 
-const API_BASE="http://localhost:8000/api";
+const API_BASE="https://lunacomics.vercel.app/api";
 
 export async function fetchComics():Promise<Comic[]> {
     const res = await fetch(`${API_BASE}/comics`);

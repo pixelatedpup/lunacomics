@@ -9,7 +9,7 @@ export interface CreatorUse{
     
 }
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = "https://lunacomics.vercel.app/api";
 
 //Fetches all creators
 export async function fetchCreators():Promise<CreatorUse[]> {

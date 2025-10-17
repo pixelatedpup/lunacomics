@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setToken(storedToken);
 
     try {
-      const response = await fetch("http://localhost:8000/api/user/me", {
+      const response = await fetch("https://lunacomics.vercel.app/api/user/me", {
         headers: {
           Authorization: `Bearer ${storedToken}`, // ✅ use storedToken directly
         },
