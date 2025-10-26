@@ -14,7 +14,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://lunacomics.vercel.app/"
+    "https://lunacomics-client.vercel.app/"
   ],
   credentials: true
 }));
