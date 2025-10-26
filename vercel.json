@@ -2,20 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "luna/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "luna/dist"
-      }
-    },
-    {
       "src": "server/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/server/server.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/luna/dist/index.html" }
+    { "src": "/api/(.*)", "dest": "server/server.js" }
   ]
 }
