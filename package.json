@@ -2,7 +2,9 @@
   "scripts": {
     "vercel-build": "cd luna && npm install && npm run build"
   },
-  "dependencies":{},
+  "dependencies": {
+    "serverless-http": "^4.0.0"
+  },
   "name": "lunacomics",
   "version": "1.0.0",
   "description": "A website for indie comics made using React, JavaScript and TypeScript",

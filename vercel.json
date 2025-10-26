@@ -2,11 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/server.js",
+      "src": "luna/api/index.js",
       "use": "@vercel/node"
     }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "server/server.js" }
   ]
 }
