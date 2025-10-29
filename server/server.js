@@ -49,5 +49,18 @@ app.use(async (req, res, next) => {
   next();
 });
 
+app.get("/api/debug", async (req, res) => {
+  try {
+    console.log("DEBUG: checking DB...");
+    await connectDB();
+    console.log("✅ DEBUG: DB connected");
+    res.json({ ok: true, mongoUri: !!process.env.MONGO_URI });
+  } catch (err) {
+    console.error("❌ DEBUG error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 // Export for Vercel
 export default app;
