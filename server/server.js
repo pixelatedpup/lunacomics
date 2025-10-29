@@ -9,42 +9,37 @@ import comicRoutes from "./routes/comic.js";
 dotenv.config();
 const app = express();
 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://lunacomics-client.vercel.app"
-  ],
-  credentials: true
-}));
+// ✅ CORS setup
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://lunacomics-client.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-let isConnected = false;
-
+// ✅ Connect to MongoDB BEFORE starting the server
 async function connectDB() {
-  if (isConnected) return;
   try {
-    const db = await mongoose.connect(process.env.MONGO_URI);
-    isConnected = db.connections[0].readyState;
-    console.log("✅ MongoDB connected");
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connected successfully");
   } catch (err) {
     console.error("❌ MongoDB connection error:", err);
+    process.exit(1); // stop the server if DB fails
   }
 }
 
-// ✅ Ensure DB connection happens before any route
-app.use(async (req, res, next) => {
-  if (!isConnected) {
-    await connectDB();
-  }
-  next();
-});
-
-// ✅ Now attach routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/comics", comicRoutes);
 
-// ✅ Root test route
+// ✅ Root route
 app.get("/", (req, res) => res.json({ ok: true }));
 
+// ✅ Initialize DB and then export app
+await connectDB();
 export default app;
