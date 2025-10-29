@@ -8,20 +8,21 @@ const router = express.Router();
 
 //Need to be "/" as it is already being mounted in "server.js" as "/api/comics"
 router.get("/", async (req, res) => {
-    try{
-        //".populate" looks up the actual document using the ObjectID in the Tag collections.
-        const comics = 
-        await Comic.find({})
-        .populate("tag")
-        .populate("genre")
-        .populate("author");
-
-        res.json(comics);
-    }catch(err){
-        console.error("Fetch by tag error:", err);
-        res.status(500).json({error: "Failed to fetch comics"})
-    }
+  try {
+    console.log("📚 [GET] /api/comics – fetching comics...");
+    const comics = await Comic.find({})
+      .populate("tag")
+      .populate("genre")
+      .populate("author");
+    
+    console.log("✅ [GET] /api/comics – found:", comics.length);
+    res.json(comics);
+  } catch (err) {
+    console.error("❌ [GET] /api/comics error:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
+
 
 router.get("/by-tag/:tagName", async (req,res) => {
     try{
