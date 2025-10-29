@@ -31,13 +31,17 @@ let isConnected = false;
 async function connectDB() {
   if (isConnected) return;
   try {
+    if (!process.env.MONGO_URI) {
+      console.error("❌ Missing MONGO_URI environment variable!");
+    }
     const db = await mongoose.connect(process.env.MONGO_URI);
     isConnected = db.connections[0].readyState;
     console.log("✅ MongoDB connected");
   } catch (err) {
-    console.error("❌ MongoDB error:", err);
+    console.error("❌ MongoDB error:", err.message);
   }
 }
+
 
 // Middleware to ensure DB connection
 app.use(async (req, res, next) => {
