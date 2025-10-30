@@ -49,6 +49,7 @@ const SignUp = () => {
 
       if (response.ok) {
         setSuccess("Account created! Logging in...");
+        console.log(success);
         login(data.user, data.token);
         navigate(`/`);
       } else {
