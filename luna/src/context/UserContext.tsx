@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, type ReactNode } from "react";
+import { API_BASE } from "../config";
 
 interface User {
   id: string;
@@ -8,7 +9,7 @@ interface User {
   dateCreated: string;
   following: [];
   followers: [];
-  imageId?:string;
+  imageId?: string;
 }
 
 interface UserContextType {
@@ -26,49 +27,40 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-  const fetchUser = async () => {
-    const storedToken = localStorage.getItem("token");
-    if (!storedToken) {
-      setToken(null);
-      return;
-    }
+    const fetchUser = async () => {
+      const storedToken = localStorage.getItem("token");
+      if (!storedToken) return;
 
-    setToken(storedToken);
+      setToken(storedToken);
+      try {
+        const response = await fetch(`${API_BASE}/api/user/me`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
 
-    try {
-      const response = await fetch("https://lunacomics.vercel.app/api/user/me", {
-        headers: {
-          Authorization: `Bearer ${storedToken}`, // ✅ use storedToken directly
-        },
-      });
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+          setToken(null);
+          return;
+        }
 
-      if (response.status === 401) {
+        if (!response.ok) throw new Error("Failed to fetch user");
+
+        const freshUser = await response.json();
+        console.log("User from backend:", freshUser);
+        setUser(freshUser);
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);
         setToken(null);
-        return;
       }
+    };
 
-      if (!response.ok) throw new Error("Failed to fetch user");
-
-      const freshUser = await response.json();
-      console.log("User from backend: ", freshUser);
-      setUser(freshUser);
-
-    } catch (err) {
-      console.error("Failed to fetch user:", err);
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUser(null);
-      setToken(null);
-    }
-  };
-
-  fetchUser();
-}, []);
-
-
+    fetchUser();
+  }, []);
 
   const login = (user: User, newToken: string) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -87,7 +79,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const isLoggedIn = !!user && !!token;
 
   return (
-    <UserContext.Provider value={{ user, login, logout,token,isLoggedIn}}>
+    <UserContext.Provider value={{ user, login, logout, token, isLoggedIn }}>
       {children}
     </UserContext.Provider>
   );
