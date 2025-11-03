@@ -153,7 +153,7 @@ const Home = () => {
             key={selectedCard}
             round
             custom="border border-[var(--accent)] rounded-2xl 
-                    w-full  h-full max-h-full overflow-hidden"
+                    w-[400px] h-[300px] overflow-hidden"
             cardid={selectedCard}
             cardIdDB={highlightID}
         />

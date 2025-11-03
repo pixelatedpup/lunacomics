@@ -7,7 +7,7 @@ const Page = () => {
     <div className="min-h-screen flex flex-col">
       {/* Header with narrower layout */}
       <div className="w-full">
-        <div className="max-w-[1600px] mx-auto px-8">
+        <div className="max-w-[1075px] mx-auto px-16 border">
           <Header />
         </div>
       </div>

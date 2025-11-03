@@ -42,7 +42,7 @@ const sizeClasses: Record<Size, string> = {
       />
 
       {title && 
-        <h3 className={`w-full whitespace-normal break-words text-center`}>{title} </h3>
+        <h3 className={`w-full whitespace-normal break-words text-center text-[var(--medium)]`}>{title} </h3>
       }
 
     </div>

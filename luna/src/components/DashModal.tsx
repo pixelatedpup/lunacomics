@@ -15,7 +15,7 @@ const DashModal = ({ handle }: DashProps) => {
   const [createComic, setCreateComic] = useState(false);
   const [buttonText, setButtonText] = useState("Create a new comic");
   const [buttonColor, setButtonColor] = useState<Color>("light");
-  const [buttonBg, setButtonBg] = useState<Color>("accent");
+  const [buttonBg, setButtonBg] = useState<Color>("dark");
   const { token, user } = useUser();
   const [publishedComics, setPublishedComics] = useState<Comic[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -67,8 +67,8 @@ const DashModal = ({ handle }: DashProps) => {
     setButtonText((prev) =>
       prev === "Create a new comic" ? "Cancel" : "Create a new comic"
     );
-    setButtonColor((prev) => (prev === "light" ? "dark" : "light"));
-    setButtonBg((prev) => (prev === "accent" ? "light" : "accent"));
+    setButtonColor((prev) => (prev === "dark" ? "light" : "dark"));
+    setButtonBg((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   const handleChange = (
@@ -116,7 +116,7 @@ const DashModal = ({ handle }: DashProps) => {
 
   return (
     <Modal>
-      <section className="flex flex-col bg-white p-[70px] w-[1100px] h-[90vh] max-h-[90vh] overflow-hidden">
+      <section className="flex flex-col bg-[var(--light)] p-[70px] w-[1100px] h-[90vh] max-h-[90vh] overflow-hidden rounded-2xl">
         <div className="flex flex-row border-b pb-[15px] w-full">
           <div className="flex w-full">
             <p>Your dashboard</p>
@@ -128,7 +128,7 @@ const DashModal = ({ handle }: DashProps) => {
           </div>
         </div>
 
-        <div className="flex flex-col flex-1 overflow-hidden py-[20px]">
+        <div className="flex flex-col flex-1 overflow-hidden py-[20px] px-[20px]">
           <div className="pb-[10px]">
             <Button
               size="auto"
@@ -141,7 +141,7 @@ const DashModal = ({ handle }: DashProps) => {
           <article className="flex flex-col flex-1  w-full overflow-y-auto">
             {createComic && (
                 <div className="flex justify-center relative ">
-                <form onSubmit={handleSubmit} className=" bg-[var(--light)] w-full p-[30px] rounded-2xl border border-black ">
+                <form onSubmit={handleSubmit} className=" bg-[var(--light)] w-full p-[30px] rounded-2xl border border-[var(--medium)] ">
                     <div className="flex flex-col gap-3 items-center">
                     <input
                         className="border p-[5px] border-[2px] rounded-2xl w-[400px]"
@@ -197,20 +197,20 @@ const DashModal = ({ handle }: DashProps) => {
                 {isLoading ? (
                 <p>Loading your comics...</p>
                 ) : publishedComics.length > 0 ? (
-                <div className="flex flex-col gap-10 bg-[var(--dark)] w-full h-full rounded-2xl border p-[50px]">
+                <div className="flex flex-col gap-3  w-full h-full rounded-2xl  py-[30px]">
                     {publishedComics.map((comic, index) => (
                         <>
-                        <div key={index} className="flex bg-[white] w-full h-full p-[10px] rounded-2xl ">
-                            <div className="flex flex-col h-full w-full  items-center" >
+                        <div key={index} className="flex bg-[white] border h-full p-[10px] rounded-2xl gap-5 ">
+                            <div className="flex flex-col h-full w-auto  items-start " >
                                 <ComicPage size="tiny"/>
                             </div>
                             <div className="flex w-full ">
                                 <div className="flex flex-col w-full">
-                                    <h2 className="font-bold" key={comic._id}>{comic.title}</h2>
-                                    <p key={comic._id}>{comic.description}</p>
+                                    <h2 className="font-bold text-[var(--mediumDark)]" key={comic._id}>{comic.title}</h2>
+                                    <p className= "text-[var(--medium)]" key={comic._id}>{comic.description}</p>
                                     <h3 className="mt-[30px]" key={comic._id}>Volume {comic.volume}</h3>
                                 </div>
-                                <div className="flex justify-center bg-[var(--accent)] h-[30px] w-[30px] rounded-2xl text-white border ">
+                                <div className="flex justify-center bg-[var(--dark)] h-[30px] w-[30px] rounded-2xl text-white border ">
                                     <button onClick={()=>handleOptions(comic._id)} className="w-full h-full"><p>...</p></button>
                                     {openOptions === comic._id&& (
                                         <div key={index} className="absolute mt-[30px] mr-[40px] flex flex-col gap-3 bg-black text-white p-[15px] rounded-2xl">
